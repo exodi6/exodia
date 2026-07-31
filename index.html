@@ -468,6 +468,45 @@ You might need to use a local HTTP server (instead of file://): https://react.de
   </head>
   <body class="bg-[#0a0a0c] text-white font-['Cairo',sans-serif] antialiased selection:bg-[#09ace9] selection:text-white">
     <div id="root"></div>
+
+    <!-- Exodia Sheet Integration (With Receipt) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("submit", function (e) {
+          try {
+            const inputs = e.target.querySelectorAll("input");
+            let name = "", phone = "", email = "", receiptName = "تم إرفاق إيصال";
+
+            inputs.forEach(input => {
+              if (input.type === "text") name = input.value;
+              if (input.type === "tel") phone = input.value;
+              if (input.type === "email") email = input.value;
+              if (input.type === "file" && input.files.length > 0) {
+                receiptName = "صورة: " + input.files[0].name;
+              }
+            });
+
+            if (name && phone && email) {
+              const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzpuGVM_fDCS4OcxlO3BLTxZHjZr3qTJDXDjEw3BNrCdicYxVMscB_3FIR0l_6XLmTy/exec";
+
+              fetch(WEB_APP_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  name: name,
+                  phone: phone,
+                  email: email,
+                  receipt: receiptName
+                })
+              });
+            }
+          } catch (err) {
+            console.log("Sheet Sync Error:", err);
+          }
+        });
+      });
+    </script>
   </body>
 </html>
 
