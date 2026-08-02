@@ -669,6 +669,14 @@ You might need to use a local HTTP server (instead of file://): https://react.de
           <a href="https://www.tiktok.com/@e.x.odia">تيك توك</a>
         </p>
       </main>
+      <script>
+        // Synchronous (not type="module", so it runs immediately during
+        // parsing, before the deferred React module script even starts).
+        // Hides the crawler fallback before a JS-enabled browser ever gets
+        // a chance to paint it. Crawlers that don't execute JavaScript
+        // never run this, so they still see the fallback content above.
+        document.getElementById("__exodia_fallback").style.display = "none";
+      </script>
     </div>
 
     <!-- Exodia Sheet Integration (Auto Image Upload to Link) -->
