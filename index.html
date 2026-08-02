@@ -612,10 +612,21 @@ You might need to use a local HTTP server (instead of file://): https://react.de
       This is a JavaScript-rendered React application. The block below is a
       static content snapshot for crawlers and clients that don't execute
       JavaScript (search engines, AI answer engines, link previews). It is
-      replaced by the live interactive app the instant React mounts, and is
-      never shown to a JS-enabled browser.
+      replaced by the live interactive app the instant React mounts. On a
+      JS-enabled browser it's only ever visible for a brief instant while
+      the app's script loads, so it's styled to match the site rather than
+      flash as raw unstyled text.
     -->
-      <main>
+      <style>
+        #__exodia_fallback{max-width:760px;margin:0 auto;padding:48px 20px;font-family:'Cairo',sans-serif;line-height:1.8;color:#c7c7c7}
+        #__exodia_fallback h1{font-size:26px;font-weight:800;margin:0 0 16px;color:#fff;line-height:1.4}
+        #__exodia_fallback h2{font-size:19px;font-weight:700;margin:34px 0 12px;color:#fff}
+        #__exodia_fallback h3{font-size:14px;font-weight:700;margin:18px 0 6px;color:#09ace9}
+        #__exodia_fallback p{font-size:13.5px;margin:0 0 14px;color:#a8a8a8}
+        #__exodia_fallback section p{margin:0 0 18px}
+        #__exodia_fallback a{color:#09ace9;text-decoration:none}
+      </style>
+      <main id="__exodia_fallback">
         <h1>سلّم شغل عملائك في دقايق، مش أيام — مكتبة EXODIA لأصول المونتاج والموشن جرافيك</h1>
         <p>
           مكتبة EXODIA مكتبة رقمية شاملة تزيد عن 62 جيجابايت من أصول المونتاج والموشن جرافيك
