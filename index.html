@@ -11,6 +11,38 @@
       gtag('js', new Date());
       gtag('config', 'G-B1RX5HKZ09');
     </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1908907043847500');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1908907043847500&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Meta Pixel: track WhatsApp clicks as Lead, Payhip checkout clicks as InitiateCheckout -->
+    <script>
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest('a');
+        if (!a || !a.href) return;
+        if (a.href.indexOf('payhip.com') !== -1) {
+          fbq('track', 'InitiateCheckout');
+        } else if (a.href.indexOf('whatsapp.com') !== -1 || a.href.indexOf('wa.me') !== -1) {
+          fbq('track', 'Lead');
+        }
+      });
+    </script>
+
     <title>EXODIA — مكتبة أصول مونتاج وموشن جرافيك للمحترفين</title>
     <meta name="description" content="مكتبة EXODIA: أكثر من 62GB من أصول المونتاج والموشن جرافيك الاحترافية — قوالب After Effects، مؤثرات صوتية، LUTs، جرين سكرين، خطوط، بلاجينز وأكثر. متوافقة مع Premiere Pro وCapCut وDaVinci Resolve وFinal Cut. تفعيل فوري على Google Drive بـ 499 جنيه." />
     <link rel="canonical" href="https://ex0dia.com/" />
