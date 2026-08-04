@@ -757,6 +757,11 @@ You might need to use a local HTTP server (instead of file://): https://react.de
             });
 
             if (name && phone && email) {
+              // نفس حدث بداية الدفع بتاع Payhip، بس هنا للدفع المحلي
+              // (InstaPay / المحافظ الإلكترونية) لما العميل يأكد طلبه فعليًا
+              if (typeof fbq !== "undefined") fbq("track", "InitiateCheckout");
+              if (typeof ttq !== "undefined") ttq.track("InitiateCheckout");
+
               let receiptUrl = "لم يتم إرفاق صورة";
 
               // رفع الصورة لـ ImgBB وتحويلها لرابط مباشر
