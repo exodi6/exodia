@@ -278,10 +278,9 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .pricing__banner img{ width: 100%; max-height: 320px; object-fit: cover; }
 .pricing__flow{ text-align: center; color: var(--text-3); font-size: var(--text-sm); margin-top: var(--sp-2); }
 
-.checkout{ display: grid; grid-template-columns: minmax(0,1fr); gap: var(--sp-6); margin-top: var(--sp-8); }
-@media (min-width: 980px){ .checkout{ grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr); align-items: start; } }
+.checkout{ display: flex; justify-content: center; margin-top: var(--sp-8); }
 .checkout__form{
-  min-width: 0;
+  width: 100%; max-width: 640px; min-width: 0;
   border-radius: var(--radius-xl); border: 1px solid var(--border-strong);
   background: var(--bg-1); padding: var(--sp-6);
 }
@@ -322,14 +321,6 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .upload__preview.is-shown{ display: block; }
 
 .reassure{ text-align: center; font-size: var(--text-xs); color: var(--text-3); margin-top: var(--sp-5); }
-
-.checkout__summary{ position: sticky; top: 90px; min-width: 0; border-radius: var(--radius-xl); border: 1px solid var(--border-strong); background: linear-gradient(160deg, rgba(9,172,233,0.12), var(--bg-1) 60%); padding: var(--sp-6); }
-.price-row{ display: flex; align-items: baseline; gap: var(--sp-3); }
-.price-new{ font-family: var(--font-display); font-size: var(--text-4xl); font-weight: 700; color: var(--text-1); }
-.price-currency{ font-size: var(--text-lg); color: var(--text-2); }
-.price-includes{ margin-top: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-2); }
-.price-includes li{ display: flex; gap: .6em; align-items: flex-start; font-size: var(--text-sm); color: var(--text-2); }
-.price-includes .mark{ color: var(--success); flex: none; }
 
 .success-panel{ text-align: center; padding: var(--sp-6); border-radius: var(--radius-lg); background: rgba(56,239,125,0.08); border: 1px solid rgba(56,239,125,0.3); }
 .success-panel h3{ font-family: var(--font-display); font-size: var(--text-xl); }
