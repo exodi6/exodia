@@ -255,7 +255,7 @@
       <a class="mobile-menu__link" href="#feedback">آراء وتقييمات العملاء</a>
       <a class="mobile-menu__link" href="#pricing">الأسعار والعرض</a>
       <a class="mobile-menu__link" href="#faq">الأسئلة الشائعة</a>
-      <a href="#pricing" class="btn btn-primary btn-block mobile-menu__cta">احصل على المكتبة الآن (999 ج.م)</a>
+      <a href="#pricing" class="btn btn-primary btn-block mobile-menu__cta" data-price-text="احصل على المكتبة الآن ({price} ج.م)">احصل على المكتبة الآن (999 ج.م)</a>
     </div>
 
     <main>
@@ -267,7 +267,7 @@
             <h1 class="hero__title">سلّم شغل عملائك<br /><span class="grad">في دقايق، مش أيام.</span></h1>
             <p class="hero__sub">مكتبة EXODIA بتديك +62GB من الأصول الجاهزة عشان تنجز مونتاجك بجودة احترافية من غير ما تضيع وقتك في البحث.</p>
             <div class="hero__ctas">
-              <a href="#pricing" class="btn btn-primary btn-lg">احصل على المكتبة الآن (999 ج.م)</a>
+              <a href="#pricing" class="btn btn-primary btn-lg" data-price-text="احصل على المكتبة الآن ({price} ج.م)">احصل على المكتبة الآن (999 ج.م)</a>
               <a href="#showcase" class="btn btn-secondary btn-lg">استكشف محتويات المكتبة</a>
             </div>
             <div class="hero__stats">
@@ -412,7 +412,11 @@
               </div>
               <div class="field">
                 <label for="couponCode">كوبون الخصم <span style="color:var(--text-3); font-weight:400;">(اختياري)</span></label>
-                <input type="text" id="couponCode" placeholder="اكتب الكود لو معاك واحد" />
+                <div class="coupon-row">
+                  <input type="text" id="couponCode" placeholder="اكتب الكود لو معاك واحد" />
+                  <button type="button" class="btn btn-secondary coupon-check-btn" id="couponCheckBtn">تحقق</button>
+                </div>
+                <p class="coupon-feedback" id="couponFeedback"></p>
               </div>
 
               <div class="step" style="margin-top: var(--sp-6);">
@@ -470,7 +474,7 @@
                 <p class="field-error" id="proofError"></p>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitOrderBtn" style="margin-top: var(--sp-6);">تأكيد الطلب والتفعيل الآن (999 ج.م)</button>
+              <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitOrderBtn" style="margin-top: var(--sp-6);" data-price-text="تأكيد الطلب والتفعيل الآن ({price} ج.م)">تأكيد الطلب والتفعيل الآن (999 ج.م)</button>
               <p class="reassure">تأكيد مشفر وآمن 100% • دعم فني ملتزم على مدار الساعة لحد ما يتفعل وصولك بالكامل</p>
             </form>
 
@@ -576,7 +580,7 @@
     </a>
 
     <div class="sticky-cta" id="stickyCta">
-      <a href="#pricing" class="btn btn-primary btn-block">اشترِ الآن (999 ج.م)</a>
+      <a href="#pricing" class="btn btn-primary btn-block" data-price-text="اشترِ الآن ({price} ج.م)">اشترِ الآن (999 ج.م)</a>
     </div>
 
     <!-- ============ LIGHTBOX ============ -->
@@ -609,7 +613,7 @@
               // (InstaPay / المحافظ الإلكترونية) لما العميل يأكد طلبه فعليًا
               if (typeof fbq !== "undefined") fbq("track", "InitiateCheckout");
               if (typeof ttq !== "undefined") ttq.track("InitiateCheckout");
-              if (typeof gtag !== "undefined") gtag("event", "begin_checkout", { currency: "EGP", value: 999 });
+              if (typeof gtag !== "undefined") gtag("event", "begin_checkout", { currency: "EGP", value: window.__exodiaFinalPrice || 999 });
 
               let receiptUrl = "لم يتم إرفاق صورة";
 

@@ -299,6 +299,13 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .field-error{ color: var(--danger); font-size: var(--text-xs); margin-top: .4em; display: none; }
 .field-error.is-shown{ display: block; }
 
+.coupon-row{ display: flex; gap: var(--sp-2); align-items: stretch; }
+.coupon-row input{ flex: 1 1 auto; min-width: 0; width: auto; }
+.coupon-check-btn{ flex: none; padding: 0 1.3em; font-size: var(--text-sm); white-space: nowrap; }
+.coupon-feedback{ font-size: var(--text-xs); margin-top: .4em; min-height: 1.2em; }
+.coupon-feedback.is-valid{ color: var(--success); }
+.coupon-feedback.is-invalid{ color: var(--danger); }
+
 .pay-groups{ display: flex; flex-direction: column; gap: var(--sp-4); }
 .pay-region{ border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--sp-4); }
 .pay-region__title{ font-weight: 700; margin-bottom: var(--sp-3); }

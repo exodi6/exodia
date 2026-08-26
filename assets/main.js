@@ -154,6 +154,60 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
   }
 
+  /* ---------- Coupon verification (single fixed code, updates price everywhere) ---------- */
+  var VALID_COUPON = "EX666";
+  var DISCOUNTED_PRICE = 499;
+  var ORIGINAL_PRICE = 999;
+  var couponInput = document.getElementById("couponCode");
+  var couponCheckBtn = document.getElementById("couponCheckBtn");
+  var couponFeedback = document.getElementById("couponFeedback");
+  var priceEls = document.querySelectorAll("[data-price-text]");
+  var couponApplied = false;
+
+  window.__exodiaFinalPrice = ORIGINAL_PRICE;
+
+  function setPriceDisplay(price) {
+    window.__exodiaFinalPrice = price;
+    priceEls.forEach(function (el) {
+      el.textContent = el.dataset.priceText.replace("{price}", price);
+    });
+  }
+
+  function showCouponFeedback(msg, ok) {
+    couponFeedback.textContent = msg;
+    couponFeedback.classList.remove("is-valid", "is-invalid");
+    couponFeedback.classList.add(ok ? "is-valid" : "is-invalid");
+  }
+
+  if (couponCheckBtn && couponInput && couponFeedback) {
+    couponCheckBtn.addEventListener("click", function () {
+      var code = couponInput.value.trim().toUpperCase();
+      if (!code) {
+        couponApplied = false;
+        setPriceDisplay(ORIGINAL_PRICE);
+        showCouponFeedback("اكتب كود الكوبون الأول", false);
+        return;
+      }
+      if (code === VALID_COUPON) {
+        couponApplied = true;
+        setPriceDisplay(DISCOUNTED_PRICE);
+        showCouponFeedback("الكود صحيح ✓ السعر بقى " + DISCOUNTED_PRICE + " ج.م", true);
+      } else {
+        couponApplied = false;
+        setPriceDisplay(ORIGINAL_PRICE);
+        showCouponFeedback("الكود غير صحيح", false);
+      }
+    });
+    couponInput.addEventListener("input", function () {
+      if (couponApplied) {
+        couponApplied = false;
+        setPriceDisplay(ORIGINAL_PRICE);
+      }
+      couponFeedback.textContent = "";
+      couponFeedback.classList.remove("is-valid", "is-invalid");
+    });
+  }
+
   /* ---------- Payment method selection ---------- */
   var payOptions = document.querySelectorAll(".pay-option input[type=radio]");
   payOptions.forEach(function (radio) {
@@ -260,6 +314,11 @@
       successPanel.hidden = true;
       if (uploadPreview) { uploadPreview.classList.remove("is-shown"); uploadPreview.src = ""; }
       if (uploadPrompt) uploadPrompt.textContent = "إثبات الدفع (صورة التحويل) *";
+      if (typeof couponApplied !== "undefined") {
+        couponApplied = false;
+        setPriceDisplay(ORIGINAL_PRICE);
+        if (couponFeedback) { couponFeedback.textContent = ""; couponFeedback.classList.remove("is-valid", "is-invalid"); }
+      }
     });
   }
 })();
