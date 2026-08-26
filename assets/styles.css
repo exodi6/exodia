@@ -221,24 +221,6 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
   .hero__stats{ justify-content: flex-start; }
 }
 
-/* ---------- Comparison ---------- */
-.compare{ padding-block: var(--sp-11); }
-.compare__grid{ display: grid; grid-template-columns: minmax(0,1fr); gap: var(--sp-5); }
-@media (min-width: 860px){ .compare__grid{ grid-template-columns: minmax(0,1fr) minmax(0,1fr); } }
-.compare-card{ border-radius: var(--radius-xl); padding: var(--sp-6); border: 1px solid var(--border); background: var(--bg-1); }
-.compare-card--bad{ border-color: rgba(255,107,122,0.28); background: linear-gradient(180deg, rgba(255,107,122,0.06), var(--bg-1) 40%); }
-.compare-card--good{ border-color: var(--border-brand); background: linear-gradient(180deg, rgba(9,172,233,0.1), var(--bg-1) 40%); position: relative; }
-.compare-card__eyebrow{ font-size: var(--text-xs); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
-.compare-card--bad .compare-card__eyebrow{ color: var(--danger); }
-.compare-card--good .compare-card__eyebrow{ color: var(--brand); }
-.compare-card__title{ font-family: var(--font-display); font-size: var(--text-xl); font-weight: 700; margin-top: .4em; }
-.compare-card__sub{ color: var(--text-3); font-size: var(--text-sm); margin-top: .3em; }
-.compare-list{ margin-top: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); }
-.compare-list li{ display: flex; align-items: flex-start; gap: .7em; color: var(--text-2); font-size: var(--text-sm); }
-.compare-list .mark{ flex: none; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: .7rem; margin-top: .1em; }
-.compare-card--bad .mark{ background: rgba(255,107,122,0.16); color: var(--danger); }
-.compare-card--good .mark{ background: rgba(56,239,125,0.16); color: var(--success); }
-.compare__cta{ text-align: center; margin-top: var(--sp-8); }
 
 /* ---------- Showcase ---------- */
 .showcase{ padding-block: var(--sp-11); }
@@ -333,8 +315,6 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .pay-detail__number{ font-family: var(--font-display); font-size: var(--text-lg); letter-spacing: .04em; direction: ltr; }
 .copy-btn{ font-size: var(--text-xs); font-weight: 700; color: var(--brand); border: 1px solid var(--border-brand); padding: .4em .8em; border-radius: var(--radius-full); }
 .pay-note{ font-size: var(--text-xs); color: var(--text-3); margin-top: var(--sp-2); }
-.pay-other{ text-align: center; }
-.pay-other p{ color: var(--text-2); font-size: var(--text-sm); margin-bottom: var(--sp-3); }
 
 .upload{ border: 1.5px dashed var(--border-strong); border-radius: var(--radius-md); padding: var(--sp-5); text-align: center; cursor: pointer; transition: border-color var(--dur-fast); }
 .upload:hover{ border-color: var(--brand); }
