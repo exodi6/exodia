@@ -41,6 +41,39 @@
     });
   }
 
+  /* ---------- Hero stat counters (count up from 0 when scrolled into view) ---------- */
+  var counters = document.querySelectorAll(".hero__stat .num[data-count-to]");
+  var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (counters.length) {
+    var renderCount = function (el, value) {
+      var suffix = el.dataset.suffix || "";
+      el.textContent = value + suffix;
+    };
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      counters.forEach(function (el) { renderCount(el, parseInt(el.dataset.countTo, 10)); });
+    } else {
+      var countIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          var target = parseInt(el.dataset.countTo, 10);
+          var duration = 1400;
+          var startTime = null;
+          function step(ts) {
+            if (!startTime) startTime = ts;
+            var progress = Math.min((ts - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            renderCount(el, Math.round(eased * target));
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+          countIo.unobserve(el);
+        });
+      }, { threshold: 0.4 });
+      counters.forEach(function (el) { countIo.observe(el); });
+    }
+  }
+
   /* ---------- Sticky mobile CTA (shows after hero scrolls out) ---------- */
   var stickyCta = document.getElementById("stickyCta");
   var hero = document.getElementById("hero");
