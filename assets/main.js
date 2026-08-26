@@ -229,38 +229,4 @@
       if (uploadPrompt) uploadPrompt.textContent = "إثبات الدفع (صورة التحويل) *";
     });
   }
-
-  /* ---------- Discount window: header/mobile CTA price swap (unchanged mechanic) ---------- */
-  (function offerWindow() {
-    var KEY = "exodia_offer_start_v2";
-    var WINDOW_MS = 43200000; /* 12 hours */
-    var stored = localStorage.getItem(KEY);
-    if (!stored) {
-      stored = String(Date.now());
-      localStorage.setItem(KEY, stored);
-    }
-    var expired = Date.now() - parseInt(stored, 10) >= WINDOW_MS;
-    var price = expired ? "1000" : "499";
-    document.querySelectorAll("[data-offer-price]").forEach(function (el) {
-      el.textContent = el.dataset.offerPrice.replace("{price}", price);
-    });
-  })();
-
-  /* ---------- Floating "ends in" countdown (visual urgency element, pre-existing) ---------- */
-  (function countdown() {
-    var el = document.getElementById("offerClock");
-    if (!el) return;
-    var remaining = 11 * 3600 + 59 * 60 + 59; /* 11:59:59 */
-    function tick() {
-      if (remaining <= 0) return;
-      remaining -= 1;
-      var h = Math.floor(remaining / 3600);
-      var m = Math.floor((remaining % 3600) / 60);
-      var s = remaining % 60;
-      el.textContent =
-        String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
-    }
-    tick();
-    setInterval(tick, 1000);
-  })();
 })();
