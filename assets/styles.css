@@ -47,9 +47,9 @@
   /* Spacing scale */
   --sp-1: 0.25rem; --sp-2: 0.5rem; --sp-3: 0.75rem; --sp-4: 1rem;
   --sp-5: 1.5rem; --sp-6: 2rem; --sp-7: 2.5rem; --sp-8: 3rem;
-  --sp-9: clamp(2.25rem, 1.6rem + 2.5vw, 4rem);
-  --sp-10: clamp(2.5rem, 1.7rem + 3vw, 5rem);
-  --sp-11: clamp(2.75rem, 1.8rem + 3.6vw, 6.5rem);
+  --sp-9: clamp(1.25rem, 1rem + 1vw, 2rem);
+  --sp-10: clamp(1.5rem, 1.15rem + 1.2vw, 2.25rem);
+  --sp-11: clamp(1.75rem, 1.3rem + 1.5vw, 2.75rem);
   --sp-12: 8rem;
 
   /* Radius / shadow / motion */
@@ -278,7 +278,7 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .pricing__banner img{ width: 100%; max-height: 320px; object-fit: cover; }
 .pricing__flow{ text-align: center; color: var(--text-3); font-size: var(--text-sm); margin-top: var(--sp-2); }
 
-.checkout{ display: flex; justify-content: center; margin-top: var(--sp-8); }
+.checkout{ display: flex; justify-content: center; margin-top: var(--sp-6); }
 .checkout__form{
   width: 100%; max-width: 640px; min-width: 0;
   border-radius: var(--radius-xl); border: 1px solid var(--border-strong);
@@ -340,7 +340,7 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .faq-item__a p{ padding: 0 var(--sp-5) var(--sp-5); color: var(--text-2); font-size: var(--text-sm); line-height: 1.8; }
 
 /* ---------- Footer (incl. compact founder/trust blurb) ---------- */
-.footer{ border-top: 1px solid var(--border); padding-block: var(--sp-8); margin-top: var(--sp-8); }
+.footer{ border-top: 1px solid var(--border); padding-block: var(--sp-6); margin-top: var(--sp-6); }
 .footer__founder{ max-width: 720px; margin: 0 auto var(--sp-7); text-align: center; display: flex; flex-direction: column; align-items: center; gap: .6rem; }
 .footer__founder p{ color: var(--text-3); font-size: var(--text-xs); line-height: 1.85; margin: 0; }
 .footer__founder p strong{ color: var(--text-2); }
