@@ -238,7 +238,7 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .showcase-card__title{ font-weight: 700; font-size: var(--text-base); }
 .showcase-card__desc{ color: var(--text-3); font-size: var(--text-sm); }
 .showcase-card.is-hidden{ display: none; }
-.showcase__more{ text-align: center; margin-top: var(--sp-7); }
+.showcase__more{ text-align: center; margin-top: var(--sp-5); }
 .showcase__caption{ text-align: center; margin-top: var(--sp-3); color: var(--text-3); font-size: var(--text-sm); }
 
 /* ---------- 3D templates preview (compact inline banner, folded into showcase) ---------- */
@@ -259,8 +259,8 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 /* ---------- Testimonials ---------- */
 .reviews{ padding-block: var(--sp-11); }
 .reviews__stars{ display: flex; gap: .2em; color: var(--gold); font-size: var(--text-xl); justify-content: center; }
-.reviews__gate{ text-align: center; margin-top: var(--sp-7); }
-.reviews__grid{ display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--sp-3); margin-top: var(--sp-7); }
+.reviews__gate{ text-align: center; margin-top: var(--sp-5); }
+.reviews__grid{ display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--sp-3); margin-top: var(--sp-5); }
 @media (min-width: 640px){ .reviews__grid{ grid-template-columns: repeat(3,minmax(0,1fr)); } }
 .reviews__grid.is-hidden{ display: none; }
 .review-shot{ position: relative; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); background: var(--bg-1); aspect-ratio: 3/4; cursor: zoom-in; }
@@ -275,11 +275,10 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 
 /* ---------- Pricing / checkout ---------- */
 .pricing{ padding-block: var(--sp-11); }
-.pricing__banner{ border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border); margin-bottom: var(--sp-7); box-shadow: var(--shadow-md); }
+.pricing__banner{ border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border); margin-bottom: var(--sp-5); box-shadow: var(--shadow-md); }
 .pricing__banner img{ width: 100%; max-height: 320px; object-fit: cover; }
-.pricing__flow{ text-align: center; color: var(--text-3); font-size: var(--text-sm); margin-top: var(--sp-2); }
 
-.checkout{ display: flex; justify-content: center; margin-top: var(--sp-6); }
+.checkout{ display: flex; justify-content: center; margin-top: var(--sp-3); }
 .checkout__form{
   width: 100%; max-width: 640px; min-width: 0;
   border-radius: var(--radius-xl); border: 1px solid var(--border-strong);
@@ -342,7 +341,7 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 
 /* ---------- Footer (incl. compact founder/trust blurb) ---------- */
 .footer{ border-top: 1px solid var(--border); padding-block: var(--sp-6); margin-top: var(--sp-6); }
-.footer__founder{ max-width: 720px; margin: 0 auto var(--sp-7); text-align: center; display: flex; flex-direction: column; align-items: center; gap: .6rem; }
+.footer__founder{ max-width: 720px; margin: 0 auto var(--sp-5); text-align: center; display: flex; flex-direction: column; align-items: center; gap: .6rem; }
 .footer__founder p{ color: var(--text-3); font-size: var(--text-xs); line-height: 1.85; margin: 0; }
 .footer__founder p strong{ color: var(--text-2); }
 .footer__top{ display: flex; flex-wrap: wrap; gap: var(--sp-6); justify-content: space-between; align-items: center; }
