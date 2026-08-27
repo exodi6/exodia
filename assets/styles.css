@@ -283,6 +283,7 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
   width: 100%; max-width: 640px; min-width: 0;
   border-radius: var(--radius-xl); border: 1px solid var(--border-strong);
   background: var(--bg-1); padding: var(--sp-6);
+  scroll-margin-top: 90px;
 }
 .step{ display: flex; align-items: center; gap: .7em; margin-bottom: var(--sp-4); }
 .step__num{ flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--brand); color: var(--text-on-brand); font-weight: 800; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); }
