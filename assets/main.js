@@ -154,10 +154,13 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
   }
 
-  /* ---------- Coupon verification (single fixed code, updates price everywhere) ---------- */
-  var VALID_COUPON = "EX666";
-  var DISCOUNTED_PRICE = 499;
+  /* ---------- Coupon verification (fixed codes, updates price everywhere) ---------- */
   var ORIGINAL_PRICE = 999;
+  var COUPONS = {
+    "EX666": 499,
+    "HAMZA111": 899,
+    "REWAN10": 899
+  };
   var couponInput = document.getElementById("couponCode");
   var couponCheckBtn = document.getElementById("couponCheckBtn");
   var couponFeedback = document.getElementById("couponFeedback");
@@ -188,10 +191,11 @@
         showCouponFeedback("اكتب كود الكوبون الأول", false);
         return;
       }
-      if (code === VALID_COUPON) {
+      if (COUPONS.hasOwnProperty(code)) {
         couponApplied = true;
-        setPriceDisplay(DISCOUNTED_PRICE);
-        showCouponFeedback("الكود صحيح ✓ السعر بقى " + DISCOUNTED_PRICE + " ج.م", true);
+        var discountedPrice = COUPONS[code];
+        setPriceDisplay(discountedPrice);
+        showCouponFeedback("الكود صحيح ✓ السعر بقى " + discountedPrice + " ج.م", true);
       } else {
         couponApplied = false;
         setPriceDisplay(ORIGINAL_PRICE);
