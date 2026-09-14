@@ -138,12 +138,13 @@
       "image": "https://ex0dia.com/assets/exodia-hero-banner.jpeg",
       "url": "https://ex0dia.com/#pricing",
       "offers": {
-        "@type": "Offer",
+        "@type": "AggregateOffer",
         "url": "https://ex0dia.com/#pricing",
         "priceCurrency": "EGP",
-        "price": "999",
-        "availability": "https://schema.org/InStock",
-        "itemCondition": "https://schema.org/NewCondition"
+        "lowPrice": "799",
+        "highPrice": "999",
+        "offerCount": "2",
+        "availability": "https://schema.org/InStock"
       }
     }
     </script>
@@ -210,6 +211,14 @@
         },
         {
           "@type": "Question",
+          "name": "إيه الفرق بين إكستنشن X LAB والمكتبة؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "إكستنشن X LAB هو بانل بيتركب جوه أدوبي أفتر إفكتس، بيخليك تحفظ أي عنصر أو كومب اشتغلت عليه بكل خصائصه (كاميرات، إكسبريشنز، ماسكات) وتسترجعه في أي مشروع تاني بضغطة زر بدل ما تفتح مشاريع قديمة تدور فيها. لو اشتريت مكتبة EXODIA بتاخده معاها مجانًا وبنفس السعر (999 ج.م)، ولو عايزه لوحده من غير مكتبة الأصول تقدر تاخده بـ799 ج.م بس."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "ليه أشتري EXODIA بدل ما أدور على أصول مجانية أو أشترك في مكتبة أجنبية؟",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -227,6 +236,12 @@
   </head>
   <body>
     <a href="#hero" class="visually-hidden">تخطى إلى المحتوى الرئيسي</a>
+
+    <!-- ============ PROMO BAR ============ -->
+    <div class="promo-bar">
+      <span class="promo-bar__text">🔥 عرض إطلاق إكستنشن X LAB — خصم لفترة محدودة</span>
+      <span class="promo-bar__timer" id="promoTimer">24:00:00</span>
+    </div>
 
     <!-- ============ NAV ============ -->
     <header class="nav" id="siteNav">
@@ -263,7 +278,7 @@
       <a class="mobile-menu__link" href="#feedback">آراء وتقييمات العملاء</a>
       <a class="mobile-menu__link" href="#pricing">الأسعار والعرض</a>
       <a class="mobile-menu__link" href="#faq">الأسئلة الشائعة</a>
-      <a href="#orderForm" class="btn btn-primary btn-block mobile-menu__cta" data-price-text="احصل على المكتبة الآن ({price} ج.م)">احصل على المكتبة الآن (999 ج.م)</a>
+      <a href="#orderForm" class="btn btn-primary btn-block mobile-menu__cta" data-price-text="احصل عليها الآن ({price} ج.م)">احصل عليها الآن (999 ج.م)</a>
     </div>
 
     <main>
@@ -278,10 +293,16 @@
               <span class="hero__trust-stars" aria-hidden="true">★★★★★</span>
               <span><strong data-avg-rating>5.0</strong> من <span data-review-count>6</span> تقييم حقيقي من عملاء فعليين</span>
             </div>
+            <div class="hero__price-tag">
+              <span class="hero__price-tag-anchor"><s data-plan-anchor>1999</s> ج.م</span>
+              <span class="hero__price-tag-now" data-price-text="{price} ج.م">999 ج.م</span>
+              <span class="hero__price-tag-badge">لفترة محدودة</span>
+            </div>
             <div class="hero__ctas">
-              <a href="#orderForm" class="btn btn-primary btn-lg" data-price-text="احصل على المكتبة الآن ({price} ج.م)">احصل على المكتبة الآن (999 ج.م)</a>
+              <a href="#orderForm" class="btn btn-primary btn-lg" data-price-text="احصل عليها الآن ({price} ج.م)">احصل عليها الآن (999 ج.م)</a>
               <a href="#showcase" class="btn btn-secondary btn-lg">استكشف محتويات المكتبة</a>
             </div>
+            <a href="#pricing" class="hero__alt-link">عايز إكستنشن X LAB بس من غير المكتبة؟ اعرف التفاصيل (799 ج.م) ←</a>
             <p class="hero__note">بدون اشتراك شهري — تدفع مرة واحدة وتمتلك المكتبة بالكامل مدى الحياة، وكل تحديث جديد بييجيلك مجانًا.</p>
             <div class="hero__stats">
               <div class="hero__stat"><b class="num" data-count-to="62" data-suffix="GB">0GB</b><span>أصول مونتاج</span></div>
@@ -291,6 +312,29 @@
           </div>
 
           <div class="hero__video reveal">
+            <div class="hero__float-layer" aria-hidden="true">
+              <div class="hero__float-card hero__float-card--ae">
+                <div class="hero__float-card__dots"><span></span><span></span><span></span></div>
+                <div class="hero__float-card__label">After Effects</div>
+                <div class="hero__float-card__bar"></div>
+                <div class="hero__float-card__bar"></div>
+                <div class="hero__float-card__bar"></div>
+              </div>
+              <div class="hero__float-card hero__float-card--pr">
+                <div class="hero__float-card__dots"><span></span><span></span><span></span></div>
+                <div class="hero__float-card__label">Premiere Pro</div>
+                <div class="hero__float-card__bar"></div>
+                <div class="hero__float-card__bar"></div>
+                <div class="hero__float-card__bar"></div>
+              </div>
+              <div class="hero__float-card hero__float-card--xlab">
+                <div class="hero__float-card__dots"><span></span><span></span><span></span></div>
+                <div class="hero__float-card__label">X LAB Panel</div>
+                <div class="hero__float-card__bar"></div>
+                <div class="hero__float-card__bar"></div>
+                <div class="hero__float-card__bar"></div>
+              </div>
+            </div>
             <div class="hero__video-frame">
               <span class="hero__video-badge"><span class="pulse"></span> LIVE PREVIEW 4K</span>
               <div class="aspect-16-9">
@@ -396,6 +440,41 @@
             <p class="section-sub">قم بملء بياناتك واختيار طريقة الدفع المناسبة، وسيتم تفعيل الإيميل فوراً على مجلدات Google Drive</p>
           </div>
 
+          <p class="plan-cards__lead reveal">قبل ما تكمل، اختار احتياجك:</p>
+          <div class="plan-cards reveal">
+            <a href="#orderForm" class="plan-card is-active" data-plan="bundle">
+              <span class="plan-card__ribbon">الأكثر توفيرًا</span>
+              <h3 class="plan-card__title">المكتبة الكاملة + إكستنشن X LAB</h3>
+              <p class="plan-card__desc">كل حاجة تحتاجها: +62GB أصول جاهزة، بالإضافة لبانل X LAB جوه أفتر إفكتس بيخليك تحفظ أي عنصر أو كومب وتسترجعه في أي مشروع تاني بضغطة زر.</p>
+              <div class="plan-card__price-row">
+                <span class="plan-card__anchor">1,999 ج.م</span>
+                <span class="plan-card__price">999 ج.م</span>
+              </div>
+              <ul class="plan-card__features">
+                <li>مكتبة EXODIA الكاملة (+62GB)</li>
+                <li>إكستنشن X LAB مجانًا ضمن نفس السعر</li>
+                <li>تحديثات مجانية مدى الحياة</li>
+              </ul>
+              <span class="plan-card__cta">اختار الباقة دي</span>
+            </a>
+
+            <a href="#orderForm" class="plan-card" data-plan="extension">
+              <span class="plan-card__ribbon plan-card__ribbon--alt">جديد</span>
+              <h3 class="plan-card__title">إكستنشن X LAB فقط</h3>
+              <p class="plan-card__desc">بانل بيتركب جوه أدوبي أفتر إفكتس، بيخليك تحفظ أي عنصر أو كومب اشتغلت عليه بكل خصائصه وتسترجعه في أي مشروع تاني بضغطة زر — من غير مكتبة الأصول.</p>
+              <div class="plan-card__price-row">
+                <span class="plan-card__anchor">1,599 ج.م</span>
+                <span class="plan-card__price">799 ج.م</span>
+              </div>
+              <ul class="plan-card__features">
+                <li>إكستنشن X LAB لأدوبي أفتر إفكتس</li>
+                <li>حفظ واسترجاع أي عنصر/كومب بضغطة زر</li>
+                <li>تحديثات مجانية مدى الحياة</li>
+              </ul>
+              <span class="plan-card__cta">اختار الباقة دي</span>
+            </a>
+          </div>
+
           <div class="pricing__banner reveal">
             <img src="assets/exodia-hero-banner.jpeg" alt="EXODIA PRO 2026 — مكتبة أصول مونتاج وموشن جرافيك" loading="lazy" />
           </div>
@@ -487,7 +566,11 @@
                 <p class="field-error" id="proofError"></p>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitOrderBtn" style="margin-top: var(--sp-6);" data-price-text="تأكيد الطلب والتفعيل الآن ({price} ج.م)">تأكيد الطلب والتفعيل الآن (999 ج.م)</button>
+              <div class="order-price-summary">
+                <span class="order-price-summary__anchor"><s data-plan-anchor>1999</s> ج.م</span>
+                <span class="order-price-summary__now" data-price-text="{price} ج.م">999 ج.م</span>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitOrderBtn" style="margin-top: var(--sp-4);" data-price-text="تأكيد الطلب والتفعيل الآن ({price} ج.م)">تأكيد الطلب والتفعيل الآن (999 ج.م)</button>
               <p class="reassure">تأكيد مشفر وآمن 100% • تفعيل وصولك للمكتبة خلال دقائق من مراجعة الدفع • دعم فني ملتزم على مدار الساعة لحد ما يتفعل وصولك بالكامل</p>
             </form>
 
@@ -541,6 +624,10 @@
             <div class="faq-item reveal" data-open="false">
               <button class="faq-item__q" aria-expanded="false">هل فيه ضمان لو حصلت أي مشكلة في التفعيل؟ <span class="faq-item__icon">+</span></button>
               <div class="faq-item__a"><div class="faq-item__a-inner"><p>التزامنا معاك إن التفعيل يحصل صح ويشتغل تمام، وفريق الدعم الفني متواجد معك على مدار الساعة لحد ما توصل لمكتبتك وتشتغل من غير أي مشاكل — تواصل معنا في أي وقت عبر واتساب ولو في أي عائق هنحله فورًا.</p></div></div>
+            </div>
+            <div class="faq-item reveal" data-open="false">
+              <button class="faq-item__q" aria-expanded="false">إيه الفرق بين إكستنشن X LAB والمكتبة؟ <span class="faq-item__icon">+</span></button>
+              <div class="faq-item__a"><div class="faq-item__a-inner"><p>إكستنشن X LAB هو بانل بيتركب جوه أدوبي أفتر إفكتس، بيخليك تحفظ أي عنصر أو كومب اشتغلت عليه بكل خصائصه (كاميرات، إكسبريشنز، ماسكات) وتسترجعه في أي مشروع تاني بضغطة زر بدل ما تفتح مشاريع قديمة تدور فيها. لو اشتريت مكتبة EXODIA بتاخده معاها مجانًا وبنفس السعر (999 ج.م)، ولو عايزه لوحده من غير مكتبة الأصول تقدر تاخده بـ799 ج.م بس.</p></div></div>
             </div>
             <div class="faq-item reveal" data-open="false">
               <button class="faq-item__q" aria-expanded="false">ليه أشتري EXODIA بدل ما أدور على أصول مجانية أو أشترك في مكتبة أجنبية؟ <span class="faq-item__icon">+</span></button>
@@ -667,6 +754,7 @@
                   name: name,
                   phone: phone,
                   email: email,
+                  plan: window.__exodiaSelectedPlan || "غير محدد",
                   coupon: coupon,
                   receipt: receiptUrl
                 })

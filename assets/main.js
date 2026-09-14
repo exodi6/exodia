@@ -74,14 +74,17 @@
     }
   }
 
-  /* ---------- Sticky mobile CTA (shows after hero scrolls out) ---------- */
+  /* ---------- Sticky mobile CTA + WhatsApp bubble (hidden during hero to avoid
+     covering the hero price tag, shown once the hero scrolls out) ---------- */
   var stickyCta = document.getElementById("stickyCta");
+  var floatWa = document.querySelector(".float-wa");
   var hero = document.getElementById("hero");
-  if (stickyCta && hero && "IntersectionObserver" in window) {
+  if (hero && "IntersectionObserver" in window) {
     var heroIo = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
-          stickyCta.classList.toggle("is-visible", !entry.isIntersecting);
+          if (stickyCta) stickyCta.classList.toggle("is-visible", !entry.isIntersecting);
+          if (floatWa) floatWa.classList.toggle("is-hidden", entry.isIntersecting);
         });
       },
       { threshold: 0 }
@@ -154,63 +157,116 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
   }
 
-  /* ---------- Coupon verification (fixed codes, updates price everywhere) ---------- */
-  var ORIGINAL_PRICE = 999;
+  /* ---------- Plans: library+extension bundle vs X LAB extension alone ---------- */
+  var PLANS = {
+    bundle: { price: 999, anchor: 1999, label: "المكتبة الكاملة + إكستنشن X LAB" },
+    extension: { price: 799, anchor: 1599, label: "إكستنشن X LAB فقط" }
+  };
+  var currentPlanKey = "bundle";
+  var planCards = document.querySelectorAll("[data-plan]");
+  var priceEls = document.querySelectorAll("[data-price-text]");
+  var anchorEls = document.querySelectorAll("[data-plan-anchor]");
+
+  /* ---------- Coupon verification (plan-aware) ---------- */
   var COUPONS = {
-    "EX666": 499,
-    "HAMZA111": 899,
-    "REWAN10": 899
+    "EX666": { type: "fixed", price: 499, onlyPlan: "bundle" },
+    "HAMZA111": { type: "percent", value: 10 },
+    "REWAN10": { type: "percent", value: 10 }
   };
   var couponInput = document.getElementById("couponCode");
   var couponCheckBtn = document.getElementById("couponCheckBtn");
   var couponFeedback = document.getElementById("couponFeedback");
-  var priceEls = document.querySelectorAll("[data-price-text]");
-  var couponApplied = false;
-
-  window.__exodiaFinalPrice = ORIGINAL_PRICE;
-
-  function setPriceDisplay(price) {
-    window.__exodiaFinalPrice = price;
-    priceEls.forEach(function (el) {
-      el.textContent = el.dataset.priceText.replace("{price}", price);
-    });
-  }
+  var appliedCouponCode = null;
 
   function showCouponFeedback(msg, ok) {
+    if (!couponFeedback) return;
     couponFeedback.textContent = msg;
     couponFeedback.classList.remove("is-valid", "is-invalid");
     couponFeedback.classList.add(ok ? "is-valid" : "is-invalid");
   }
 
+  function priceForCoupon(coupon, basePrice) {
+    if (coupon.type === "fixed") return coupon.price;
+    return Math.round(basePrice * (1 - coupon.value / 100));
+  }
+
+  function refreshPriceDisplay() {
+    var plan = PLANS[currentPlanKey];
+    var finalPrice = plan.price;
+
+    if (appliedCouponCode) {
+      var coupon = COUPONS[appliedCouponCode];
+      if (coupon.onlyPlan && coupon.onlyPlan !== currentPlanKey) {
+        appliedCouponCode = null;
+        showCouponFeedback("الكود ده مخصص لباقة \"" + PLANS[coupon.onlyPlan].label + "\" بس، السعر رجع " + plan.price + " ج.م", false);
+      } else {
+        finalPrice = priceForCoupon(coupon, plan.price);
+      }
+    }
+
+    window.__exodiaFinalPrice = finalPrice;
+    window.__exodiaSelectedPlan = plan.label;
+
+    priceEls.forEach(function (el) {
+      el.textContent = el.dataset.priceText.replace("{price}", finalPrice);
+    });
+    anchorEls.forEach(function (el) {
+      el.textContent = plan.anchor;
+    });
+  }
+
+  function selectPlan(planKey) {
+    if (!PLANS[planKey]) return;
+    currentPlanKey = planKey;
+    planCards.forEach(function (card) {
+      card.classList.toggle("is-active", card.dataset.plan === planKey);
+    });
+    refreshPriceDisplay();
+  }
+
+  planCards.forEach(function (card) {
+    card.addEventListener("click", function () {
+      selectPlan(card.dataset.plan);
+    });
+  });
+
   if (couponCheckBtn && couponInput && couponFeedback) {
     couponCheckBtn.addEventListener("click", function () {
       var code = couponInput.value.trim().toUpperCase();
       if (!code) {
-        couponApplied = false;
-        setPriceDisplay(ORIGINAL_PRICE);
+        appliedCouponCode = null;
+        refreshPriceDisplay();
         showCouponFeedback("اكتب كود الكوبون الأول", false);
         return;
       }
-      if (COUPONS.hasOwnProperty(code)) {
-        couponApplied = true;
-        var discountedPrice = COUPONS[code];
-        setPriceDisplay(discountedPrice);
-        showCouponFeedback("الكود صحيح ✓ السعر بقى " + discountedPrice + " ج.م", true);
-      } else {
-        couponApplied = false;
-        setPriceDisplay(ORIGINAL_PRICE);
+      var coupon = COUPONS[code];
+      if (!coupon) {
+        appliedCouponCode = null;
+        refreshPriceDisplay();
         showCouponFeedback("الكود غير صحيح", false);
+        return;
       }
+      if (coupon.onlyPlan && coupon.onlyPlan !== currentPlanKey) {
+        appliedCouponCode = null;
+        refreshPriceDisplay();
+        showCouponFeedback("الكود ده مخصص لباقة \"" + PLANS[coupon.onlyPlan].label + "\" بس", false);
+        return;
+      }
+      appliedCouponCode = code;
+      refreshPriceDisplay();
+      showCouponFeedback("الكود صحيح ✓ السعر بقى " + window.__exodiaFinalPrice + " ج.م", true);
     });
     couponInput.addEventListener("input", function () {
-      if (couponApplied) {
-        couponApplied = false;
-        setPriceDisplay(ORIGINAL_PRICE);
+      if (appliedCouponCode) {
+        appliedCouponCode = null;
+        refreshPriceDisplay();
       }
       couponFeedback.textContent = "";
       couponFeedback.classList.remove("is-valid", "is-invalid");
     });
   }
+
+  refreshPriceDisplay();
 
   /* ---------- Payment method selection ---------- */
   var payOptions = document.querySelectorAll(".pay-option input[type=radio]");
@@ -318,11 +374,41 @@
       successPanel.hidden = true;
       if (uploadPreview) { uploadPreview.classList.remove("is-shown"); uploadPreview.src = ""; }
       if (uploadPrompt) uploadPrompt.textContent = "إثبات الدفع (صورة التحويل) *";
-      if (typeof couponApplied !== "undefined") {
-        couponApplied = false;
-        setPriceDisplay(ORIGINAL_PRICE);
-        if (couponFeedback) { couponFeedback.textContent = ""; couponFeedback.classList.remove("is-valid", "is-invalid"); }
-      }
+      appliedCouponCode = null;
+      selectPlan("bundle");
+      if (couponFeedback) { couponFeedback.textContent = ""; couponFeedback.classList.remove("is-valid", "is-invalid"); }
     });
+  }
+
+  /* ---------- Limited-time offer countdown (rolling 24h window per visitor) ---------- */
+  var promoTimerEl = document.getElementById("promoTimer");
+  if (promoTimerEl) {
+    var PROMO_KEY = "exodiaOfferDeadline";
+    var PROMO_DURATION = 24 * 60 * 60 * 1000;
+    var promoDeadline;
+    try {
+      promoDeadline = parseInt(localStorage.getItem(PROMO_KEY), 10);
+    } catch (e) {
+      promoDeadline = NaN;
+    }
+    if (!promoDeadline || isNaN(promoDeadline) || promoDeadline < Date.now()) {
+      promoDeadline = Date.now() + PROMO_DURATION;
+      try { localStorage.setItem(PROMO_KEY, promoDeadline); } catch (e) {}
+    }
+    var pad2 = function (n) { return n < 10 ? "0" + n : "" + n; };
+    var tickPromo = function () {
+      var diff = promoDeadline - Date.now();
+      if (diff <= 0) {
+        promoDeadline = Date.now() + PROMO_DURATION;
+        try { localStorage.setItem(PROMO_KEY, promoDeadline); } catch (e) {}
+        diff = PROMO_DURATION;
+      }
+      var h = Math.floor(diff / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      promoTimerEl.textContent = pad2(h) + ":" + pad2(m) + ":" + pad2(s);
+    };
+    tickPromo();
+    setInterval(tickPromo, 1000);
   }
 })();
