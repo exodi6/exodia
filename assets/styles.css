@@ -354,8 +354,7 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
   position: relative; overflow: hidden; height: 150px; border-radius: var(--radius-md);
   border: 1px solid var(--border-strong); background: var(--bg-2);
 }
-.product-card__visual--bundle img{ width: 100%; height: 100%; object-fit: cover; display: block; }
-.product-card__illustration{ width: 100%; height: 100%; display: block; }
+.product-card__visual img{ width: 100%; height: 100%; object-fit: cover; display: block; }
 .product-card__title{ font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); }
 .product-card__desc{ color: var(--text-3); font-size: var(--text-sm); }
 .product-card__price-row{ display: flex; align-items: baseline; gap: .6em; margin-top: var(--sp-1); }
