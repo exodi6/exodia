@@ -256,7 +256,10 @@
 
   function updateCardStates() {
     productCards.forEach(function (card) {
-      card.classList.toggle("is-active", !!cart[card.dataset.product]);
+      var active = !!cart[card.dataset.product];
+      card.classList.toggle("is-active", active);
+      var cta = card.querySelector(".product-card__cta");
+      if (cta) cta.textContent = active ? "✓ مُضافة للسلة — دوس للإزالة" : "أضف للسلة";
     });
   }
 
@@ -476,35 +479,4 @@
     });
   }
 
-  /* ---------- Limited-time offer countdown (rolling 24h window per visitor) ---------- */
-  var promoTimerEl = document.getElementById("promoTimer");
-  if (promoTimerEl) {
-    var PROMO_KEY = "exodiaOfferDeadline";
-    var PROMO_DURATION = 24 * 60 * 60 * 1000;
-    var promoDeadline;
-    try {
-      promoDeadline = parseInt(localStorage.getItem(PROMO_KEY), 10);
-    } catch (e) {
-      promoDeadline = NaN;
-    }
-    if (!promoDeadline || isNaN(promoDeadline) || promoDeadline < Date.now()) {
-      promoDeadline = Date.now() + PROMO_DURATION;
-      try { localStorage.setItem(PROMO_KEY, promoDeadline); } catch (e) {}
-    }
-    var pad2 = function (n) { return n < 10 ? "0" + n : "" + n; };
-    var tickPromo = function () {
-      var diff = promoDeadline - Date.now();
-      if (diff <= 0) {
-        promoDeadline = Date.now() + PROMO_DURATION;
-        try { localStorage.setItem(PROMO_KEY, promoDeadline); } catch (e) {}
-        diff = PROMO_DURATION;
-      }
-      var h = Math.floor(diff / 3600000);
-      var m = Math.floor((diff % 3600000) / 60000);
-      var s = Math.floor((diff % 60000) / 1000);
-      promoTimerEl.textContent = pad2(h) + ":" + pad2(m) + ":" + pad2(s);
-    };
-    tickPromo();
-    setInterval(tickPromo, 1000);
-  }
 })();

@@ -237,12 +237,6 @@
   <body>
     <a href="#hero" class="visually-hidden">تخطى إلى المحتوى الرئيسي</a>
 
-    <!-- ============ PROMO BAR ============ -->
-    <div class="promo-bar">
-      <span class="promo-bar__text">🔥 عرض إطلاق إكستنشن X LAB — خصم لفترة محدودة</span>
-      <span class="promo-bar__timer" id="promoTimer">24:00:00</span>
-    </div>
-
     <!-- ============ NAV ============ -->
     <header class="nav" id="siteNav">
       <div class="container nav__inner">
@@ -302,7 +296,6 @@
               <a href="#orderForm" class="btn btn-primary btn-lg" data-price-text="احصل عليها الآن ({price} ج.م)">احصل عليها الآن (999 ج.م)</a>
               <a href="#showcase" class="btn btn-secondary btn-lg">استكشف محتويات المكتبة</a>
             </div>
-            <a href="#pricing" class="hero__alt-link">عايز إكستنشن X LAB بس من غير المكتبة؟ اعرف التفاصيل (799 ج.م) ←</a>
             <p class="hero__note">بدون اشتراك شهري — تدفع مرة واحدة وتمتلك المكتبة بالكامل مدى الحياة، وكل تحديث جديد بييجيلك مجانًا.</p>
             <div class="hero__stats">
               <div class="hero__stat"><b class="num" data-count-to="62" data-suffix="GB">0GB</b><span>أصول مونتاج</span></div>
@@ -443,10 +436,13 @@
           <p class="plan-cards__lead reveal">قبل ما تكمل، اختار المنتجات اللي محتاجها — تقدر تختار أكتر من واحد:</p>
           <div class="product-cards reveal">
             <div class="product-card is-active" data-product="bundle" role="button" tabindex="0" aria-pressed="true">
-              <span class="product-card__ribbon">الأكثر توفيرًا • لفترة محدودة</span>
               <span class="product-card__check" aria-hidden="true">✓</span>
               <div class="product-card__visual product-card__visual--bundle">
-                <img src="assets/bundle-strip.jpg" alt="لقطات حقيقية من مكتبة EXODIA وإكستنشنز X LAB والأوتوكات والتيكست بريتس" loading="lazy" />
+                <span class="product-card__badges">
+                  <span class="product-card__badge product-card__badge--sale">خصم</span>
+                  <span class="product-card__badge product-card__badge--best">الأكثر توفيرًا</span>
+                </span>
+                <img src="assets/shot-library.jpg" alt="سكرين شوت حقيقي من مجلدات مكتبة EXODIA على Google Drive" loading="lazy" />
               </div>
               <h3 class="product-card__title">الباقة الشاملة: المكتبة + كل الإكستنشنز</h3>
               <p class="product-card__desc">مكتبة EXODIA (+62GB) وإكستنشنز X LAB والأوتوكات والتيكست بريتس، كلهم مع بعض بسعر واحد لفترة محدودة.</p>
@@ -459,12 +455,15 @@
                 <li>الإكستنشنز التلاتة (X LAB + أوتوكات + تيكست بريتس) من غير أي زيادة</li>
                 <li>تحديثات مجانية مدى الحياة للمكتبة وكل الإكستنشنز</li>
               </ul>
-              <span class="product-card__cta">مُختارة ✓ — دوس تاني عشان تشيلها</span>
+              <span class="product-card__cta">✓ مُضافة للسلة — دوس للإزالة</span>
             </div>
 
             <div class="product-card" data-product="xlab" role="button" tabindex="0" aria-pressed="false">
               <span class="product-card__check" aria-hidden="true">✓</span>
               <div class="product-card__visual product-card__visual--xlab">
+                <span class="product-card__badges">
+                  <span class="product-card__badge product-card__badge--sale">خصم</span>
+                </span>
                 <img src="assets/shot-xlab.jpg" alt="سكرين شوت حقيقي من بانل X LAB جوه أفتر إفكتس" loading="lazy" />
               </div>
               <h3 class="product-card__title">إكستنشن X LAB فقط</h3>
@@ -493,13 +492,16 @@
                 <li class="is-more">حفظ ألوان وخطوط شعارك والوصول ليها بضغطة زر: <bdi>Brand Kit</bdi></li>
               </ul>
               <button type="button" class="product-card__more">شوف كل المميزات (+14)</button>
-              <span class="product-card__cta">دوس تختارها</span>
+              <span class="product-card__cta">أضف للسلة</span>
             </div>
 
             <div class="product-card" data-product="autocut" role="button" tabindex="0" aria-pressed="false">
-              <span class="product-card__ribbon product-card__ribbon--alt">جديد</span>
               <span class="product-card__check" aria-hidden="true">✓</span>
               <div class="product-card__visual product-card__visual--autocut">
+                <span class="product-card__badges">
+                  <span class="product-card__badge product-card__badge--sale">خصم</span>
+                  <span class="product-card__badge product-card__badge--new">جديد</span>
+                </span>
                 <img src="assets/shot-autocut.jpg" alt="سكرين شوت حقيقي من بانل الأوتوكات جوه بريمير برو" loading="lazy" />
               </div>
               <h3 class="product-card__title">إكستنشن الأوتوكات (Auto Cut)</h3>
@@ -516,13 +518,16 @@
                 <li class="is-more">اختيار الجودة أو قصّ جزء معين من الفيديو المنزّل</li>
               </ul>
               <button type="button" class="product-card__more">شوف كل المميزات (+2)</button>
-              <span class="product-card__cta">دوس تختارها</span>
+              <span class="product-card__cta">أضف للسلة</span>
             </div>
 
             <div class="product-card" data-product="textpresets" role="button" tabindex="0" aria-pressed="false">
-              <span class="product-card__ribbon product-card__ribbon--alt">جديد</span>
               <span class="product-card__check" aria-hidden="true">✓</span>
               <div class="product-card__visual product-card__visual--textpresets">
+                <span class="product-card__badges">
+                  <span class="product-card__badge product-card__badge--sale">خصم</span>
+                  <span class="product-card__badge product-card__badge--new">جديد</span>
+                </span>
                 <img src="assets/shot-textpresets.jpg" alt="سكرين شوت حقيقي من مكتبة التيكست بريتس جوه بريمير برو" loading="lazy" />
               </div>
               <h3 class="product-card__title">إكستنشن التيكست بريتس لبريمير</h3>
@@ -538,7 +543,7 @@
                 <li class="is-more">بحث ومفضلة للتصميمات عشان توصل للي محتاجه بسرعة</li>
               </ul>
               <button type="button" class="product-card__more">شوف كل المميزات (+1)</button>
-              <span class="product-card__cta">دوس تختارها</span>
+              <span class="product-card__cta">أضف للسلة</span>
             </div>
           </div>
 
