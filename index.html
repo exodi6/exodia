@@ -294,7 +294,7 @@
               <span><strong data-avg-rating>5.0</strong> من <span data-review-count>6</span> تقييم حقيقي من عملاء فعليين</span>
             </div>
             <div class="hero__price-tag">
-              <span class="hero__price-tag-anchor"><s data-plan-anchor>1999</s> ج.م</span>
+              <span class="hero__price-tag-anchor"><s data-cart-anchor>1999</s> ج.م</span>
               <span class="hero__price-tag-now" data-price-text="{price} ج.م">999 ج.م</span>
               <span class="hero__price-tag-badge">لفترة محدودة</span>
             </div>
@@ -440,43 +440,121 @@
             <p class="section-sub">قم بملء بياناتك واختيار طريقة الدفع المناسبة، وسيتم تفعيل الإيميل فوراً على مجلدات Google Drive</p>
           </div>
 
-          <p class="plan-cards__lead reveal">قبل ما تكمل، اختار احتياجك:</p>
-          <div class="plan-cards reveal">
-            <a href="#orderForm" class="plan-card is-active" data-plan="bundle">
-              <span class="plan-card__ribbon">الأكثر توفيرًا</span>
-              <h3 class="plan-card__title">المكتبة الكاملة + إكستنشن X LAB</h3>
-              <p class="plan-card__desc">كل حاجة تحتاجها: +62GB أصول جاهزة، بالإضافة لبانل X LAB جوه أفتر إفكتس بيخليك تحفظ أي عنصر أو كومب وتسترجعه في أي مشروع تاني بضغطة زر.</p>
-              <div class="plan-card__price-row">
-                <span class="plan-card__anchor">1,999 ج.م</span>
-                <span class="plan-card__price">999 ج.م</span>
-              </div>
-              <ul class="plan-card__features">
-                <li>مكتبة EXODIA الكاملة (+62GB)</li>
-                <li>إكستنشن X LAB مجانًا ضمن نفس السعر</li>
-                <li>تحديثات مجانية مدى الحياة</li>
-              </ul>
-              <span class="plan-card__cta">اختار الباقة دي</span>
-            </a>
-
-            <a href="#orderForm" class="plan-card" data-plan="extension">
-              <span class="plan-card__ribbon plan-card__ribbon--alt">جديد</span>
-              <h3 class="plan-card__title">إكستنشن X LAB فقط</h3>
-              <p class="plan-card__desc">بانل بيتركب جوه أدوبي أفتر إفكتس، بيخليك تحفظ أي عنصر أو كومب اشتغلت عليه بكل خصائصه وتسترجعه في أي مشروع تاني بضغطة زر — من غير مكتبة الأصول.</p>
-              <div class="plan-card__price-row">
-                <span class="plan-card__anchor">1,599 ج.م</span>
-                <span class="plan-card__price">799 ج.م</span>
-              </div>
-              <ul class="plan-card__features">
-                <li>إكستنشن X LAB لأدوبي أفتر إفكتس</li>
-                <li>حفظ واسترجاع أي عنصر/كومب بضغطة زر</li>
-                <li>تحديثات مجانية مدى الحياة</li>
-              </ul>
-              <span class="plan-card__cta">اختار الباقة دي</span>
-            </a>
-          </div>
-
           <div class="pricing__banner reveal">
             <img src="assets/exodia-hero-banner.jpeg" alt="EXODIA PRO 2026 — مكتبة أصول مونتاج وموشن جرافيك" loading="lazy" />
+          </div>
+
+          <p class="plan-cards__lead reveal">قبل ما تكمل، اختار المنتجات اللي محتاجها — تقدر تختار أكتر من واحد:</p>
+          <div class="product-cards reveal">
+            <div class="product-card is-active" data-product="bundle" role="button" tabindex="0" aria-pressed="true">
+              <span class="product-card__ribbon">الأكثر توفيرًا</span>
+              <span class="product-card__check" aria-hidden="true">✓</span>
+              <div class="product-card__visual product-card__visual--bundle">
+                <div class="product-card__visual-dots"><span></span><span></span><span></span></div>
+                <div class="product-card__visual-label">EXODIA + X LAB</div>
+                <div class="product-card__visual-bar"></div>
+                <div class="product-card__visual-bar"></div>
+              </div>
+              <h3 class="product-card__title">المكتبة الكاملة + إكستنشن X LAB</h3>
+              <p class="product-card__desc">كل حاجة تحتاجها: +62GB أصول جاهزة، بالإضافة لبانل X LAB جوه أفتر إفكتس بيخليك تحفظ أي عنصر أو كومب وتسترجعه في أي مشروع تاني بضغطة زر.</p>
+              <div class="product-card__price-row">
+                <span class="product-card__anchor">1,999 ج.م</span>
+                <span class="product-card__price">999 ج.م</span>
+              </div>
+              <ul class="product-card__features">
+                <li>مكتبة EXODIA الكاملة (+62GB أصول جاهزة)</li>
+                <li>إكستنشن X LAB مجانًا ضمن نفس السعر</li>
+                <li>تحديثات مجانية مدى الحياة للاتنين</li>
+              </ul>
+              <span class="product-card__cta">مُختارة ✓ — دوس تاني عشان تشيلها</span>
+            </div>
+
+            <div class="product-card" data-product="xlab" role="button" tabindex="0" aria-pressed="false">
+              <span class="product-card__check" aria-hidden="true">✓</span>
+              <div class="product-card__visual product-card__visual--xlab">
+                <div class="product-card__visual-dots"><span></span><span></span><span></span></div>
+                <div class="product-card__visual-label">X LAB Panel</div>
+                <div class="product-card__visual-bar"></div>
+                <div class="product-card__visual-bar"></div>
+              </div>
+              <h3 class="product-card__title">إكستنشن X LAB فقط</h3>
+              <p class="product-card__desc">بانل بيتركب جوه أدوبي أفتر إفكتس من غير مكتبة الأصول — لو انت بتصمم عناصرك بنفسك وعايز تنظمها وتعيد استخدامها بس.</p>
+              <div class="product-card__price-row">
+                <span class="product-card__anchor">1,599 ج.م</span>
+                <span class="product-card__price">799 ج.م</span>
+              </div>
+              <ul class="product-card__features">
+                <li>حفظ أي عنصر أو كومب بكل خصائصه (كاميرات، إكسبريشنز، ماسكات) واسترجاعه بضغطة زر</li>
+                <li>العنصر بيتخزن مع الفوتيدج بتاعه، فيشتغل في أي جهاز أو مشروع تاني من غير ما يضيع منه حاجة</li>
+                <li>مكتبة FFX Presets منظمة في تصنيفات + بحث سريع</li>
+                <li>بحث ومفضلة وأحدث العناصر</li>
+                <li>استيراد مشروع أفتر إفكتس كامل (.aep) واستخدامه كتمبلت جاهز وقت ما تحتاج</li>
+                <li>تصدير أي عنصر كـ MOGRT جاهز للاستخدام في بريمير</li>
+                <li>أدوات تسريع الشغل: حذف الفوتيدج الغير مستخدم، دمج الفوتيدج، إعادة تسمية الليرز</li>
+                <li>نسخ احتياطي، إصلاح المكتبة، وتصدير/استيراد بين الأجهزة</li>
+                <li>حفظ نسخ متعددة من نفس العنصر (Versioning) والرجوع لأي نسخة قديمة</li>
+              </ul>
+              <span class="product-card__cta">دوس تختارها</span>
+            </div>
+
+            <div class="product-card" data-product="autocut" role="button" tabindex="0" aria-pressed="false">
+              <span class="product-card__ribbon product-card__ribbon--alt">جديد</span>
+              <span class="product-card__check" aria-hidden="true">✓</span>
+              <div class="product-card__visual product-card__visual--autocut">
+                <div class="product-card__visual-dots"><span></span><span></span><span></span></div>
+                <div class="product-card__visual-label">Auto Cut</div>
+                <div class="product-card__visual-bar"></div>
+                <div class="product-card__visual-bar"></div>
+              </div>
+              <h3 class="product-card__title">إكستنشن الأوتوكات (Auto Cut)</h3>
+              <p class="product-card__desc">بانل واحد جوه بريمير برو بيعمل كابشن تلقائي، أوتوكات، وداونلودر فيديوهات — من غير ما تخرج من بريمير خالص.</p>
+              <div class="product-card__price-row">
+                <span class="product-card__anchor">999 ج.م</span>
+                <span class="product-card__price">499 ج.م</span>
+              </div>
+              <ul class="product-card__features">
+                <li>Auto Cut: يشيل سكون الصوت من التايم لاين تلقائيًا بضغطة واحدة ويقفل الفجوة لوحده</li>
+                <li>Auto Captions: يفرغ الكلام تلقائيًا (عربي/إنجليزي) ويحط الكابشن جاهز على التايم لاين</li>
+                <li>تصدير واستيراد ملفات SRT</li>
+                <li>Downloader: نزّل أي فيديو من يوتيوب أو تيك توك أو انستجرام أو فيسبوك مباشرة جوه بريمير، واختار الجودة أو قصّ جزء منه</li>
+                <li>كل ده من جوه بانل واحد في بريمير برو</li>
+              </ul>
+              <span class="product-card__cta">دوس تختارها</span>
+            </div>
+
+            <div class="product-card" data-product="textpresets" role="button" tabindex="0" aria-pressed="false">
+              <span class="product-card__ribbon product-card__ribbon--alt">جديد</span>
+              <span class="product-card__check" aria-hidden="true">✓</span>
+              <div class="product-card__visual product-card__visual--textpresets">
+                <div class="product-card__visual-dots"><span></span><span></span><span></span></div>
+                <div class="product-card__visual-label">Text Presets</div>
+                <div class="product-card__visual-bar"></div>
+                <div class="product-card__visual-bar"></div>
+              </div>
+              <h3 class="product-card__title">إكستنشن التيكست بريتس لبريمير</h3>
+              <p class="product-card__desc">مكتبة تصميمات نصوص متحركة جاهزة، بتنزل على التايم لاين بتاعتك في بريمير بضغطة واحدة وتظبطها زي ما انت عايز.</p>
+              <div class="product-card__price-row">
+                <span class="product-card__anchor">999 ج.م</span>
+                <span class="product-card__price">499 ج.م</span>
+              </div>
+              <ul class="product-card__features">
+                <li>+74 تصميم نص متحرك (MOGRT) جاهز ومصنّف</li>
+                <li>بضغطة واحدة، التصميم بينزل بالظبط في مكان الـ playhead على التايم لاين</li>
+                <li>قابل للتعديل الكامل بعد النزول — مش صورة أو معاينة وهمية</li>
+                <li>بحث ومفضلة للتصميمات عشان توصل للي محتاجه بسرعة</li>
+              </ul>
+              <span class="product-card__cta">دوس تختارها</span>
+            </div>
+          </div>
+
+          <div class="cart-summary reveal">
+            <p class="cart-summary__title">🛒 سلة الطلب</p>
+            <p class="cart-summary__empty" id="cartEmpty">لسه مختارتش أي منتج — دوس على أي بطاقة فوق</p>
+            <div class="cart-list" id="cartList" hidden></div>
+            <div class="cart-summary__total" id="cartTotalRow" hidden>
+              <span>الإجمالي</span>
+              <span class="cart-summary__total-now" data-price-text="{price} ج.م">999 ج.م</span>
+            </div>
           </div>
 
           <div class="checkout">
@@ -567,7 +645,7 @@
               </div>
 
               <div class="order-price-summary">
-                <span class="order-price-summary__anchor"><s data-plan-anchor>1999</s> ج.م</span>
+                <span class="order-price-summary__anchor"><s data-cart-anchor>1999</s> ج.م</span>
                 <span class="order-price-summary__now" data-price-text="{price} ج.م">999 ج.م</span>
               </div>
               <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitOrderBtn" style="margin-top: var(--sp-4);" data-price-text="تأكيد الطلب والتفعيل الآن ({price} ج.م)">تأكيد الطلب والتفعيل الآن (999 ج.م)</button>
@@ -754,7 +832,7 @@
                   name: name,
                   phone: phone,
                   email: email,
-                  plan: window.__exodiaSelectedPlan || "غير محدد",
+                  items: window.__exodiaCartLabel || "غير محدد",
                   coupon: coupon,
                   receipt: receiptUrl
                 })

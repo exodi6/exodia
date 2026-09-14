@@ -157,19 +157,24 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
   }
 
-  /* ---------- Plans: library+extension bundle vs X LAB extension alone ---------- */
-  var PLANS = {
-    bundle: { price: 999, anchor: 1999, label: "المكتبة الكاملة + إكستنشن X LAB" },
-    extension: { price: 799, anchor: 1599, label: "إكستنشن X LAB فقط" }
+  /* ---------- Products + real multi-item cart ---------- */
+  var PRODUCTS = {
+    bundle: { name: "المكتبة الكاملة + إكستنشن X LAB", price: 999, anchor: 1999, group: "core" },
+    xlab: { name: "إكستنشن X LAB فقط", price: 799, anchor: 1599, group: "core" },
+    autocut: { name: "إكستنشن الأوتوكات (كابشن + أوتوكات + داونلودر)", price: 499, anchor: 999, group: null },
+    textpresets: { name: "إكستنشن التيكست بريتس لبريمير", price: 499, anchor: 999, group: null }
   };
-  var currentPlanKey = "bundle";
-  var planCards = document.querySelectorAll("[data-plan]");
+  var cart = { bundle: true };
+  var productCards = document.querySelectorAll("[data-product]");
   var priceEls = document.querySelectorAll("[data-price-text]");
-  var anchorEls = document.querySelectorAll("[data-plan-anchor]");
+  var anchorEls = document.querySelectorAll("[data-cart-anchor]");
+  var cartListEl = document.getElementById("cartList");
+  var cartEmptyEl = document.getElementById("cartEmpty");
+  var cartTotalEl = document.getElementById("cartTotalRow");
 
-  /* ---------- Coupon verification (plan-aware) ---------- */
+  /* ---------- Coupon verification (cart-aware) ---------- */
   var COUPONS = {
-    "EX666": { type: "fixed", price: 499, onlyPlan: "bundle" },
+    "EX666": { type: "fixed", price: 499, exactCart: ["bundle"] },
     "HAMZA111": { type: "percent", value: 10 },
     "REWAN10": { type: "percent", value: 10 }
   };
@@ -178,6 +183,19 @@
   var couponFeedback = document.getElementById("couponFeedback");
   var appliedCouponCode = null;
 
+  function cartIds() { return Object.keys(cart); }
+  function cartSubtotal() {
+    return cartIds().reduce(function (sum, id) { return sum + PRODUCTS[id].price; }, 0);
+  }
+  function cartAnchorTotal() {
+    return cartIds().reduce(function (sum, id) { return sum + (PRODUCTS[id].anchor || PRODUCTS[id].price); }, 0);
+  }
+  function cartMatchesExactly(ids) {
+    var current = cartIds();
+    if (current.length !== ids.length) return false;
+    return ids.every(function (id) { return !!cart[id]; });
+  }
+
   function showCouponFeedback(msg, ok) {
     if (!couponFeedback) return;
     couponFeedback.textContent = msg;
@@ -185,50 +203,106 @@
     couponFeedback.classList.add(ok ? "is-valid" : "is-invalid");
   }
 
-  function priceForCoupon(coupon, basePrice) {
+  function priceForCoupon(coupon, subtotal) {
     if (coupon.type === "fixed") return coupon.price;
-    return Math.round(basePrice * (1 - coupon.value / 100));
+    return Math.round(subtotal * (1 - coupon.value / 100));
+  }
+
+  function renderCart() {
+    var ids = cartIds();
+    if (cartListEl) {
+      cartListEl.innerHTML = "";
+      ids.forEach(function (id) {
+        var product = PRODUCTS[id];
+        var row = document.createElement("div");
+        row.className = "cart-row";
+        row.innerHTML =
+          '<span class="cart-row__name">' + product.name + "</span>" +
+          '<span class="cart-row__price">' + product.price + " ج.م</span>" +
+          '<button type="button" class="cart-row__remove" data-remove="' + id + '" aria-label="شيل من السلة">✕</button>';
+        cartListEl.appendChild(row);
+      });
+    }
+    if (cartEmptyEl) cartEmptyEl.hidden = ids.length > 0;
+    if (cartListEl) cartListEl.hidden = ids.length === 0;
+    if (cartTotalEl) cartTotalEl.hidden = ids.length === 0;
   }
 
   function refreshPriceDisplay() {
-    var plan = PLANS[currentPlanKey];
-    var finalPrice = plan.price;
+    var subtotal = cartSubtotal();
+    var finalPrice = subtotal;
 
     if (appliedCouponCode) {
       var coupon = COUPONS[appliedCouponCode];
-      if (coupon.onlyPlan && coupon.onlyPlan !== currentPlanKey) {
+      if (coupon.exactCart && !cartMatchesExactly(coupon.exactCart)) {
         appliedCouponCode = null;
-        showCouponFeedback("الكود ده مخصص لباقة \"" + PLANS[coupon.onlyPlan].label + "\" بس، السعر رجع " + plan.price + " ج.م", false);
+        showCouponFeedback("الكود ده شغال بس لما السلة تكون فيها المنتج المخصص له بس، السعر رجع " + subtotal + " ج.م", false);
       } else {
-        finalPrice = priceForCoupon(coupon, plan.price);
+        finalPrice = priceForCoupon(coupon, subtotal);
       }
     }
 
     window.__exodiaFinalPrice = finalPrice;
-    window.__exodiaSelectedPlan = plan.label;
+    window.__exodiaCartLabel = cartIds().map(function (id) { return PRODUCTS[id].name; }).join(" + ") || "لا يوجد منتج مختار";
 
     priceEls.forEach(function (el) {
       el.textContent = el.dataset.priceText.replace("{price}", finalPrice);
     });
     anchorEls.forEach(function (el) {
-      el.textContent = plan.anchor;
+      el.textContent = cartAnchorTotal();
+    });
+    renderCart();
+  }
+
+  function updateCardStates() {
+    productCards.forEach(function (card) {
+      card.classList.toggle("is-active", !!cart[card.dataset.product]);
     });
   }
 
-  function selectPlan(planKey) {
-    if (!PLANS[planKey]) return;
-    currentPlanKey = planKey;
-    planCards.forEach(function (card) {
-      card.classList.toggle("is-active", card.dataset.plan === planKey);
-    });
+  function toggleProduct(id) {
+    if (!PRODUCTS[id]) return;
+    var wasSelected = !!cart[id];
+    if (wasSelected) {
+      delete cart[id];
+    } else {
+      var group = PRODUCTS[id].group;
+      if (group) {
+        Object.keys(PRODUCTS).forEach(function (pid) {
+          if (PRODUCTS[pid].group === group) delete cart[pid];
+        });
+      }
+      cart[id] = true;
+    }
+    updateCardStates();
     refreshPriceDisplay();
+    if (!wasSelected) {
+      var orderFormEl = document.getElementById("orderForm");
+      if (orderFormEl) orderFormEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
-  planCards.forEach(function (card) {
+  productCards.forEach(function (card) {
     card.addEventListener("click", function () {
-      selectPlan(card.dataset.plan);
+      toggleProduct(card.dataset.product);
+    });
+    card.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleProduct(card.dataset.product);
+      }
     });
   });
+
+  if (cartListEl) {
+    cartListEl.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-remove]");
+      if (!btn) return;
+      delete cart[btn.dataset.remove];
+      updateCardStates();
+      refreshPriceDisplay();
+    });
+  }
 
   if (couponCheckBtn && couponInput && couponFeedback) {
     couponCheckBtn.addEventListener("click", function () {
@@ -246,10 +320,10 @@
         showCouponFeedback("الكود غير صحيح", false);
         return;
       }
-      if (coupon.onlyPlan && coupon.onlyPlan !== currentPlanKey) {
+      if (coupon.exactCart && !cartMatchesExactly(coupon.exactCart)) {
         appliedCouponCode = null;
         refreshPriceDisplay();
-        showCouponFeedback("الكود ده مخصص لباقة \"" + PLANS[coupon.onlyPlan].label + "\" بس", false);
+        showCouponFeedback("الكود ده شغال بس لما السلة تكون فيها المنتج المخصص له بس", false);
         return;
       }
       appliedCouponCode = code;
@@ -266,6 +340,7 @@
     });
   }
 
+  updateCardStates();
   refreshPriceDisplay();
 
   /* ---------- Payment method selection ---------- */
@@ -342,6 +417,12 @@
       var valid = true;
       hideFieldError("nameError"); hideFieldError("phoneError"); hideFieldError("emailError"); hideFieldError("proofError");
 
+      if (cartIds().length === 0) {
+        showCouponFeedback("اختار منتج واحد على الأقل من فوق قبل ما تكمل", false);
+        var cardsAnchor = document.getElementById("pricing");
+        if (cardsAnchor) cardsAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
       if (!name) { showFieldError("nameError", "يرجى كتابة الاسم بالكامل"); valid = false; }
       if (!phone || phone.length < 10) { showFieldError("phoneError", "يرجى كتابة رقم موبايل / واتساب صحيح للتواصل وتأكيد التفعيل"); valid = false; }
       if (!email || email.indexOf("@") === -1) { showFieldError("emailError", "يرجى كتابة البريد الإلكتروني (جيميل) لتفعيل الوصول على Google Drive"); valid = false; }
@@ -375,7 +456,9 @@
       if (uploadPreview) { uploadPreview.classList.remove("is-shown"); uploadPreview.src = ""; }
       if (uploadPrompt) uploadPrompt.textContent = "إثبات الدفع (صورة التحويل) *";
       appliedCouponCode = null;
-      selectPlan("bundle");
+      cart = { bundle: true };
+      updateCardStates();
+      refreshPriceDisplay();
       if (couponFeedback) { couponFeedback.textContent = ""; couponFeedback.classList.remove("is-valid", "is-invalid"); }
     });
   }
