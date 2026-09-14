@@ -159,10 +159,10 @@
 
   /* ---------- Products + real multi-item cart ---------- */
   var PRODUCTS = {
-    bundle: { name: "المكتبة الكاملة + إكستنشن X LAB", price: 999, anchor: 1999, group: "core" },
-    xlab: { name: "إكستنشن X LAB فقط", price: 799, anchor: 1599, group: "core" },
-    autocut: { name: "إكستنشن الأوتوكات (كابشن + أوتوكات + داونلودر)", price: 499, anchor: 999, group: null },
-    textpresets: { name: "إكستنشن التيكست بريتس لبريمير", price: 499, anchor: 999, group: null }
+    bundle: { name: "الباقة الشاملة: المكتبة الكاملة + كل الإكستنشنز", price: 999, anchor: 2999 },
+    xlab: { name: "إكستنشن X LAB فقط", price: 799, anchor: 1599 },
+    autocut: { name: "إكستنشن الأوتوكات (كابشن + أوتوكات + داونلودر)", price: 499, anchor: 999 },
+    textpresets: { name: "إكستنشن التيكست بريتس لبريمير", price: 499, anchor: 999 }
   };
   var cart = { bundle: true };
   var productCards = document.querySelectorAll("[data-product]");
@@ -266,11 +266,13 @@
     if (wasSelected) {
       delete cart[id];
     } else {
-      var group = PRODUCTS[id].group;
-      if (group) {
-        Object.keys(PRODUCTS).forEach(function (pid) {
-          if (PRODUCTS[pid].group === group) delete cart[pid];
-        });
+      /* The bundle already includes every extension, so picking it replaces
+         whatever's in the cart; picking any individual item while the bundle
+         is active drops the bundle instead of stacking a redundant extra. */
+      if (id === "bundle") {
+        cart = {};
+      } else if (cart.bundle) {
+        delete cart.bundle;
       }
       cart[id] = true;
     }
@@ -291,6 +293,17 @@
         e.preventDefault();
         toggleProduct(card.dataset.product);
       }
+    });
+  });
+
+  /* ---------- "Show all features" toggle per card (keeps cards compact by default) ---------- */
+  document.querySelectorAll(".product-card__more").forEach(function (btn) {
+    btn.dataset.moreLabel = btn.textContent;
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var list = btn.closest(".product-card").querySelector(".product-card__features");
+      var expanded = list.classList.toggle("is-expanded");
+      btn.textContent = expanded ? "اقفل المميزات" : btn.dataset.moreLabel;
     });
   });
 
