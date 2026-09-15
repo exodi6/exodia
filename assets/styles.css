@@ -160,7 +160,6 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .nav__links{ display: none; align-items: center; gap: var(--sp-6); }
 .nav__link{ font-size: var(--text-sm); color: var(--text-2); transition: color var(--dur-fast); position: relative; }
 .nav__link:hover{ color: var(--text-1); }
-.nav__cta{ display: none; }
 .nav__burger{ display: inline-flex; width: 42px; height: 42px; align-items: center; justify-content: center; border-radius: var(--radius-sm); border: 1px solid var(--border); }
 .nav__burger span{ position: relative; width: 18px; height: 2px; background: var(--text-1); }
 .nav__burger span::before, .nav__burger span::after{ content: ""; position: absolute; inset-inline: 0; width: 18px; height: 2px; background: var(--text-1); transition: transform var(--dur-fast); }
@@ -176,7 +175,6 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 
 @media (min-width: 900px){
   .nav__links{ display: flex; }
-  .nav__cta{ display: inline-flex; }
   .nav__burger{ display: none; }
 }
 
