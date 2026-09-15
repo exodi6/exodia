@@ -306,8 +306,21 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .pricing{ padding-block: var(--sp-11); }
 
 .plan-cards__lead{ text-align: center; font-weight: 700; color: var(--text-2); margin-bottom: var(--sp-5); }
+.plan-cards__hint{ display: none; font-weight: 700; color: var(--brand); font-size: var(--text-sm); }
+@media (max-width: 639px){ .plan-cards__hint{ display: block; margin-top: .3em; } }
 .product-cards{ display: grid; grid-template-columns: minmax(0,1fr); gap: var(--sp-5); max-width: 980px; margin: 0 auto var(--sp-7); }
 @media (min-width: 640px){ .product-cards{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+/* Below 640px: a swipeable horizontal carousel instead of a long vertical stack --
+   each card peeks the next one so a thumb-scroll feels obvious, and snaps into place. */
+@media (max-width: 639px){
+  .product-cards{
+    display: flex; align-items: flex-start; gap: var(--sp-4);
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--sp-1);
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: var(--sp-2);
+  }
+  .product-cards::-webkit-scrollbar{ display: none; }
+  .product-card{ flex: 0 0 86%; scroll-snap-align: start; }
+}
 .product-card{
   position: relative; display: flex; flex-direction: column; gap: var(--sp-3);
   border-radius: var(--radius-xl); border: 1.5px solid var(--border-strong);
@@ -317,28 +330,15 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 }
 .product-card:hover{ transform: translateY(-4px); border-color: var(--border-brand); }
 .product-card.is-active{ border-color: var(--brand); box-shadow: var(--shadow-glow); background: var(--bg-2); }
-.product-card__check{
-  position: absolute; top: var(--sp-3); inset-inline-end: var(--sp-3); z-index: 2;
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.5); background: rgba(10,10,12,0.55); backdrop-filter: blur(4px);
-  display: flex; align-items: center; justify-content: center;
-  font-size: .8rem; font-weight: 900; color: transparent; line-height: 1;
-  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
-}
-.product-card.is-active .product-card__check{
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  border-color: var(--brand); color: var(--text-on-brand);
-}
 .product-card__visual{
   position: relative; overflow: hidden; aspect-ratio: 20 / 11; border-radius: var(--radius-md);
   border: 1px solid var(--border-strong); background: var(--bg-2);
 }
 .product-card__visual img{ width: 100%; height: 100%; object-fit: cover; display: block; }
-.product-card__badges{ position: absolute; top: var(--sp-3); inset-inline-start: var(--sp-3); z-index: 2; display: flex; gap: .4em; flex-wrap: wrap; }
-.product-card__badge{ font-size: .62rem; font-weight: 800; padding: .32em .75em; border-radius: var(--radius-full); letter-spacing: .02em; box-shadow: var(--shadow-sm); }
-.product-card__badge--sale{ background: var(--danger); color: #fff; }
-.product-card__badge--best{ background: linear-gradient(135deg, var(--gold), #ffd98a); color: var(--brand-ink); }
-.product-card__badge--new{ background: linear-gradient(135deg, var(--success), var(--success-2)); color: #04150e; }
+/* The bundle is the anchor deal -- give it a bit more visual weight than the à-la-carte cards */
+@media (min-width: 640px){
+  .product-card--bundle{ border-color: var(--border-brand); box-shadow: 0 0 0 1px var(--border-brand), 0 20px 50px -18px rgba(9,172,233,0.35); }
+}
 .product-card__title{ font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); }
 .product-card__desc{ color: var(--text-3); font-size: var(--text-sm); }
 .product-card__price-row{ display: flex; align-items: baseline; gap: .6em; margin-top: var(--sp-1); }
