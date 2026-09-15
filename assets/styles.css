@@ -224,6 +224,13 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .hero__stat{ text-align: center; }
 .hero__stat b{ display: block; font-family: var(--font-display); font-size: var(--text-2xl); color: var(--brand); }
 .hero__stat span{ font-size: var(--text-xs); color: var(--text-3); }
+.hero__stat--link{
+  padding: .5em 1em; margin: -.5em -1em; border-radius: var(--radius-lg);
+  border: 1px solid var(--border-brand); background: rgba(9,172,233,0.08);
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.hero__stat--link span{ color: var(--brand); font-weight: 700; }
+.hero__stat--link:hover{ background: rgba(9,172,233,0.16); border-color: var(--brand); transform: translateY(-2px); }
 
 .hero__video{ position: relative; max-width: 880px; margin-inline: auto; width: 100%; }
 .hero__video-frame{
