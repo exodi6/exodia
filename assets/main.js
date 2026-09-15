@@ -92,17 +92,6 @@
     heroIo.observe(hero);
   }
 
-  /* ---------- Showcase: expand full 18-item library list ---------- */
-  var showMoreBtn = document.getElementById("showcaseMore");
-  if (showMoreBtn) {
-    showMoreBtn.addEventListener("click", function () {
-      document.querySelectorAll(".showcase-card.is-hidden").forEach(function (card) {
-        card.classList.remove("is-hidden");
-      });
-      showMoreBtn.style.display = "none";
-    });
-  }
-
   /* ---------- FAQ accordion ---------- */
   document.querySelectorAll(".faq-item__q").forEach(function (btn) {
     btn.addEventListener("click", function () {
@@ -168,11 +157,11 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
   }
 
-  /* ---------- Hero video: collapsed behind a button, opened in a modal ---------- */
-  var heroVideoTrigger = document.getElementById("heroVideoTrigger");
+  /* ---------- Library video: a button inside the bundle card, opened in a modal ---------- */
+  var bundleVideoTrigger = document.getElementById("bundleVideoTrigger");
   var videoModal = document.getElementById("videoModal");
   var videoModalFrame = document.getElementById("videoModalFrame");
-  if (heroVideoTrigger && videoModal && videoModalFrame) {
+  if (bundleVideoTrigger && videoModal && videoModalFrame) {
     var HERO_VIDEO_SRC = "https://www.youtube-nocookie.com/embed/YtIvO2ihdX0?rel=0&modestbranding=1&autoplay=1";
     var openVideoModal = function () {
       var iframe = document.createElement("iframe");
@@ -188,11 +177,29 @@
       videoModal.classList.remove("is-open");
       videoModalFrame.innerHTML = "";
     };
-    heroVideoTrigger.addEventListener("click", openVideoModal);
+    bundleVideoTrigger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      openVideoModal();
+    });
     videoModal.addEventListener("click", function (e) {
       if (e.target === videoModal || e.target.closest(".video-modal__close")) closeVideoModal();
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeVideoModal(); });
+  }
+
+  /* ---------- Library index: a button inside the bundle card, opened in a modal ---------- */
+  var bundleIndexTrigger = document.getElementById("bundleIndexTrigger");
+  var indexModal = document.getElementById("indexModal");
+  if (bundleIndexTrigger && indexModal) {
+    var closeIndexModal = function () { indexModal.classList.remove("is-open"); };
+    bundleIndexTrigger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      indexModal.classList.add("is-open");
+    });
+    indexModal.addEventListener("click", function (e) {
+      if (e.target === indexModal || e.target.closest(".index-modal__close")) closeIndexModal();
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeIndexModal(); });
   }
 
   /* ---------- Products + real multi-item cart ---------- */
