@@ -292,6 +292,8 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .reviews__grid{ display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--sp-3); margin-top: var(--sp-5); }
 @media (min-width: 640px){ .reviews__grid{ grid-template-columns: repeat(3,minmax(0,1fr)); } }
 .reviews__grid.is-hidden{ display: none; }
+.reviews__hide{ text-align: center; margin-top: var(--sp-5); }
+.reviews__hide.is-hidden{ display: none; }
 .review-shot{ position: relative; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); background: var(--bg-1); aspect-ratio: 3/4; cursor: zoom-in; }
 .review-shot img{ width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-med) var(--ease); }
 .review-shot:hover img{ transform: scale(1.045); }
@@ -338,6 +340,12 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 /* The bundle is the anchor deal -- give it a bit more visual weight than the à-la-carte cards */
 @media (min-width: 640px){
   .product-card--bundle{ border-color: var(--border-brand); box-shadow: 0 0 0 1px var(--border-brand), 0 20px 50px -18px rgba(9,172,233,0.35); }
+}
+.product-card__savings-ribbon{
+  position: absolute; top: -14px; inset-inline-start: 50%; transform: translateX(-50%); z-index: 3;
+  background: linear-gradient(135deg, var(--gold), #ffd98a); color: var(--brand-ink);
+  font-size: .78rem; font-weight: 800; padding: .45em 1.3em; border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md); white-space: nowrap;
 }
 .product-card__title{ font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); }
 .product-card__desc{ color: var(--text-3); font-size: var(--text-sm); }

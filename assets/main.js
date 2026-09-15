@@ -135,10 +135,21 @@
 
   var revealGate = document.getElementById("reviewsGate");
   var reviewsGrid = document.getElementById("reviewsGrid");
+  var reviewsHideWrap = document.getElementById("reviewsHideWrap");
+  var reviewsHideBtn = document.getElementById("reviewsHideBtn");
   if (revealGate && reviewsGrid) {
     revealGate.addEventListener("click", function () {
       reviewsGrid.classList.remove("is-hidden");
       revealGate.style.display = "none";
+      if (reviewsHideWrap) reviewsHideWrap.classList.remove("is-hidden");
+    });
+  }
+  if (reviewsHideBtn && reviewsGrid && revealGate) {
+    reviewsHideBtn.addEventListener("click", function () {
+      reviewsGrid.classList.add("is-hidden");
+      reviewsHideWrap.classList.add("is-hidden");
+      revealGate.style.display = "";
+      revealGate.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   }
 
