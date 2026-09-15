@@ -168,6 +168,33 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
   }
 
+  /* ---------- Hero video: collapsed behind a button, opened in a modal ---------- */
+  var heroVideoTrigger = document.getElementById("heroVideoTrigger");
+  var videoModal = document.getElementById("videoModal");
+  var videoModalFrame = document.getElementById("videoModalFrame");
+  if (heroVideoTrigger && videoModal && videoModalFrame) {
+    var HERO_VIDEO_SRC = "https://www.youtube-nocookie.com/embed/YtIvO2ihdX0?rel=0&modestbranding=1&autoplay=1";
+    var openVideoModal = function () {
+      var iframe = document.createElement("iframe");
+      iframe.src = HERO_VIDEO_SRC;
+      iframe.title = "شرح مكتبة EXODIA والبريفيو من داخل الموقع";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      videoModalFrame.innerHTML = "";
+      videoModalFrame.appendChild(iframe);
+      videoModal.classList.add("is-open");
+    };
+    var closeVideoModal = function () {
+      videoModal.classList.remove("is-open");
+      videoModalFrame.innerHTML = "";
+    };
+    heroVideoTrigger.addEventListener("click", openVideoModal);
+    videoModal.addEventListener("click", function (e) {
+      if (e.target === videoModal || e.target.closest(".video-modal__close")) closeVideoModal();
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeVideoModal(); });
+  }
+
   /* ---------- Products + real multi-item cart ---------- */
   var PRODUCTS = {
     bundle: { name: "الباقة الشاملة: المكتبة الكاملة + كل الإكستنشنز", price: 999, anchor: 2999 },
