@@ -206,7 +206,7 @@
   var PRODUCTS = {
     bundle: { name: "الباقة الشاملة: المكتبة الكاملة + كل الإكستنشنز", price: 999, anchor: 2999 },
     xlab: { name: "إكستنشن X LAB فقط", price: 799, anchor: 1599 },
-    autocut: { name: "إكستنشن الأوتوكات (كابشن + أوتوكات + داونلودر)", price: 499, anchor: 999 },
+    autocut: { name: "إكستنشن الأوتوكات (كابشن + أوتوكات + داونلودر)", price: 699, anchor: 999 },
     textpresets: { name: "إكستنشن التيكست بريتس لبريمير", price: 499, anchor: 999 }
   };
   var cart = { bundle: true };
