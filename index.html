@@ -696,6 +696,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         document.addEventListener("submit", async function (e) {
+          if (!e.__exodiaValid) return;
           try {
             const nameEl = e.target.querySelector("#buyerName");
             const phoneEl = e.target.querySelector("#buyerPhone");

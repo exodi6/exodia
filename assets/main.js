@@ -490,6 +490,8 @@
       if (!proof) { showFieldError("proofError", "يرجى إرفاق صورة إثبات الدفع (سكرين شوت التحويل)"); valid = false; }
       if (!valid) return;
 
+      e.__exodiaValid = true;
+
       var submitBtn = document.getElementById("submitOrderBtn");
       var submitLabel = submitBtn.textContent;
       submitBtn.textContent = "جاري إرسال الطلب والتفعيل...";
