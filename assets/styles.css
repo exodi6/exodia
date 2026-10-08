@@ -233,7 +233,6 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .guide-modal__panel{ position: relative; width: min(96vw, 760px); max-height: 92vh; overflow-y: auto; background: var(--bg-1); border: 1px solid var(--border-strong); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); scrollbar-width: thin; scrollbar-color: var(--border-strong) var(--bg-1); }
 .guide-modal__head{ position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); background: var(--bg-1); border-bottom: 1px solid var(--border); }
 .guide-modal__title{ flex: 1; min-width: 0; font-family: var(--font-display); font-weight: 700; font-size: var(--text-base); }
-.guide-modal__download{ flex: none; white-space: nowrap; font-size: var(--text-xs); font-weight: 700; color: var(--brand); border: 1px solid var(--border-brand); border-radius: var(--radius-full); padding: .5em 1em; }
 .guide-modal__close{ flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--bg-glass); border: 1px solid var(--border-strong); color: var(--text-1); }
 .guide-modal__pages{ display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-3); }
 .guide-modal__pages img{ width: 100%; height: auto; aspect-ratio: 1000 / 1415; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--bg-2); }

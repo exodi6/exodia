@@ -392,8 +392,8 @@
                 <span class="product-card__price" id="xvPrice">99 ج.م</span>
               </div>
               <div class="product-card__links">
-                <button type="button" class="product-card__link-btn" id="xvGuideTrigger" aria-haspopup="dialog">
-                  <span aria-hidden="true">📖</span> دليل الأداة (PDF)
+                <button type="button" class="product-card__link-btn" data-guide="xvision" aria-haspopup="dialog">
+                  <span aria-hidden="true">📖</span> شوف الأداة (دليل مصوّر)
                 </button>
               </div>
               <ul class="product-card__features">
@@ -420,6 +420,11 @@
               <div class="product-card__price-row">
                 <span class="product-card__anchor">1,599 ج.م</span>
                 <span class="product-card__price">799 ج.م</span>
+              </div>
+              <div class="product-card__links">
+                <button type="button" class="product-card__link-btn" data-guide="xlab" aria-haspopup="dialog">
+                  <span aria-hidden="true">📖</span> شوف الأداة (دليل مصوّر)
+                </button>
               </div>
               <ul class="product-card__features">
                 <li>حفظ أي عنصر أو كومب بكل خصائصه (كاميرات، إكسبريشنز، ماسكات) واسترجاعه بضغطة زر</li>
@@ -448,20 +453,27 @@
               <div class="product-card__visual product-card__visual--autocut">
                 <img src="assets/shot-autocut.jpg" alt="إكستنشن الأوتوكات لأدوبي بريمير برو" loading="lazy" />
               </div>
-              <h3 class="product-card__title">إكستنشن الأوتوكات (Auto Cut)</h3>
-              <p class="product-card__desc">بانل واحد جوه بريمير بيعمل أوتوكات وكابشن تلقائي وينزّل فيديوهات، من غير ما تخرج من بريمير.</p>
+              <h3 class="product-card__title">إكستنشن الأوتوكات (<bdi>Talkcut</bdi>)</h3>
+              <p class="product-card__desc">بانل واحد جوه بريمير بيعمل أوتوكات وكابشن عربي متحرك وينزّل فيديوهات، من غير ما تخرج من بريمير.</p>
               <div class="product-card__price-row">
                 <span class="product-card__anchor">999 ج.م</span>
                 <span class="product-card__price">699 ج.م</span>
+              </div>
+              <div class="product-card__links">
+                <button type="button" class="product-card__link-btn" data-guide="autocut" aria-haspopup="dialog">
+                  <span aria-hidden="true">📖</span> شوف الأداة (دليل مصوّر)
+                </button>
               </div>
               <ul class="product-card__features">
                 <li><bdi>Auto Cut</bdi>: يشيل سكون الصوت من التايم لاين تلقائيًا بضغطة واحدة ويقفل الفجوة لوحده</li>
                 <li><bdi>Auto Captions</bdi>: يفرغ الكلام تلقائيًا (عربي/إنجليزي) ويحط الكابشن جاهز على التايم لاين</li>
                 <li><bdi>Downloader</bdi>: نزّل أي فيديو من يوتيوب أو تيك توك أو انستجرام مباشرة جوه بريمير</li>
-                <li class="is-more">تصدير واستيراد ملفات <bdi>SRT</bdi></li>
+                <li class="is-more"><bdi>Style &amp; Motion</bdi>: خط ولون وإطار وخلفية لكل الكابشنات، مع أكتر من 25 أنيميشن دخول وخروج</li>
+                <li class="is-more">تصدير واستيراد ملفات <bdi>SRT</bdi>، وعربي أو إنجليزي أو تلقائي</li>
                 <li class="is-more">اختيار الجودة أو قصّ جزء معين من الفيديو المنزّل</li>
+                <li class="is-more">الكابشن التلقائي بيحتاج مفتاح <bdi>Groq</bdi> مجاني (مرة واحدة)، ومفتاح <bdi>Gemini</bdi> اختياري لتحسين اللهجة</li>
               </ul>
-              <button type="button" class="product-card__more">شوف كل المميزات (+2)</button>
+              <button type="button" class="product-card__more">شوف كل المميزات (+4)</button>
               <span class="product-card__cta">أضف للسلة</span>
             </div>
 
@@ -754,11 +766,10 @@
       </div>
     </div>
 
-    <div class="guide-modal" id="guideModal" role="dialog" aria-modal="true" aria-label="دليل المونتير الكامل لـ X Vision">
+    <div class="guide-modal" id="guideModal" role="dialog" aria-modal="true" aria-label="دليل الأداة">
       <div class="guide-modal__panel">
         <div class="guide-modal__head">
-          <h3 class="guide-modal__title">دليل المونتير الكامل لـ <bdi>X Vision</bdi></h3>
-          <a class="guide-modal__download" href="assets/x-vision-guide.pdf" download>⬇ تحميل PDF</a>
+          <h3 class="guide-modal__title" id="guideTitle">دليل الأداة</h3>
           <button type="button" class="guide-modal__close" aria-label="إغلاق">✕</button>
         </div>
         <div class="guide-modal__pages" id="guidePages"></div>

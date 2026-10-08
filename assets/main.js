@@ -472,19 +472,28 @@
     setInterval(tickXvision, 1000);
   }
 
-  /* ---------- X Vision guide viewer (PDF pages as images) ---------- */
-  var xvGuideTrigger = document.getElementById("xvGuideTrigger");
+  /* ---------- Illustrated tool guides (feature pages only, shown as images; no downloadable PDF) ---------- */
+  var GUIDES = {
+    xvision: { title: "دليل المونتير: X Vision", count: 12, dir: "assets/guides/xvision/" },
+    xlab: { title: "دليل المونتير: X LAB", count: 12, dir: "assets/guides/xlab/" },
+    autocut: { title: "دليل المونتير: Talkcut (الأوتوكات)", count: 8, dir: "assets/guides/autocut/" }
+  };
   var guideModal = document.getElementById("guideModal");
   var guidePages = document.getElementById("guidePages");
-  if (xvGuideTrigger && guideModal && guidePages) {
-    var guideLoaded = false;
-    var openGuide = function () {
-      if (!guideLoaded) {
-        guideLoaded = true;
-        for (var i = 1; i <= 16; i++) {
+  var guideTitle = document.getElementById("guideTitle");
+  var openGuideKey = null;
+  if (guideModal && guidePages) {
+    var openGuide = function (key) {
+      var g = GUIDES[key];
+      if (!g) return;
+      if (openGuideKey !== key) {
+        openGuideKey = key;
+        guidePages.innerHTML = "";
+        guideTitle.textContent = g.title;
+        for (var i = 1; i <= g.count; i++) {
           var img = document.createElement("img");
-          img.src = "assets/xvision-guide/p" + (i < 10 ? "0" : "") + i + ".jpg";
-          img.alt = "دليل X Vision، صفحة " + i + " من 16";
+          img.src = g.dir + "p" + (i < 10 ? "0" : "") + i + ".jpg";
+          img.alt = g.title + "، صفحة " + i + " من " + g.count;
           img.loading = "lazy";
           guidePages.appendChild(img);
         }
@@ -493,7 +502,9 @@
       guideModal.querySelector(".guide-modal__panel").scrollTop = 0;
     };
     var closeGuide = function () { guideModal.classList.remove("is-open"); };
-    xvGuideTrigger.addEventListener("click", function (e) { e.stopPropagation(); openGuide(); });
+    document.querySelectorAll("[data-guide]").forEach(function (btn) {
+      btn.addEventListener("click", function (e) { e.stopPropagation(); openGuide(btn.dataset.guide); });
+    });
     guideModal.addEventListener("click", function (e) {
       if (e.target === guideModal || e.target.closest(".guide-modal__close")) closeGuide();
     });
