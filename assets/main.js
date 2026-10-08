@@ -210,13 +210,28 @@
   function xvOfferActive() { return Date.now() < XV_LAUNCH_END; }
 
   var PRODUCTS = {
-    bundle: { name: "الباقة الشاملة: المكتبة الكاملة + 3 إكستنشنز (X LAB وأوتوكات وتيكست بريتس)", price: 999, anchor: 2999 },
+    everything: { name: "الباقة الكاملة: مكتبة EXODIA + الإكستنشنز الأربعة", price: 1499, anchor: 0 },
+    library: { name: "مكتبة EXODIA الكاملة (+62GB)", price: 999, anchor: 2999 },
     xvision: { name: "إكستنشن X Vision لبريمير برو", price: xvOfferActive() ? XV_OFFER_PRICE : XV_REGULAR_PRICE, anchor: XV_REGULAR_PRICE },
     xlab: { name: "إكستنشن X LAB فقط", price: 799, anchor: 1599 },
     autocut: { name: "إكستنشن الأوتوكات (كابشن + أوتوكات + داونلودر)", price: 699, anchor: 999 },
     textpresets: { name: "إكستنشن التيكست بريتس لبريمير", price: 499, anchor: 999 }
   };
-  var cart = { bundle: true };
+  /* The full package's "was" price = what the same items cost when bought one by one at today's prices. */
+  PRODUCTS.everything.anchor = PRODUCTS.library.price + PRODUCTS.xlab.price + PRODUCTS.autocut.price +
+    PRODUCTS.textpresets.price + XV_REGULAR_PRICE;
+  function fmt(n) { return Number(n).toLocaleString("en-US"); }
+  var everythingAnchorEl = document.getElementById("everythingAnchor");
+  var everythingPriceEl = document.getElementById("everythingPrice");
+  var everythingRibbonEl = document.getElementById("everythingRibbon");
+  if (everythingAnchorEl) everythingAnchorEl.textContent = fmt(PRODUCTS.everything.anchor) + " ج.م";
+  if (everythingPriceEl) everythingPriceEl.textContent = fmt(PRODUCTS.everything.price) + " ج.م";
+  if (everythingRibbonEl) {
+    everythingRibbonEl.textContent = "⭐ الأكثر اختيارًا · توفير " +
+      Math.floor((1 - PRODUCTS.everything.price / PRODUCTS.everything.anchor) * 100) + "%";
+  }
+
+  var cart = { everything: true };
   var productCards = document.querySelectorAll("[data-product]");
   var priceEls = document.querySelectorAll("[data-price-text]");
   var anchorEls = document.querySelectorAll("[data-cart-anchor]");
@@ -226,7 +241,7 @@
 
   /* ---------- Coupon verification (cart-aware) ---------- */
   var COUPONS = {
-    "EX666": { type: "fixed", price: 499, exactCart: ["bundle"] },
+    "EX666": { type: "fixed", price: 499, exactCart: ["library"] },
     "HAMZA111": { type: "percent", value: 10 },
     "REWAN10": { type: "percent", value: 10 }
   };
@@ -272,7 +287,7 @@
         row.className = "cart-row";
         row.innerHTML =
           '<span class="cart-row__name">' + product.name + "</span>" +
-          '<span class="cart-row__price">' + product.price + " ج.م</span>" +
+          '<span class="cart-row__price">' + fmt(product.price) + " ج.م</span>" +
           '<button type="button" class="cart-row__remove" data-remove="' + id + '" aria-label="شيل من السلة">✕</button>';
         cartListEl.appendChild(row);
       });
@@ -300,10 +315,10 @@
     window.__exodiaCartLabel = cartIds().map(function (id) { return PRODUCTS[id].name; }).join(" + ") || "لا يوجد منتج مختار";
 
     priceEls.forEach(function (el) {
-      el.textContent = el.dataset.priceText.replace("{price}", finalPrice);
+      el.textContent = el.dataset.priceText.replace("{price}", fmt(finalPrice));
     });
     anchorEls.forEach(function (el) {
-      el.textContent = cartAnchorTotal();
+      el.textContent = fmt(cartAnchorTotal());
     });
     renderCart();
   }
@@ -323,16 +338,13 @@
     if (wasSelected) {
       delete cart[id];
     } else {
-      /* The bundle already includes every extension, so picking it replaces
-         whatever's in the cart; picking any individual item while the bundle
-         is active drops the bundle instead of stacking a redundant extra. */
-      /* X Vision is NOT part of the bundle, so it neither clears nor removes it. */
-      if (id === "bundle") {
-        var keepXvision = !!cart.xvision;
+      /* The full package already contains every other product, so picking it replaces
+         the cart; picking anything else while it is active drops it (no double-paying).
+         The library and the extensions can be combined freely. */
+      if (id === "everything") {
         cart = {};
-        if (keepXvision) cart.xvision = true;
-      } else if (cart.bundle && id !== "xvision") {
-        delete cart.bundle;
+      } else {
+        delete cart.everything;
       }
       cart[id] = true;
     }
@@ -401,7 +413,7 @@
       }
       appliedCouponCode = code;
       refreshPriceDisplay();
-      showCouponFeedback("الكود صحيح ✓ السعر بقى " + window.__exodiaFinalPrice + " ج.م", true);
+      showCouponFeedback("الكود صحيح ✓ السعر بقى " + fmt(window.__exodiaFinalPrice) + " ج.م", true);
     });
     couponInput.addEventListener("input", function () {
       if (appliedCouponCode) {
@@ -589,7 +601,7 @@
       if (uploadPreview) { uploadPreview.classList.remove("is-shown"); uploadPreview.src = ""; }
       if (uploadPrompt) uploadPrompt.textContent = "إثبات الدفع (صورة التحويل) *";
       appliedCouponCode = null;
-      cart = { bundle: true };
+      cart = { everything: true };
       updateCardStates();
       refreshPriceDisplay();
       if (couponFeedback) { couponFeedback.textContent = ""; couponFeedback.classList.remove("is-valid", "is-invalid"); }

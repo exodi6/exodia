@@ -304,6 +304,14 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 @media (min-width: 640px){
   .product-card--bundle{ border-color: var(--border-brand); box-shadow: 0 0 0 1px var(--border-brand), 0 20px 50px -18px rgba(9,172,233,0.35); }
 }
+/* Featured (full package) card: spans the whole row; image beside the text on wide screens */
+.product-card__body{ display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; }
+@media (min-width: 640px){ .product-card--featured{ grid-column: 1 / -1; } }
+@media (min-width: 820px){
+  .product-card--featured{ flex-direction: row; align-items: center; gap: var(--sp-6); }
+  .product-card--featured .product-card__visual{ flex: 0 0 46%; }
+  .product-card--featured .product-card__body{ flex: 1; }
+}
 .product-card__savings-ribbon{
   position: absolute; top: -14px; left: 50%; transform: translateX(-50%); z-index: 3; /* physical left: logical inset flips under RTL and breaks the centering */
   background: linear-gradient(135deg, var(--gold), #ffd98a); color: var(--brand-ink);

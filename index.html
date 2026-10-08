@@ -328,13 +328,33 @@
           </div>
 
           <div class="product-cards reveal">
-            <div class="product-card product-card--bundle is-active" data-product="bundle" role="button" tabindex="0" aria-pressed="true">
-              <span class="product-card__savings-ribbon">توفير أكتر من 60%</span>
+            <div class="product-card product-card--bundle product-card--featured is-active" data-product="everything" role="button" tabindex="0" aria-pressed="true">
+              <span class="product-card__savings-ribbon" id="everythingRibbon">⭐ الأكثر اختيارًا · توفير 58%</span>
               <div class="product-card__visual product-card__visual--bundle">
-                <img src="assets/shot-library.jpg" alt="الباقة الشاملة: مكتبة EXODIA وإكستنشنز X LAB والأوتوكات والتيكست بريتس" loading="lazy" />
+                <img src="assets/shot-library.jpg" alt="الباقة الكاملة: مكتبة EXODIA مع إكستنشنز X LAB والأوتوكات والتيكست بريتس وX Vision" loading="lazy" />
               </div>
-              <h3 class="product-card__title">الباقة الشاملة: المكتبة + 3 إكستنشنز</h3>
-              <p class="product-card__desc">مكتبة EXODIA (+62GB) وإكستنشنز X LAB والأوتوكات والتيكست بريتس، كلهم مع بعض بسعر واحد لفترة محدودة.</p>
+              <div class="product-card__body">
+                <h3 class="product-card__title">الباقة الكاملة: كل حاجة على الموقع</h3>
+                <p class="product-card__desc">مكتبة EXODIA الكاملة مع الإكستنشنز الأربعة، تشتريهم مرة واحدة بسعر أقل بكتير من شراء كل واحد لوحده.</p>
+                <div class="product-card__price-row">
+                  <span class="product-card__anchor" id="everythingAnchor">3,595 ج.م</span>
+                  <span class="product-card__price" id="everythingPrice">1,499 ج.م</span>
+                </div>
+                <ul class="product-card__features">
+                  <li>مكتبة EXODIA الكاملة (أكتر من <bdi>62GB</bdi> أصول جاهزة)</li>
+                  <li>الإكستنشنز الأربعة: <bdi>X LAB, Auto Cut, Text Presets, X Vision</bdi></li>
+                  <li>تحديثات مجانية مدى الحياة للمكتبة والإكستنشنز</li>
+                </ul>
+                <span class="product-card__cta">✓ مُضافة للسلة — دوس للإزالة</span>
+              </div>
+            </div>
+
+            <div class="product-card" data-product="library" role="button" tabindex="0" aria-pressed="false">
+              <div class="product-card__visual">
+                <img src="assets/shot-library-only.jpg" alt="مكتبة EXODIA الكاملة: أصول مونتاج وموشن جرافيك جاهزة" loading="lazy" />
+              </div>
+              <h3 class="product-card__title">مكتبة EXODIA الكاملة</h3>
+              <p class="product-card__desc">أصول جاهزة للمونتاج والموشن جرافيك في مكان واحد وبتتحدث كل شهر. الإكستنشنز بتتباع لوحدها أو ضمن الباقة الكاملة.</p>
               <div class="product-card__price-row">
                 <span class="product-card__anchor">2,999 ج.م</span>
                 <span class="product-card__price">999 ج.م</span>
@@ -348,11 +368,10 @@
                 </button>
               </div>
               <ul class="product-card__features">
-                <li>مكتبة EXODIA الكاملة (+62GB أصول جاهزة)</li>
-                <li>الإكستنشنز التلاتة (X LAB + أوتوكات + تيكست بريتس) من غير أي زيادة</li>
-                <li>تحديثات مجانية مدى الحياة للمكتبة والإكستنشنز التلاتة</li>
+                <li>أكتر من <bdi>62GB</bdi> أصول جاهزة: موشن جرافيك، مؤثرات صوتية، قوالب 3D، جرين سكرين وأكتر</li>
+                <li>تحديثات شهرية مجانية مدى الحياة</li>
               </ul>
-              <span class="product-card__cta">✓ مُضافة للسلة — دوس للإزالة</span>
+              <span class="product-card__cta">أضف للسلة</span>
             </div>
 
             <div class="product-card product-card--launch" data-product="xvision" role="button" tabindex="0" aria-pressed="false">
