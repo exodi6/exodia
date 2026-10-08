@@ -59,6 +59,7 @@
           var target = parseInt(el.dataset.countTo, 10);
           var duration = 1400;
           var startTime = null;
+          renderCount(el, 0);
           function step(ts) {
             if (!startTime) startTime = ts;
             var progress = Math.min((ts - startTime) / duration, 1);
@@ -90,6 +91,15 @@
       { threshold: 0 }
     );
     heroIo.observe(hero);
+  }
+  var pricingSection = document.getElementById("pricing");
+  if (pricingSection && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (stickyCta) stickyCta.classList.toggle("in-pricing", entry.isIntersecting);
+        if (floatWa) floatWa.classList.toggle("is-low", entry.isIntersecting);
+      });
+    }, { threshold: 0 }).observe(pricingSection);
   }
 
   /* ---------- FAQ accordion ---------- */
@@ -312,6 +322,7 @@
     }
 
     window.__exodiaFinalPrice = finalPrice;
+    window.__exodiaCartIds = cartIds();
     window.__exodiaCartLabel = cartIds().map(function (id) { return PRODUCTS[id].name; }).join(" + ") || "لا يوجد منتج مختار";
 
     priceEls.forEach(function (el) {
@@ -351,7 +362,9 @@
     }
     updateCardStates();
     refreshPriceDisplay();
-    if (!wasSelected) {
+    /* Jump to the form only for single-intent picks; extensions are often combined,
+       so for those the shopper stays on the cards and uses "كمّل للدفع" in the cart. */
+    if (!wasSelected && (id === "everything" || id === "library")) {
       var orderFormEl = document.getElementById("orderForm");
       if (orderFormEl) orderFormEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -569,7 +582,7 @@
       }
       if (!name) { showFieldError("nameError", "يرجى كتابة الاسم بالكامل"); valid = false; }
       if (!phone || phone.length < 10) { showFieldError("phoneError", "يرجى كتابة رقم موبايل / واتساب صحيح للتواصل وتأكيد التفعيل"); valid = false; }
-      if (!email || email.indexOf("@") === -1) { showFieldError("emailError", "يرجى كتابة البريد الإلكتروني (جيميل) لتفعيل الوصول على Google Drive"); valid = false; }
+      if (!/^\S+@\S+\.\S+$/.test(email)) { showFieldError("emailError", "يرجى كتابة البريد الإلكتروني (جيميل) لتفعيل الوصول على Google Drive"); valid = false; }
       if (!proof) { showFieldError("proofError", "يرجى إرفاق صورة إثبات الدفع (سكرين شوت التحويل)"); valid = false; }
       if (!valid) return;
 

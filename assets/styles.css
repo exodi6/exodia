@@ -154,8 +154,8 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .nav__brand img{ width: 34px; height: 34px; flex: none; border-radius: 8px; box-shadow: 0 0 0 1px var(--border-strong); }
 .nav__brand-text{ display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
 .nav__brand-name{ font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: .5em; white-space: nowrap; }
-.nav__brand-badge{ font-size: .58rem; font-weight: 800; letter-spacing: .04em; color: var(--brand-ink); background: var(--gold); padding: .18em .5em; border-radius: 6px; flex: none; }
-.nav__brand-tag{ font-size: .68rem; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.nav__brand-badge{ font-size: .66rem; font-weight: 800; letter-spacing: .04em; color: var(--brand-ink); background: var(--gold); padding: .18em .5em; border-radius: 6px; flex: none; }
+.nav__brand-tag{ font-size: .72rem; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 .nav__actions{ display: flex; align-items: center; gap: .9rem; flex: none; }
 .nav__links{ display: none; align-items: center; gap: var(--sp-6); }
 .nav__link{ font-size: var(--text-sm); color: var(--text-2); transition: color var(--dur-fast); position: relative; }
@@ -328,7 +328,7 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .product-card__features li::before{ content: "✓"; position: absolute; inset-inline-start: 0; color: var(--success); font-weight: 800; }
 .product-card__features li.is-more{ display: none; }
 .product-card__features.is-expanded li.is-more{ display: block; }
-.product-card__more{ align-self: flex-start; font-size: var(--text-xs); font-weight: 700; color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+.product-card__more{ align-self: flex-start; min-height: 40px; padding-inline: .2em; font-size: var(--text-xs); font-weight: 700; color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
 .product-card__cta{
   margin-top: auto; padding: .85em 1em; text-align: center; font-weight: 800; font-size: var(--text-sm);
   border-radius: var(--radius-full); background: var(--bg-2); border: 1.5px solid var(--border-strong); color: var(--text-1);
@@ -346,7 +346,7 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .cart-row{ display: flex; align-items: center; gap: var(--sp-3); padding: .6em 0; border-bottom: 1px solid var(--border); }
 .cart-row__name{ flex: 1 1 auto; font-size: var(--text-sm); color: var(--text-2); }
 .cart-row__price{ flex: none; font-family: var(--font-display); font-weight: 700; color: var(--text-1); font-size: var(--text-sm); }
-.cart-row__remove{ flex: none; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border-strong); color: var(--text-3); font-size: .7rem; display: flex; align-items: center; justify-content: center; transition: border-color var(--dur-fast), color var(--dur-fast); }
+.cart-row__remove{ flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border-strong); color: var(--text-3); font-size: .7rem; display: flex; align-items: center; justify-content: center; transition: border-color var(--dur-fast), color var(--dur-fast); }
 .cart-row__remove:hover{ border-color: var(--danger); color: var(--danger); }
 .cart-summary__total{ display: flex; align-items: center; justify-content: space-between; margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--border-strong); font-weight: 700; }
 .cart-summary__total-now{ font-family: var(--font-display); font-size: var(--text-xl); color: var(--brand); }
@@ -391,7 +391,7 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 .pay-option{ display: flex; align-items: flex-start; gap: .8em; padding: .8em; border-radius: var(--radius-sm); border: 1px solid transparent; cursor: pointer; transition: border-color var(--dur-fast), background var(--dur-fast); }
 .pay-option:hover{ background: var(--bg-2); }
 .pay-option.is-selected{ border-color: var(--border-brand); background: rgba(9,172,233,0.08); }
-.pay-option input{ margin-top: .3em; accent-color: var(--brand); }
+.pay-option input{ margin-top: .15em; width: 20px; height: 20px; flex: none; accent-color: var(--brand); }
 .pay-option__label{ font-weight: 700; }
 .pay-option__sub{ color: var(--text-3); font-size: var(--text-xs); margin-top: .15em; }
 .pay-detail{ margin-top: var(--sp-3); padding: var(--sp-4); border-radius: var(--radius-sm); background: var(--bg-2); border: 1px dashed var(--border-strong); display: none; }
@@ -462,7 +462,8 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 }
 .sticky-cta.is-visible{ transform: translateY(0); }
 @media (min-width: 900px){ .sticky-cta{ display: none; } }
-@media (max-width: 899px){ .float-wa{ bottom: calc(var(--sp-5) + 76px); } }
+@media (max-width: 899px){ .float-wa{ bottom: calc(var(--sp-5) + 76px); } .float-wa.is-low{ bottom: var(--sp-5); } }
+.sticky-cta.in-pricing{ transform: translateY(130%); }
 
 /* ---------- Reveal-on-scroll ---------- */
 .reveal{ opacity: 0; transform: translateY(18px); transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease); }
@@ -471,3 +472,14 @@ h2.section-title em{ font-style: normal; color: var(--brand); }
 /* ---------- Section rhythm ---------- */
 section{ position: relative; }
 
+
+/* ---------- polish from the full shopper walk-through ---------- */
+.field-hint{ color: var(--text-3); font-size: var(--text-xs); margin-top: .4em; }
+.pay-amount{ margin: var(--sp-3) 0 var(--sp-4); padding: .85em 1em; border-radius: var(--radius-sm); background: rgba(9,172,233,0.1); border: 1px solid var(--border-brand); font-size: var(--text-sm); text-align: center; }
+.pay-amount b{ font-family: var(--font-display); font-size: var(--text-xl); color: var(--brand); margin-inline-start: .35em; }
+.upload label::before{ content: "📎 "; }
+.cart-summary__go{ margin-top: var(--sp-4); }
+/* an odd last card in the 2-column grid would leave a hole: centre it */
+@media (min-width: 640px){
+  .product-cards .product-card:last-child:nth-child(even){ grid-column: 1 / -1; width: calc(50% - var(--sp-5) / 2); justify-self: center; }
+}

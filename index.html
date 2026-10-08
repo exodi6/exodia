@@ -289,10 +289,10 @@
             </div>
             <p class="hero__note">بدون اشتراك شهري — تدفع مرة واحدة وتمتلك المكتبة بالكامل مدى الحياة، وكل تحديث جديد بييجيلك مجانًا.</p>
             <div class="hero__stats">
-              <div class="hero__stat"><b class="num" data-count-to="62" data-suffix="GB">0GB</b><span>أصول مونتاج</span></div>
-              <div class="hero__stat"><b class="num" data-count-to="120" data-suffix="+">0+</b><span>قالب افتر افكت جاهز</span></div>
-              <div class="hero__stat"><b class="num" data-count-to="900" data-suffix="+">0+</b><span>ساوند إفكت</span></div>
-              <a href="#pricing" class="hero__stat hero__stat--link"><b class="num" data-count-to="3" data-suffix="">0</b><span>إكستنشنز احترافية ←</span></a>
+              <div class="hero__stat"><b class="num" data-count-to="62" data-suffix="GB">62GB</b><span>أصول مونتاج</span></div>
+              <div class="hero__stat"><b class="num" data-count-to="120" data-suffix="+">120+</b><span>قالب <bdi>After Effects</bdi> جاهز</span></div>
+              <div class="hero__stat"><b class="num" data-count-to="900" data-suffix="+">900+</b><span>ساوند إفكت</span></div>
+              <a href="#pricing" class="hero__stat hero__stat--link"><b class="num" data-count-to="4" data-suffix="">4</b><span>إكستنشنز احترافية ←</span></a>
             </div>
           </div>
         </div>
@@ -494,6 +494,7 @@
               <span>الإجمالي</span>
               <span class="cart-summary__total-now" data-price-text="{price} ج.م">1,699 ج.م</span>
             </div>
+            <a href="#orderForm" class="btn btn-primary btn-block cart-summary__go" id="cartGoBtn">كمّل للدفع ↓</a>
           </div>
 
           <div class="checkout">
@@ -506,17 +507,18 @@
 
               <div class="field">
                 <label for="buyerName">الاسم بالكامل <span class="req">*</span></label>
-                <input type="text" id="buyerName" placeholder="مثال: أحمد محمد علي" required />
+                <input type="text" id="buyerName" placeholder="مثال: أحمد محمد علي" autocomplete="name" required />
                 <p class="field-error" id="nameError"></p>
               </div>
               <div class="field">
                 <label for="buyerPhone">رقم الموبايل / الواتساب <span class="req">*</span></label>
-                <input type="tel" id="buyerPhone" placeholder="01012345678" required />
+                <input type="tel" id="buyerPhone" placeholder="01012345678" autocomplete="tel" inputmode="tel" required />
                 <p class="field-error" id="phoneError"></p>
               </div>
               <div class="field">
                 <label for="buyerEmail">إيميل تفعيل درايف (Gmail) <span class="req">*</span></label>
-                <input type="email" id="buyerEmail" placeholder="your.email@gmail.com" required />
+                <input type="email" id="buyerEmail" placeholder="your.email@gmail.com" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" required />
+                <p class="field-hint">لازم حساب جوجل (Gmail): الفولدرات بتتفتح عليه، وهيوصلك عليه الإيميل بلينكات التحميل.</p>
                 <p class="field-error" id="emailError"></p>
               </div>
               <div class="field">
@@ -532,15 +534,16 @@
                 <span class="step__num">2</span>
                 <span class="step__title">اختر طريقة الدفع المناسبة</span>
               </div>
+              <div class="pay-amount">المبلغ المطلوب تحويله: <b data-price-text="{price} ج.م">1,699 ج.م</b></div>
 
               <div class="pay-groups">
                 <div class="pay-region">
-                  <div class="pay-region__title">🇪🇬 داخل مصر</div>
-                  <label class="pay-option">
-                    <input type="radio" name="payMethod" value="payInstapay" />
+                  <div class="pay-region__title">داخل مصر</div>
+                  <label class="pay-option is-selected">
+                    <input type="radio" name="payMethod" value="payInstapay" checked />
                     <span><span class="pay-option__label">انستا باي InstaPay</span><br /><span class="pay-option__sub">تحويل لحظي من أي بنك مصري</span></span>
                   </label>
-                  <div class="pay-detail" id="payInstapay">
+                  <div class="pay-detail is-shown" id="payInstapay">
                     <div>حوّل المبلغ على رقم InstaPay</div>
                     <div class="pay-detail__row">
                       <span class="pay-detail__number">01120765738</span>
@@ -562,7 +565,7 @@
                 </div>
 
                 <div class="pay-region">
-                  <div class="pay-region__title">🇸🇦 من السعودية عبر Barq</div>
+                  <div class="pay-region__title">من السعودية عبر Barq</div>
                   <p class="pay-note">حوّل من تطبيق Barq مباشرة على نفس رقم المحفظة بالأسفل، وحط اسم المستفيد "Exodia Video Editor" عشان تتأكد إن التحويل هيوصل صح.</p>
                   <div class="pay-detail is-shown">
                     <div>رقم المحفظة (Meeza) على Barq</div>
@@ -580,6 +583,7 @@
                   <input type="file" id="paymentProof" accept="image/*" class="visually-hidden" required />
                   <img id="uploadPreview" class="upload__preview" alt="معاينة صورة إثبات الدفع" />
                 </div>
+                <p class="field-hint">ارفع سكرين شوت التحويل، ولازم يبان فيه المبلغ والرقم اللي حوّلت له.</p>
                 <p class="field-error" id="proofError"></p>
               </div>
 
@@ -587,7 +591,7 @@
                 <span class="order-price-summary__anchor"><s data-cart-anchor>3,595</s> ج.م</span>
                 <span class="order-price-summary__now" data-price-text="{price} ج.م">1,699 ج.م</span>
               </div>
-              <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitOrderBtn" style="margin-top: var(--sp-4);" data-price-text="تأكيد الطلب والتفعيل الآن ({price} ج.م)">تأكيد الطلب والتفعيل الآن (1,699 ج.م)</button>
+              <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitOrderBtn" style="margin-top: var(--sp-4);" data-price-text="تأكيد الطلب وإرسال الإيصال ({price} ج.م)">تأكيد الطلب وإرسال الإيصال (1,699 ج.م)</button>
               <p class="reassure">تأكيد مشفر وآمن 100% • تفعيل وصولك خلال دقائق من مراجعة الدفع • دعم فني ملتزم على مدار الساعة لحد ما يتفعل وصولك بالكامل</p>
             </form>
 
@@ -784,9 +788,11 @@
             if (name && phone && email) {
               // حدث بداية الدفع للطلب المحلي
               // (InstaPay / المحافظ الإلكترونية) لما العميل يأكد طلبه فعليًا
-              if (typeof fbq !== "undefined") fbq("track", "InitiateCheckout");
-              if (typeof ttq !== "undefined") ttq.track("InitiateCheckout");
-              if (typeof gtag !== "undefined") gtag("event", "begin_checkout", { currency: "EGP", value: window.__exodiaFinalPrice || 999 });
+              var trackIds = window.__exodiaCartIds || [];
+              var trackValue = window.__exodiaFinalPrice || 0;
+              if (typeof fbq !== "undefined") fbq("track", "InitiateCheckout", { value: trackValue, currency: "EGP", content_ids: trackIds, content_type: "product", num_items: trackIds.length });
+              if (typeof ttq !== "undefined") ttq.track("InitiateCheckout", { content_id: trackIds.join(","), content_type: "product", value: trackValue, currency: "EGP" });
+              if (typeof gtag !== "undefined") gtag("event", "begin_checkout", { currency: "EGP", value: trackValue, items: trackIds.map(function (id) { return { item_id: id }; }) });
 
               let receiptUrl = "لم يتم إرفاق صورة";
 
