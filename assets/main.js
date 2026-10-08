@@ -210,7 +210,7 @@
   function xvOfferActive() { return Date.now() < XV_LAUNCH_END; }
 
   var PRODUCTS = {
-    bundle: { name: "الباقة الشاملة: المكتبة الكاملة + كل الإكستنشنز", price: 999, anchor: 2999 },
+    bundle: { name: "الباقة الشاملة: المكتبة الكاملة + 3 إكستنشنز (X LAB وأوتوكات وتيكست بريتس)", price: 999, anchor: 2999 },
     xvision: { name: "إكستنشن X Vision لبريمير برو", price: xvOfferActive() ? XV_OFFER_PRICE : XV_REGULAR_PRICE, anchor: XV_REGULAR_PRICE },
     xlab: { name: "إكستنشن X LAB فقط", price: 799, anchor: 1599 },
     autocut: { name: "إكستنشن الأوتوكات (كابشن + أوتوكات + داونلودر)", price: 699, anchor: 999 },
