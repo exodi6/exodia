@@ -210,7 +210,7 @@
   function xvOfferActive() { return Date.now() < XV_LAUNCH_END; }
 
   var PRODUCTS = {
-    everything: { name: "الباقة الكاملة: مكتبة EXODIA + الإكستنشنز الأربعة", price: 1999, anchor: 0 },
+    everything: { name: "الباقة الكاملة: مكتبة EXODIA + الإكستنشنز الأربعة", price: 1699, anchor: 0 },
     library: { name: "مكتبة EXODIA الكاملة (+62GB)", price: 999, anchor: 2999 },
     xvision: { name: "إكستنشن X Vision لبريمير برو", price: xvOfferActive() ? XV_OFFER_PRICE : XV_REGULAR_PRICE, anchor: XV_REGULAR_PRICE },
     xlab: { name: "إكستنشن X LAB فقط", price: 799, anchor: 1599 },
@@ -327,6 +327,7 @@
     productCards.forEach(function (card) {
       var active = !!cart[card.dataset.product];
       card.classList.toggle("is-active", active);
+      card.setAttribute("aria-pressed", active ? "true" : "false");
       var cta = card.querySelector(".product-card__cta");
       if (cta) cta.textContent = active ? "✓ مُضافة للسلة — دوس للإزالة" : "أضف للسلة";
     });
@@ -573,6 +574,14 @@
       if (!valid) return;
 
       e.__exodiaValid = true;
+
+      /* Success screen's WhatsApp button carries the real order, so the order reaches us
+         even if the sheet sync ever fails silently (it is fire-and-forget). */
+      if (whatsappFollowUp) {
+        var waMsg = "أنا " + name + " قمت بطلب (" + window.__exodiaCartLabel + ") بمبلغ " +
+          fmt(window.__exodiaFinalPrice) + " ج.م، وإيميل التفعيل: " + email + ". ممكن أعرف هتتفعل إمتى؟";
+        whatsappFollowUp.href = "https://api.whatsapp.com/send?phone=201109054862&text=" + encodeURIComponent(waMsg);
+      }
 
       var submitBtn = document.getElementById("submitOrderBtn");
       var submitLabel = submitBtn.textContent;

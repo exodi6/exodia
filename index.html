@@ -138,12 +138,10 @@
       "image": "https://ex0dia.com/assets/exodia-hero-banner.jpeg",
       "url": "https://ex0dia.com/#pricing",
       "offers": {
-        "@type": "AggregateOffer",
+        "@type": "Offer",
         "url": "https://ex0dia.com/#pricing",
         "priceCurrency": "EGP",
-        "lowPrice": "799",
-        "highPrice": "999",
-        "offerCount": "2",
+        "price": "999",
         "availability": "https://schema.org/InStock"
       }
     }
@@ -214,7 +212,15 @@
           "name": "إيه الفرق بين إكستنشن X LAB والمكتبة؟",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "إكستنشن X LAB هو بانل بيتركب جوه أدوبي أفتر إفكتس، بيخليك تحفظ أي عنصر أو كومب اشتغلت عليه بكل خصائصه (كاميرات، إكسبريشنز، ماسكات) وتسترجعه في أي مشروع تاني بضغطة زر بدل ما تفتح مشاريع قديمة تدور فيها. لو اشتريت مكتبة EXODIA بتاخده معاها مجانًا وبنفس السعر (999 ج.م)، ولو عايزه لوحده من غير مكتبة الأصول تقدر تاخده بـ799 ج.م بس."
+            "text": "إكستنشن X LAB هو بانل بيتركب جوه أدوبي أفتر إفكتس، بيخليك تحفظ أي عنصر أو كومب اشتغلت عليه بكل خصائصه (كاميرات، إكسبريشنز، ماسكات) وتسترجعه في أي مشروع تاني بضغطة زر بدل ما تفتح مشاريع قديمة تدور فيها. المكتبة لوحدها مفيهاش الإكستنشنز، وX LAB بيتباع لوحده، وتقدر تاخده مع المكتبة وباقي الإكستنشنز في الباقة الكاملة بسعر أوفر بكتير من شراء كل واحد منفصل."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "إزاي بتفعّل إكستنشن X Vision بعد الشراء؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "بعد مراجعة الدفع بيوصلك على الإيميل لينك فولدر فيه ملف التثبيت ودليل PDF، وبنبعتلك على واتساب كود تفعيل بشكل XV-XXXX-XXXX. بتبعت الكود لبوت التيليجرام بتاعنا مرة واحدة، وبعدها بتدخل من البانل بحساب التيليجرام بتاعك. الأداة بتشتغل على Premiere Pro 2022 أو أحدث، ويندوز وماك."
           }
         },
         {
@@ -268,7 +274,7 @@
       <a class="mobile-menu__link" href="#feedback">آراء وتقييمات العملاء</a>
       <a class="mobile-menu__link" href="#pricing">الأسعار والعرض</a>
       <a class="mobile-menu__link" href="#faq">الأسئلة الشائعة</a>
-      <a href="#pricing" class="btn btn-primary btn-block mobile-menu__cta" data-price-text="احصل عليها الآن ({price} ج.م)">احصل عليها الآن (999 ج.م)</a>
+      <a href="#pricing" class="btn btn-primary btn-block mobile-menu__cta" data-price-text="احصل عليها الآن ({price} ج.م)">احصل عليها الآن (1,699 ج.م)</a>
     </div>
 
     <main>
@@ -329,7 +335,7 @@
 
           <div class="product-cards reveal">
             <div class="product-card product-card--bundle product-card--featured is-active" data-product="everything" role="button" tabindex="0" aria-pressed="true">
-              <span class="product-card__savings-ribbon" id="everythingRibbon">⭐ الأكثر اختيارًا · توفير 44%</span>
+              <span class="product-card__savings-ribbon" id="everythingRibbon">⭐ الأكثر اختيارًا · توفير 52%</span>
               <div class="product-card__visual product-card__visual--bundle">
                 <img src="assets/shot-library.jpg" alt="الباقة الكاملة: مكتبة EXODIA مع إكستنشنز X LAB والأوتوكات والتيكست بريتس وX Vision" loading="lazy" />
               </div>
@@ -338,7 +344,7 @@
                 <p class="product-card__desc">مكتبة EXODIA الكاملة مع الإكستنشنز الأربعة، تشتريهم مرة واحدة بسعر أقل بكتير من شراء كل واحد لوحده.</p>
                 <div class="product-card__price-row">
                   <span class="product-card__anchor" id="everythingAnchor">3,595 ج.م</span>
-                  <span class="product-card__price" id="everythingPrice">1,999 ج.م</span>
+                  <span class="product-card__price" id="everythingPrice">1,699 ج.م</span>
                 </div>
                 <ul class="product-card__features">
                   <li>مكتبة EXODIA الكاملة (أكتر من <bdi>62GB</bdi> أصول جاهزة)</li>
@@ -486,7 +492,7 @@
             <div class="cart-list" id="cartList" hidden></div>
             <div class="cart-summary__total" id="cartTotalRow" hidden>
               <span>الإجمالي</span>
-              <span class="cart-summary__total-now" data-price-text="{price} ج.م">999 ج.م</span>
+              <span class="cart-summary__total-now" data-price-text="{price} ج.م">1,699 ج.م</span>
             </div>
           </div>
 
@@ -578,11 +584,11 @@
               </div>
 
               <div class="order-price-summary">
-                <span class="order-price-summary__anchor"><s data-cart-anchor>1999</s> ج.م</span>
-                <span class="order-price-summary__now" data-price-text="{price} ج.م">999 ج.م</span>
+                <span class="order-price-summary__anchor"><s data-cart-anchor>3,595</s> ج.م</span>
+                <span class="order-price-summary__now" data-price-text="{price} ج.م">1,699 ج.م</span>
               </div>
-              <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitOrderBtn" style="margin-top: var(--sp-4);" data-price-text="تأكيد الطلب والتفعيل الآن ({price} ج.م)">تأكيد الطلب والتفعيل الآن (999 ج.م)</button>
-              <p class="reassure">تأكيد مشفر وآمن 100% • تفعيل وصولك للمكتبة خلال دقائق من مراجعة الدفع • دعم فني ملتزم على مدار الساعة لحد ما يتفعل وصولك بالكامل</p>
+              <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitOrderBtn" style="margin-top: var(--sp-4);" data-price-text="تأكيد الطلب والتفعيل الآن ({price} ج.م)">تأكيد الطلب والتفعيل الآن (1,699 ج.م)</button>
+              <p class="reassure">تأكيد مشفر وآمن 100% • تفعيل وصولك خلال دقائق من مراجعة الدفع • دعم فني ملتزم على مدار الساعة لحد ما يتفعل وصولك بالكامل</p>
             </form>
 
             <div class="success-panel" id="successPanel" hidden>
@@ -638,7 +644,11 @@
             </div>
             <div class="faq-item reveal" data-open="false">
               <button class="faq-item__q" aria-expanded="false">إيه الفرق بين إكستنشن X LAB والمكتبة؟ <span class="faq-item__icon">+</span></button>
-              <div class="faq-item__a"><div class="faq-item__a-inner"><p>إكستنشن X LAB هو بانل بيتركب جوه أدوبي أفتر إفكتس، بيخليك تحفظ أي عنصر أو كومب اشتغلت عليه بكل خصائصه (كاميرات، إكسبريشنز، ماسكات) وتسترجعه في أي مشروع تاني بضغطة زر بدل ما تفتح مشاريع قديمة تدور فيها. لو اشتريت مكتبة EXODIA بتاخده معاها مجانًا وبنفس السعر (999 ج.م)، ولو عايزه لوحده من غير مكتبة الأصول تقدر تاخده بـ799 ج.م بس.</p></div></div>
+              <div class="faq-item__a"><div class="faq-item__a-inner"><p>إكستنشن X LAB هو بانل بيتركب جوه أدوبي أفتر إفكتس، بيخليك تحفظ أي عنصر أو كومب اشتغلت عليه بكل خصائصه (كاميرات، إكسبريشنز، ماسكات) وتسترجعه في أي مشروع تاني بضغطة زر بدل ما تفتح مشاريع قديمة تدور فيها. المكتبة لوحدها مفيهاش الإكستنشنز، وX LAB بيتباع لوحده، وتقدر تاخده مع المكتبة وباقي الإكستنشنز في الباقة الكاملة بسعر أوفر بكتير من شراء كل واحد منفصل.</p></div></div>
+            </div>
+            <div class="faq-item reveal" data-open="false">
+              <button class="faq-item__q" aria-expanded="false">إزاي بتفعّل إكستنشن X Vision بعد الشراء؟ <span class="faq-item__icon">+</span></button>
+              <div class="faq-item__a"><div class="faq-item__a-inner"><p>بعد مراجعة الدفع بيوصلك على الإيميل لينك فولدر فيه ملف التثبيت ودليل PDF، وبنبعتلك على واتساب كود تفعيل بشكل XV-XXXX-XXXX. بتبعت الكود لبوت التيليجرام بتاعنا مرة واحدة، وبعدها بتدخل من البانل بحساب التيليجرام بتاعك. الأداة بتشتغل على Premiere Pro 2022 أو أحدث، ويندوز وماك.</p></div></div>
             </div>
             <div class="faq-item reveal" data-open="false">
               <button class="faq-item__q" aria-expanded="false">ليه أشتري EXODIA بدل ما أدور على أصول مجانية أو أشترك في مكتبة أجنبية؟ <span class="faq-item__icon">+</span></button>
@@ -694,7 +704,7 @@
     </a>
 
     <div class="sticky-cta" id="stickyCta">
-      <a href="#pricing" class="btn btn-primary btn-block" data-price-text="اشترِ الآن ({price} ج.م)">اشترِ الآن (999 ج.م)</a>
+      <a href="#pricing" class="btn btn-primary btn-block" data-price-text="اشترِ الآن ({price} ج.م)">اشترِ الآن (1,699 ج.م)</a>
     </div>
 
     <!-- ============ LIGHTBOX ============ -->
