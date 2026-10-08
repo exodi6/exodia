@@ -210,7 +210,7 @@
   function xvOfferActive() { return Date.now() < XV_LAUNCH_END; }
 
   var PRODUCTS = {
-    everything: { name: "الباقة الكاملة: مكتبة EXODIA + الإكستنشنز الأربعة", price: 1499, anchor: 0 },
+    everything: { name: "الباقة الكاملة: مكتبة EXODIA + الإكستنشنز الأربعة", price: 1999, anchor: 0 },
     library: { name: "مكتبة EXODIA الكاملة (+62GB)", price: 999, anchor: 2999 },
     xvision: { name: "إكستنشن X Vision لبريمير برو", price: xvOfferActive() ? XV_OFFER_PRICE : XV_REGULAR_PRICE, anchor: XV_REGULAR_PRICE },
     xlab: { name: "إكستنشن X LAB فقط", price: 799, anchor: 1599 },
