@@ -203,8 +203,15 @@
   }
 
   /* ---------- Products + real multi-item cart ---------- */
+  /* X Vision launch offer: 99 EGP until XV_LAUNCH_END, then the regular 599. */
+  var XV_LAUNCH_END = new Date("2026-10-12T23:59:59+03:00").getTime();
+  var XV_OFFER_PRICE = 99;
+  var XV_REGULAR_PRICE = 599;
+  function xvOfferActive() { return Date.now() < XV_LAUNCH_END; }
+
   var PRODUCTS = {
     bundle: { name: "الباقة الشاملة: المكتبة الكاملة + كل الإكستنشنز", price: 999, anchor: 2999 },
+    xvision: { name: "إكستنشن X Vision لبريمير برو", price: xvOfferActive() ? XV_OFFER_PRICE : XV_REGULAR_PRICE, anchor: XV_REGULAR_PRICE },
     xlab: { name: "إكستنشن X LAB فقط", price: 799, anchor: 1599 },
     autocut: { name: "إكستنشن الأوتوكات (كابشن + أوتوكات + داونلودر)", price: 699, anchor: 999 },
     textpresets: { name: "إكستنشن التيكست بريتس لبريمير", price: 499, anchor: 999 }
@@ -250,7 +257,9 @@
 
   function priceForCoupon(coupon, subtotal) {
     if (coupon.type === "fixed") return coupon.price;
-    return Math.round(subtotal * (1 - coupon.value / 100));
+    /* X Vision keeps its own price: percent coupons never stack on its launch offer. */
+    var xv = cart.xvision ? PRODUCTS.xvision.price : 0;
+    return Math.round((subtotal - xv) * (1 - coupon.value / 100)) + xv;
   }
 
   function renderCart() {
@@ -317,9 +326,12 @@
       /* The bundle already includes every extension, so picking it replaces
          whatever's in the cart; picking any individual item while the bundle
          is active drops the bundle instead of stacking a redundant extra. */
+      /* X Vision is NOT part of the bundle, so it neither clears nor removes it. */
       if (id === "bundle") {
+        var keepXvision = !!cart.xvision;
         cart = {};
-      } else if (cart.bundle) {
+        if (keepXvision) cart.xvision = true;
+      } else if (cart.bundle && id !== "xvision") {
         delete cart.bundle;
       }
       cart[id] = true;
@@ -403,6 +415,64 @@
 
   updateCardStates();
   refreshPriceDisplay();
+
+  /* ---------- X Vision: launch countdown + automatic switch to the regular price ---------- */
+  var xvCountdownEl = document.getElementById("xvCountdown");
+  var xvRibbonEl = document.getElementById("xvRibbon");
+  var xvAnchorEl = document.getElementById("xvAnchor");
+  var xvPriceEl = document.getElementById("xvPrice");
+  var xvWasActive = null;
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+  function tickXvision() {
+    var active = xvOfferActive();
+    if (active && xvCountdownEl) {
+      var left = XV_LAUNCH_END - Date.now();
+      var d = Math.floor(left / 86400000);
+      var h = Math.floor((left % 86400000) / 3600000);
+      var m = Math.floor((left % 3600000) / 60000);
+      var s = Math.floor((left % 60000) / 1000);
+      xvCountdownEl.textContent = (d > 0 ? d + " يوم و " : "") + pad2(h) + ":" + pad2(m) + ":" + pad2(s);
+    }
+    if (active === xvWasActive) return;
+    xvWasActive = active;
+    PRODUCTS.xvision.price = active ? XV_OFFER_PRICE : XV_REGULAR_PRICE;
+    if (xvPriceEl) xvPriceEl.textContent = PRODUCTS.xvision.price + " ج.م";
+    if (xvAnchorEl) xvAnchorEl.hidden = !active;
+    if (xvRibbonEl && !active) xvRibbonEl.textContent = "✨ بعد انتهاء عرض الإطلاق: السعر الرسمي";
+    refreshPriceDisplay();
+  }
+  if (xvPriceEl) {
+    tickXvision();
+    setInterval(tickXvision, 1000);
+  }
+
+  /* ---------- X Vision guide viewer (PDF pages as images) ---------- */
+  var xvGuideTrigger = document.getElementById("xvGuideTrigger");
+  var guideModal = document.getElementById("guideModal");
+  var guidePages = document.getElementById("guidePages");
+  if (xvGuideTrigger && guideModal && guidePages) {
+    var guideLoaded = false;
+    var openGuide = function () {
+      if (!guideLoaded) {
+        guideLoaded = true;
+        for (var i = 1; i <= 16; i++) {
+          var img = document.createElement("img");
+          img.src = "assets/xvision-guide/p" + (i < 10 ? "0" : "") + i + ".jpg";
+          img.alt = "دليل X Vision، صفحة " + i + " من 16";
+          img.loading = "lazy";
+          guidePages.appendChild(img);
+        }
+      }
+      guideModal.classList.add("is-open");
+      guideModal.querySelector(".guide-modal__panel").scrollTop = 0;
+    };
+    var closeGuide = function () { guideModal.classList.remove("is-open"); };
+    xvGuideTrigger.addEventListener("click", function (e) { e.stopPropagation(); openGuide(); });
+    guideModal.addEventListener("click", function (e) {
+      if (e.target === guideModal || e.target.closest(".guide-modal__close")) closeGuide();
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeGuide(); });
+  }
 
   /* ---------- Payment method selection ---------- */
   var payOptions = document.querySelectorAll(".pay-option input[type=radio]");

@@ -355,6 +355,37 @@
               <span class="product-card__cta">✓ مُضافة للسلة — دوس للإزالة</span>
             </div>
 
+            <div class="product-card product-card--launch" data-product="xvision" role="button" tabindex="0" aria-pressed="false">
+              <span class="product-card__savings-ribbon product-card__launch-ribbon" id="xvRibbon">🔥 عرض الإطلاق ينتهي بعد <span id="xvCountdown">--</span></span>
+              <div class="product-card__visual">
+                <img src="assets/shot-xvision.jpg" alt="إكستنشن X Vision لأدوبي بريمير برو: كالوتس وعدادات وكاروسيل ثلاثي الأبعاد وزجاج سائل" loading="lazy" />
+              </div>
+              <h3 class="product-card__title">إكستنشن <bdi>X Vision</bdi> لبريمير</h3>
+              <p class="product-card__desc">بانل واحد جوه بريمير فيه قوالب جاهزة وأنيميشن نصوص ومؤثرات صوتية، كله بيدعم العربي وبيشتغل من غير After Effects.</p>
+              <div class="product-card__price-row">
+                <span class="product-card__anchor" id="xvAnchor">599 ج.م</span>
+                <span class="product-card__price" id="xvPrice">99 ج.م</span>
+              </div>
+              <div class="product-card__links">
+                <button type="button" class="product-card__link-btn" id="xvGuideTrigger" aria-haspopup="dialog">
+                  <span aria-hidden="true">📖</span> دليل الأداة (PDF)
+                </button>
+              </div>
+              <ul class="product-card__features">
+                <li>أدوات جاهزة بتنزل على التايم لاين بضغطة: <bdi>Callouts, Counters, Graphs, 3D Carousel, Liquid Glass</bdi></li>
+                <li><bdi>62</bdi> حركة نص و<bdi>17</bdi> تمبليت جاهزة للدخول والخروج، وتتعدل من البانل</li>
+                <li>مكتبة فيها مئات القوالب الجاهزة زي <bdi>Lower Thirds, Text Plates, UI Animations</bdi>، مع <bdi>20</bdi> خلفية متحركة</li>
+                <li class="is-more"><bdi>68</bdi> مؤثر صوتي جاهز بأسماء حقيقية مع بحث وفلترة بالفئات</li>
+                <li class="is-more">حدود <bdi>Reels, TikTok, Shorts</bdi> الآمنة عشان متحطش نص تحت أزرار المنصة</li>
+                <li class="is-more">دعم عربي كامل في كل قسم: حروف متصلة وأرقام عربية واتجاه كتابة صح</li>
+                <li class="is-more">كل القوالب جاهزة جوه بريمير ومش محتاج <bdi>After Effects</bdi>، وكلها قابلة للتعديل (نص ولون)</li>
+                <li class="is-more">بيشتغل على <bdi>Premiere Pro 2022</bdi> أو أحدث، ويندوز وماك</li>
+                <li class="is-more">بتتفعل بكود من بوت تيليجرام بيوصلك بعد الشراء، لحسابك إنت بس</li>
+              </ul>
+              <button type="button" class="product-card__more">شوف كل المميزات (+6)</button>
+              <span class="product-card__cta">أضف للسلة</span>
+            </div>
+
             <div class="product-card" data-product="xlab" role="button" tabindex="0" aria-pressed="false">
               <div class="product-card__visual product-card__visual--xlab">
                 <img src="assets/shot-xlab.jpg" alt="إكستنشن X LAB لأدوبي أفتر إفكتس" loading="lazy" />
@@ -690,6 +721,17 @@
       </div>
     </div>
 
+    <div class="guide-modal" id="guideModal" role="dialog" aria-modal="true" aria-label="دليل المونتير الكامل لـ X Vision">
+      <div class="guide-modal__panel">
+        <div class="guide-modal__head">
+          <h3 class="guide-modal__title">دليل المونتير الكامل لـ <bdi>X Vision</bdi></h3>
+          <a class="guide-modal__download" href="assets/x-vision-guide.pdf" download>⬇ تحميل PDF</a>
+          <button type="button" class="guide-modal__close" aria-label="إغلاق">✕</button>
+        </div>
+        <div class="guide-modal__pages" id="guidePages"></div>
+      </div>
+    </div>
+
     <script src="assets/main.js"></script>
 
     <!-- Exodia Sheet Integration (Auto Image Upload to Link) -->
@@ -753,6 +795,7 @@
                   phone: phone,
                   email: email,
                   items: window.__exodiaCartLabel || "غير محدد",
+                  total: window.__exodiaFinalPrice || "",
                   coupon: coupon,
                   receipt: receiptUrl
                 })
