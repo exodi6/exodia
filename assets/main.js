@@ -575,10 +575,12 @@
   var uploadZone = document.getElementById("uploadZone");
   var uploadPreview = document.getElementById("uploadPreview");
   var uploadPrompt = document.getElementById("uploadPrompt");
+  var noProof = false;
   if (fileInput && uploadZone) {
-    uploadZone.addEventListener("click", function () { fileInput.click(); });
+    /* the whole zone is a <label for>, so the browser opens the picker once on its own */
     fileInput.addEventListener("change", function () {
       if (fileInput.files && fileInput.files[0]) {
+        noProof = false;
         var url = URL.createObjectURL(fileInput.files[0]);
         uploadPreview.src = url;
         uploadPreview.classList.add("is-shown");
@@ -602,6 +604,14 @@
   }
 
   var orderForm = document.getElementById("orderForm");
+  var noProofBtn = document.getElementById("noProofBtn");
+  if (noProofBtn) {
+    noProofBtn.addEventListener("click", function () {
+      noProof = true;
+      if (orderForm.requestSubmit) orderForm.requestSubmit();
+      else orderForm.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+    });
+  }
   var formStep2 = document.getElementById("formStep2");
   var successPanel = document.getElementById("successPanel");
   var whatsappFollowUp = document.getElementById("whatsappFollowUp");
@@ -626,8 +636,8 @@
       if (!name) { showFieldError("nameError", "يرجى كتابة الاسم بالكامل"); valid = false; }
       if (!phone || phone.length < 10) { showFieldError("phoneError", "يرجى كتابة رقم موبايل / واتساب صحيح للتواصل وتأكيد التفعيل"); valid = false; }
       if (!/^\S+@\S+\.\S+$/.test(email)) { showFieldError("emailError", "يرجى كتابة البريد الإلكتروني (جيميل) لتفعيل الوصول على Google Drive"); valid = false; }
-      if (!proof) { showFieldError("proofError", "يرجى إرفاق صورة إثبات الدفع (سكرين شوت التحويل)"); valid = false; }
-      if (!valid) return;
+      if (!proof && !noProof) { showFieldError("proofError", "يرجى إرفاق صورة إثبات الدفع (سكرين شوت التحويل)"); valid = false; }
+      if (!valid) { noProof = false; return; }
 
       e.__exodiaValid = true;
 
@@ -641,19 +651,29 @@
 
       var submitBtn = document.getElementById("submitOrderBtn");
       var submitLabel = submitBtn.textContent;
-      submitBtn.textContent = "جاري إرسال الطلب والتفعيل...";
       submitBtn.disabled = true;
 
-      /* The document-level "Exodia Sheet Integration" listener (below) catches this
-         same submit event as it bubbles — it fires tracking + uploads the proof +
-         posts to the Sheets webhook independently of this handler. */
-
-      setTimeout(function () {
+      /* the sheet listener (index.html) compresses + uploads the proof, then posts the order;
+         show the success screen only once that finished (or after a safety timeout), so a
+         customer who leaves the page right away can't cancel the upload half-way */
+      submitBtn.textContent = proof ? "جاري رفع الإيصال وإرسال الطلب..." : "جاري إرسال الطلب...";
+      window.__exodiaOrderPromise = null;
+      var minWait = new Promise(function (r) { setTimeout(r, 600); });
+      var safety = new Promise(function (r) { setTimeout(r, 70000); });
+      /* the sheet listener runs after this handler (event bubbling) — read its promise on the next tick */
+      var sent = new Promise(function (r) { setTimeout(r, 0); }).then(function () { return window.__exodiaOrderPromise; });
+      Promise.all([minWait, Promise.race([sent, safety])]).then(function () {
+        var warn = document.getElementById("receiptWarn");
+        if (warn) warn.hidden = !window.__exodiaReceiptFailed;
+        if (window.__exodiaReceiptFailed && whatsappFollowUp) {
+          whatsappFollowUp.href += encodeURIComponent(" (هبعتلكم صورة الإيصال هنا على الواتساب)");
+        }
         orderForm.hidden = true;
         successPanel.hidden = false;
         submitBtn.textContent = submitLabel;
         submitBtn.disabled = false;
-      }, 600);
+        noProof = false;
+      });
     });
   }
 

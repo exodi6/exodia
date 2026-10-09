@@ -476,7 +476,10 @@ section{ position: relative; }
 .field-hint{ color: var(--text-3); font-size: var(--text-xs); margin-top: .4em; }
 .pay-amount{ margin: var(--sp-3) 0 var(--sp-4); padding: .85em 1em; border-radius: var(--radius-sm); background: rgba(9,172,233,0.1); border: 1px solid var(--border-brand); font-size: var(--text-sm); text-align: center; }
 .pay-amount b{ font-family: var(--font-display); font-size: var(--text-xl); color: var(--brand); margin-inline-start: .35em; }
-.upload label::before{ content: "📎 "; }
+.upload{ display: block; }
+.upload #uploadPrompt::before{ content: "📎 "; }
+.link-btn{ background: none; border: 0; padding: 0; margin-top: .6em; color: var(--brand); font: inherit; font-size: var(--text-xs); text-decoration: underline; cursor: pointer; }
+.receipt-warn{ color: #ffd479; background: rgba(255,200,60,0.1); border: 1px solid rgba(255,200,60,0.35); border-radius: var(--radius-sm); padding: .7em 1em; }
 .cart-summary__go{ margin-top: var(--sp-4); }
 /* the full package closes the grid; an odd card before it would leave a hole: centre it */
 @media (min-width: 640px){

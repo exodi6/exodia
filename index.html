@@ -596,12 +596,13 @@
               </div>
 
               <div class="field" style="margin-top: var(--sp-6);">
-                <div class="upload" id="uploadZone">
-                  <label for="paymentProof" id="uploadPrompt" style="cursor:pointer;">إثبات الدفع (صورة التحويل) *</label>
-                  <input type="file" id="paymentProof" accept="image/*" class="visually-hidden" required />
+                <label class="upload" id="uploadZone" for="paymentProof">
+                  <span id="uploadPrompt">إثبات الدفع (صورة التحويل) *</span>
+                  <input type="file" id="paymentProof" accept="image/*" class="visually-hidden" />
                   <img id="uploadPreview" class="upload__preview" alt="معاينة صورة إثبات الدفع" />
-                </div>
+                </label>
                 <p class="field-hint">ارفع سكرين شوت التحويل، ولازم يبان فيه المبلغ والرقم اللي حوّلت له.</p>
+                <button type="button" class="link-btn" id="noProofBtn">الرفع مش شغال معاك؟ كمّل الطلب وابعت الصورة على الواتساب</button>
                 <p class="field-error" id="proofError"></p>
               </div>
 
@@ -615,6 +616,7 @@
 
             <div class="success-panel" id="successPanel" hidden>
               <h3>تم تسجيل طلبك بنجاح 🎉</h3>
+              <p class="receipt-warn" id="receiptWarn" hidden>⚠️ صورة الإيصال ماوصلتش لينا. ابعتها لنا على الواتساب من الزرار اللي تحت عشان نفعّل وصولك.</p>
               <p><strong>خطوة سريعة لمتابعة طلبك:</strong><br />تم استلام بياناتك بنجاح وجاري مراجعة إيصال التحويل. يمكنك الضغط على الزر بالأسفل للتواصل معنا عبر الواتساب ومتابعة حالة التفعيل مباشرة.</p>
               <div class="success-panel__ctas">
                 <a class="btn btn-whatsapp" id="whatsappFollowUp" href="https://api.whatsapp.com/send?phone=201109054862&text=%D8%A7%D9%86%D8%A7%20%D9%82%D9%85%D8%AA%20%D8%A8%D8%B7%D9%84%D8%A8%20%D8%B4%D8%B1%D8%A7%D8%A1%20%D9%88%D8%AA%D9%81%D8%B9%D9%8A%D9%84%20%D8%AD%D8%B3%D8%A7%D8%A8%D9%8A%20%D8%B9%D9%84%D9%8A%20%D8%A7%D9%84%D9%85%D9%83%D8%AA%D8%A8%D9%87%20%D9%85%D9%85%D9%83%D9%86%20%D8%A7%D8%B9%D8%B1%D9%81%20%D8%A7%D9%8A%D9%85%D8%AA%D8%A7%20%D9%87%D8%AA%D8%AA%D9%81%D8%B9%D9%84%D8%9F" target="_blank" rel="noopener noreferrer">لمتابعة الطلب عبر الواتساب</a>
@@ -784,78 +786,106 @@
 
     <script src="assets/main.js"></script>
 
-    <!-- Exodia Sheet Integration (Auto Image Upload to Link) -->
+    <!-- Exodia Sheet Integration (receipt compress + upload, then post the order) -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        document.addEventListener("submit", async function (e) {
-          if (!e.__exodiaValid) return;
-          try {
-            const nameEl = e.target.querySelector("#buyerName");
-            const phoneEl = e.target.querySelector("#buyerPhone");
-            const emailEl = e.target.querySelector("#buyerEmail");
-            const couponEl = e.target.querySelector("#couponCode");
-            const fileEl = e.target.querySelector("#paymentProof");
+        var IMGBB_API_KEY = "856c3b13c3afeaa17b46e15a50a55e47";
+        var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzpuGVM_fDCS4OcxlO3BLTxZHjZr3qTJDXDjEw3BNrCdicYxVMscB_3FIR0l_6XLmTy/exec";
 
-            const name = nameEl ? nameEl.value : "";
-            const phone = phoneEl ? phoneEl.value : "";
-            const email = emailEl ? emailEl.value : "";
-            const coupon = couponEl ? couponEl.value.trim() : "";
-            const fileInput = fileEl && fileEl.files.length > 0 ? fileEl.files[0] : null;
-
-            if (name && phone && email) {
-              // حدث بداية الدفع للطلب المحلي
-              // (InstaPay / المحافظ الإلكترونية) لما العميل يأكد طلبه فعليًا
-              var trackIds = window.__exodiaCartIds || [];
-              var trackValue = window.__exodiaFinalPrice || 0;
-              if (typeof fbq !== "undefined") fbq("track", "InitiateCheckout", { value: trackValue, currency: "EGP", content_ids: trackIds, content_type: "product", num_items: trackIds.length });
-              if (typeof ttq !== "undefined") ttq.track("InitiateCheckout", { content_id: trackIds.join(","), content_type: "product", value: trackValue, currency: "EGP" });
-              if (typeof gtag !== "undefined") gtag("event", "begin_checkout", { currency: "EGP", value: trackValue, items: trackIds.map(function (id) { return { item_id: id }; }) });
-
-              let receiptUrl = "لم يتم إرفاق صورة";
-
-              // رفع الصورة لـ ImgBB وتحويلها لرابط مباشر
-              if (fileInput) {
+        /* Phone screenshots are often 3-8 MB; on a weak mobile connection that upload is what
+           used to fail. Shrink to ~1600px JPEG first and fall back to the original on any error. */
+        function compressImage(file) {
+          return new Promise(function (resolve) {
+            try {
+              var url = URL.createObjectURL(file);
+              var img = new Image();
+              img.onload = function () {
                 try {
-                  const IMGBB_API_KEY = "856c3b13c3afeaa17b46e15a50a55e47";
-                  const formData = new FormData();
-                  formData.append("image", fileInput);
+                  var max = 1600, w = img.naturalWidth, h = img.naturalHeight;
+                  var k = Math.min(1, max / Math.max(w, h));
+                  var c = document.createElement("canvas");
+                  c.width = Math.round(w * k); c.height = Math.round(h * k);
+                  c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+                  c.toBlob(function (blob) {
+                    URL.revokeObjectURL(url);
+                    resolve(blob && blob.size < file.size ? blob : file);
+                  }, "image/jpeg", 0.82);
+                } catch (e) { resolve(file); }
+              };
+              img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+              img.src = url;
+            } catch (e) { resolve(file); }
+          });
+        }
 
-                  const imgRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                    method: "POST",
-                    body: formData
-                  });
+        function withTimeout(promise, ms) {
+          return Promise.race([promise, new Promise(function (_, rej) { setTimeout(function () { rej(new Error("timeout")); }, ms); })]);
+        }
 
-                  const imgData = await imgRes.json();
-                  if (imgData && imgData.data && imgData.data.url) {
-                    receiptUrl = imgData.data.url;
-                  }
-                } catch (imgErr) {
-                  console.log("Image Upload Error:", imgErr);
-                  receiptUrl = "خطأ في رفع الصورة: " + fileInput.name;
-                }
+        async function uploadReceipt(file) {
+          var blob = await compressImage(file);
+          var fd = new FormData();
+          fd.append("image", blob, "receipt.jpg");
+          var ctrl = new AbortController();
+          var timer = setTimeout(function () { ctrl.abort(); }, 40000);
+          try {
+            var res = await fetch("https://api.imgbb.com/1/upload?key=" + IMGBB_API_KEY, { method: "POST", body: fd, signal: ctrl.signal });
+            var data = await res.json();
+            if (data && data.data && data.data.url) return data.data.url;
+            throw new Error("no url");
+          } finally { clearTimeout(timer); }
+        }
+
+        async function sendOrder(form) {
+          window.__exodiaReceiptFailed = false;
+          try {
+            var val = function (id) { var el = form.querySelector(id); return el ? el.value : ""; };
+            var name = val("#buyerName"), phone = val("#buyerPhone"), email = val("#buyerEmail");
+            var coupon = val("#couponCode").trim();
+            var fileEl = form.querySelector("#paymentProof");
+            var file = fileEl && fileEl.files.length > 0 ? fileEl.files[0] : null;
+            if (!(name && phone && email)) return;
+
+            var trackIds = window.__exodiaCartIds || [];
+            var trackValue = window.__exodiaFinalPrice || 0;
+            if (typeof fbq !== "undefined") fbq("track", "InitiateCheckout", { value: trackValue, currency: "EGP", content_ids: trackIds, content_type: "product", num_items: trackIds.length });
+            if (typeof ttq !== "undefined") ttq.track("InitiateCheckout", { content_id: trackIds.join(","), content_type: "product", value: trackValue, currency: "EGP" });
+            if (typeof gtag !== "undefined") gtag("event", "begin_checkout", { currency: "EGP", value: trackValue, items: trackIds.map(function (id) { return { item_id: id }; }) });
+
+            var receiptUrl = "هيتبعت على الواتساب";
+            if (file) {
+              try { receiptUrl = await uploadReceipt(file); }
+              catch (imgErr) {
+                console.log("Image Upload Error:", imgErr);
+                receiptUrl = "خطأ في رفع الصورة: " + file.name;
+                window.__exodiaReceiptFailed = true;
               }
-
-              // إرسال البيانات والرابط لـ Google Sheets
-              const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzpuGVM_fDCS4OcxlO3BLTxZHjZr3qTJDXDjEw3BNrCdicYxVMscB_3FIR0l_6XLmTy/exec";
-
-              fetch(WEB_APP_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  name: name,
-                  phone: phone,
-                  email: email,
-                  items: window.__exodiaCartLabel || "غير محدد",
-                  total: window.__exodiaFinalPrice || "",
-                  coupon: coupon,
-                  receipt: receiptUrl
-                })
-              });
+            } else {
+              window.__exodiaReceiptFailed = true;
             }
+
+            await withTimeout(fetch(WEB_APP_URL, {
+              method: "POST",
+              mode: "no-cors",
+              keepalive: true,
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name: name, phone: phone, email: email,
+                items: window.__exodiaCartLabel || "غير محدد",
+                total: window.__exodiaFinalPrice || "",
+                coupon: coupon,
+                receipt: receiptUrl
+              })
+            }), 20000).catch(function (err) { console.log("Sheet post:", err); });
           } catch (err) {
             console.log("Sheet Sync Error:", err);
           }
+        }
+
+        document.addEventListener("submit", function (e) {
+          if (!e.__exodiaValid) return;
+          /* main.js waits on this before showing the success screen */
+          window.__exodiaOrderPromise = sendOrder(e.target);
         });
       });
     </script>
