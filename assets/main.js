@@ -382,6 +382,37 @@
     });
   });
 
+  /* ---------- Carousel dots (mobile): show how many cards there are and which one you are on ---------- */
+  var productCardsEl = document.querySelector(".product-cards");
+  var dotsEl = document.getElementById("productDots");
+  if (productCardsEl && dotsEl) {
+    var cardEls = Array.prototype.slice.call(productCardsEl.querySelectorAll(".product-card"));
+    cardEls.forEach(function (card, i) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "product-dots__dot";
+      dot.setAttribute("aria-label", "الكارت " + (i + 1) + " من " + cardEls.length);
+      dot.addEventListener("click", function () {
+        card.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      });
+      dotsEl.appendChild(dot);
+    });
+    var updateDots = function () {
+      var box = productCardsEl.getBoundingClientRect();
+      var mid = box.left + box.width / 2;
+      var best = 0, bestDist = Infinity;
+      cardEls.forEach(function (c, i) {
+        var r = c.getBoundingClientRect();
+        var dist = Math.abs(r.left + r.width / 2 - mid);
+        if (dist < bestDist) { bestDist = dist; best = i; }
+      });
+      for (var i = 0; i < dotsEl.children.length; i++) dotsEl.children[i].classList.toggle("is-active", i === best);
+    };
+    productCardsEl.addEventListener("scroll", updateDots, { passive: true });
+    window.addEventListener("resize", updateDots);
+    updateDots();
+  }
+
   /* ---------- "Show all features" toggle per card (keeps cards compact by default) ---------- */
   document.querySelectorAll(".product-card__more").forEach(function (btn) {
     btn.dataset.moreLabel = btn.textContent;

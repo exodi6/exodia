@@ -482,3 +482,13 @@ section{ position: relative; }
 @media (min-width: 640px){
   .product-cards .product-card:nth-last-child(2):nth-child(odd){ grid-column: 1 / -1; width: calc(50% - var(--sp-5) / 2); justify-self: center; }
 }
+
+/* ---------- carousel dots (mobile only) ---------- */
+.product-dots{ display: none; }
+@media (max-width: 639px){
+  .product-cards{ margin-bottom: var(--sp-3); }
+  .product-dots{ display: flex; justify-content: center; align-items: center; gap: 8px; margin: 0 auto var(--sp-6); }
+  .product-dots__dot{ position: relative; width: 8px; height: 8px; min-width: 8px; padding: 0; border: 0; border-radius: 999px; background: var(--border-strong); transition: width .2s var(--ease), background .2s var(--ease); cursor: pointer; }
+  .product-dots__dot::after{ content: ""; position: absolute; inset: -12px -5px; }
+  .product-dots__dot.is-active{ width: 22px; background: var(--brand); }
+}
