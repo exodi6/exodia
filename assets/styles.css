@@ -478,7 +478,7 @@ section{ position: relative; }
 .pay-amount b{ font-family: var(--font-display); font-size: var(--text-xl); color: var(--brand); margin-inline-start: .35em; }
 .upload label::before{ content: "📎 "; }
 .cart-summary__go{ margin-top: var(--sp-4); }
-/* an odd last card in the 2-column grid would leave a hole: centre it */
+/* the full package closes the grid; an odd card before it would leave a hole: centre it */
 @media (min-width: 640px){
-  .product-cards .product-card:last-child:nth-child(even){ grid-column: 1 / -1; width: calc(50% - var(--sp-5) / 2); justify-self: center; }
+  .product-cards .product-card:nth-last-child(2):nth-child(odd){ grid-column: 1 / -1; width: calc(50% - var(--sp-5) / 2); justify-self: center; }
 }
