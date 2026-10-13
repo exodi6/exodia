@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self'" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>اطلب تجربة مجانية — EXODIA</title>
+    <meta name="description" content="اطلب نسخة تجريبية من إكستنشنات EXODIA قبل الاشتراك. هنراجع طلبك ونبعتلك رابط التجربة على الجيميل." />
+    <link rel="canonical" href="https://ex0dia.com/trial.html" />
+    <meta name="robots" content="noindex" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B1RX5HKZ09"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-B1RX5HKZ09');
+    </script>
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1908907043847500');
+    fbq('track', 'PageView');
+    </script>
+
+    <link rel="icon" type="image/jpeg" href="assets/exodia-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css" />
+    <style>
+      .trial-page{ min-height: 100vh; display: flex; flex-direction: column; }
+      .trial-top{ padding: var(--sp-4) 0; border-bottom: 1px solid var(--border); }
+      .trial-top__inner{ display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+      .trial-top__brand{ display: flex; align-items: center; gap: .6em; font-weight: 800; font-family: var(--font-display); }
+      .trial-top__brand img{ border-radius: 8px; }
+      .trial-top__back{ font-size: var(--text-sm); color: var(--text-2); }
+      .trial-main{ flex: 1; padding: var(--sp-7) 0; }
+      .trial-card{ max-width: 520px; margin: 0 auto; background: var(--bg-1); border: 1px solid var(--border-strong); border-radius: var(--radius-xl); padding: var(--sp-6); }
+      .trial-card h1{ font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.3; }
+      .trial-card__lead{ color: var(--text-2); margin: var(--sp-2) 0 var(--sp-5); font-size: var(--text-sm); line-height: 1.8; }
+      .trial-products{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
+      .trial-product{ display: flex; align-items: center; gap: .55em; padding: .8em .9em; border: 1.5px solid var(--border-strong); border-radius: var(--radius-md); background: var(--bg-2); cursor: pointer; font-size: var(--text-sm); font-weight: 700; }
+      .trial-product input{ accent-color: var(--brand); width: auto; margin: 0; }
+      .trial-product:has(input:checked){ border-color: var(--brand); background: rgba(9,172,233,0.1); }
+      .trial-hp{ position: absolute; inset-inline-start: -9999px; width: 1px; height: 1px; overflow: hidden; }
+      .trial-form-error{ display: none; margin-bottom: var(--sp-3); padding: .8em 1em; border-radius: var(--radius-sm); background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.4); color: #fecaca; font-size: var(--text-sm); line-height: 1.7; }
+      .trial-form-error.is-shown{ display: block; }
+      .trial-note{ margin-top: var(--sp-4); color: var(--text-3); font-size: var(--text-xs); line-height: 1.8; text-align: center; }
+      .trial-done{ text-align: center; }
+      .trial-done__icon{ font-size: 2.6rem; }
+      .trial-done p{ color: var(--text-2); line-height: 1.9; margin-top: var(--sp-3); }
+      .trial-done .btn{ margin-top: var(--sp-4); }
+      @media (max-width: 420px){ .trial-products{ grid-template-columns: 1fr; } .trial-card{ padding: var(--sp-5); } }
+    </style>
+  </head>
+  <body class="trial-page">
+    <header class="trial-top">
+      <div class="container trial-top__inner">
+        <a class="trial-top__brand" href="index.html"><img src="assets/exodia-logo.jpg" alt="EXODIA" width="32" height="32" /> EXODIA</a>
+        <a class="trial-top__back" href="index.html#pricing">← رجوع للموقع</a>
+      </div>
+    </header>
+
+    <main class="trial-main">
+      <div class="container">
+        <div class="trial-card">
+          <form id="trialForm" novalidate>
+            <h1>اطلب تجربة مجانية</h1>
+            <p class="trial-card__lead">اختار الأداة وسيب بياناتك. هنراجع طلبك، ولو اتوافق عليه هيوصلك رابط التجربة على الجيميل اللي تكتبه.</p>
+
+            <div class="field">
+              <label>الأداة اللي عايز تجربها <span class="req">*</span></label>
+              <div class="trial-products" id="trialProducts" role="radiogroup">
+                <label class="trial-product"><input type="radio" name="product" value="autocut" /> Talkcut (الأوتوكات)</label>
+                <label class="trial-product"><input type="radio" name="product" value="xvision" /> X Vision</label>
+                <label class="trial-product"><input type="radio" name="product" value="xlab" /> X LAB</label>
+                <label class="trial-product"><input type="radio" name="product" value="textpresets" /> Text Motion</label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="tName">الاسم بالكامل <span class="req">*</span></label>
+              <input type="text" id="tName" maxlength="80" autocomplete="name" placeholder="مثال: أحمد محمد علي" />
+            </div>
+            <div class="field">
+              <label for="tPhone">رقم الواتساب <span class="req">*</span></label>
+              <input type="tel" id="tPhone" maxlength="20" autocomplete="tel" inputmode="tel" dir="ltr" placeholder="01XXXXXXXXX" />
+            </div>
+            <div class="field">
+              <label for="tEmail">الجيميل (هيتفتحلك الرابط عليه) <span class="req">*</span></label>
+              <input type="email" id="tEmail" maxlength="120" autocomplete="email" dir="ltr" placeholder="name@gmail.com" />
+            </div>
+
+            <div class="trial-hp" aria-hidden="true">
+              <label for="tWebsite">Website</label>
+              <input type="text" id="tWebsite" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="trial-form-error" id="trialError" role="alert"></div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="trialSubmit">أرسل طلب التجربة</button>
+            <p class="trial-note">بياناتك بنستخدمها للتواصل معاك بخصوص التجربة بس. كل شخص ليه تجربة واحدة لكل أداة.</p>
+          </form>
+
+          <div class="trial-done" id="trialDone" hidden>
+            <div class="trial-done__icon" aria-hidden="true">✅</div>
+            <h1>استلمنا طلبك</h1>
+            <p>هنراجع الطلب، ولو اتوافق عليه هيوصلك إيميل برابط التجربة على الجيميل اللي كتبته. لو احتجت أي حاجة تواصل معانا على واتساب.</p>
+            <a class="btn btn-whatsapp" href="https://api.whatsapp.com/send?phone=201109054862&amp;text=%D8%B7%D9%84%D8%A8%D8%AA%20%D8%AA%D8%AC%D8%B1%D8%A8%D8%A9%20%D9%85%D8%AC%D8%A7%D9%86%D9%8A%D8%A9%20%D9%85%D9%86%20%D8%A7%D9%84%D9%85%D9%88%D9%82%D8%B9" target="_blank" rel="noopener noreferrer">كلّمنا على واتساب</a>
+            <a class="btn btn-secondary" href="index.html">رجوع للموقع</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      (function () {
+        var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzpuGVM_fDCS4OcxlO3BLTxZHjZr3qTJDXDjEw3BNrCdicYxVMscB_3FIR0l_6XLmTy/exec";
+        var PRODUCTS = ["autocut", "xvision", "xlab", "textpresets"];
+        var form = document.getElementById("trialForm");
+        var errBox = document.getElementById("trialError");
+        var submit = document.getElementById("trialSubmit");
+        var openedAt = Date.now();
+
+        var pre = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
+        if (PRODUCTS.indexOf(pre) !== -1) {
+          var radio = form.querySelector('input[name="product"][value="' + pre + '"]');
+          if (radio) radio.checked = true;
+        }
+
+        function showError(msg) { errBox.textContent = msg; errBox.classList.add("is-shown"); }
+        function clearError() { errBox.textContent = ""; errBox.classList.remove("is-shown"); }
+        function digits(s) { return String(s || "").replace(/[٠-٩]/g, function (c) { return "٠١٢٣٤٥٦٧٨٩".indexOf(c); }).replace(/\D/g, ""); }
+
+        var MESSAGES = {
+          already: "طلبت تجربة لنفس الأداة قبل كده (بنفس الإيميل أو الرقم). لو محتاج مساعدة كلّمنا على واتساب.",
+          busy: "الخدمة مشغولة حاليًا، جرّب تاني بعد دقايق.",
+          "slow-down": "استنى ثواني وجرّب تاني."
+        };
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          clearError();
+          var product = (form.querySelector('input[name="product"]:checked') || {}).value || "";
+          var name = document.getElementById("tName").value.trim();
+          var phone = document.getElementById("tPhone").value.trim();
+          var email = document.getElementById("tEmail").value.trim().toLowerCase();
+
+          if (!product) return showError("اختار الأداة اللي عايز تجربها.");
+          if (name.length < 2) return showError("اكتب اسمك بالكامل.");
+          var d = digits(phone);
+          if (d.length < 10 || d.length > 15) return showError("اكتب رقم واتساب صحيح.");
+          if (!/^[a-z0-9._%+\-]+@(gmail|googlemail)\.com$/.test(email)) return showError("اكتب إيميل Gmail صحيح، لأن الرابط هيتفتح عليه.");
+
+          submit.disabled = true;
+          submit.textContent = "جاري الإرسال...";
+          var ctrl = new AbortController();
+          var timer = setTimeout(function () { ctrl.abort(); }, 30000);
+
+          fetch(WEB_APP_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify({
+              action: "trialRequest", name: name, phone: phone, email: email, product: product,
+              hp: document.getElementById("tWebsite").value, elapsed: Date.now() - openedAt
+            }),
+            signal: ctrl.signal
+          }).then(function (res) { return res.json(); })
+            .then(function (data) {
+              if (data && data.ok === true) {
+                if (typeof fbq !== "undefined") fbq("track", "Lead", { content_name: "trial_" + product });
+                if (typeof gtag !== "undefined") gtag("event", "generate_lead", { method: "trial_request", item_id: product });
+                form.hidden = true;
+                document.getElementById("trialDone").hidden = false;
+                return;
+              }
+              var code = data && data.error;
+              showError(MESSAGES[code] || (typeof code === "string" && /[؀-ۿ]/.test(code) ? code : "حصل خطأ، جرّب تاني أو كلّمنا على واتساب."));
+            })
+            .catch(function () { showError("حصل خطأ في الاتصال. تأكد من النت وجرّب تاني."); })
+            .finally(function () {
+              clearTimeout(timer);
+              submit.disabled = false;
+              submit.textContent = "أرسل طلب التجربة";
+            });
+        });
+      })();
+    </script>
+  </body>
+</html>

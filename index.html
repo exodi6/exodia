@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self'" />
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B1RX5HKZ09"></script>
     <script>
@@ -339,11 +340,16 @@
                 <img src="assets/shot-library-only.jpg" alt="مكتبة EXODIA الكاملة: أصول مونتاج وموشن جرافيك جاهزة" loading="lazy" />
               </div>
               <h3 class="product-card__title">مكتبة EXODIA الكاملة</h3>
-              <p class="product-card__desc">أصول جاهزة للمونتاج والموشن جرافيك في مكان واحد وبتتحدث كل شهر. الإكستنشنز بتتباع لوحدها أو ضمن الباقة الكاملة.</p>
+              <p class="product-card__desc">كل أصول المونتاج والموشن اللي محتاجها في مكان واحد، وبتتحدث كل شهر.</p>
               <div class="product-card__price-row">
                 <span class="product-card__anchor">2,999 ج.م</span>
                 <span class="product-card__price">999 ج.م</span>
               </div>
+              <div class="product-card__actions">
+              <span class="product-card__cta">أضف للسلة</span>
+            </div>
+            <button type="button" class="product-card__toggle" aria-expanded="false"><span>التفاصيل والمميزات</span> <span aria-hidden="true">▾</span></button>
+            <div class="product-card__details" hidden>
               <div class="product-card__links">
                 <button type="button" class="product-card__link-btn" id="bundleVideoTrigger" aria-haspopup="dialog">
                   <span aria-hidden="true">▶</span> فيديو شرح محتويات المكتبة
@@ -356,7 +362,7 @@
                 <li>أكتر من <bdi>62GB</bdi> أصول جاهزة: موشن جرافيك، مؤثرات صوتية، قوالب 3D، جرين سكرين وأكتر</li>
                 <li>تحديثات شهرية مجانية مدى الحياة</li>
               </ul>
-              <span class="product-card__cta">أضف للسلة</span>
+            </div>
             </div>
 
             <div class="product-card product-card--launch" data-product="xvision" role="button" tabindex="0" aria-pressed="false">
@@ -365,11 +371,17 @@
                 <img src="assets/shot-xvision.jpg" alt="إكستنشن X Vision لأدوبي بريمير برو: كالوتس وعدادات وكاروسيل ثلاثي الأبعاد وزجاج سائل" loading="lazy" />
               </div>
               <h3 class="product-card__title">إكستنشن <bdi>X Vision</bdi> لبريمير</h3>
-              <p class="product-card__desc">بانل واحد جوه بريمير فيه قوالب جاهزة وأنيميشن نصوص ومؤثرات صوتية، كله بيدعم العربي وبيشتغل من غير After Effects.</p>
+              <p class="product-card__desc">قوالب وأنيميشن نصوص ومؤثرات جاهزة جوه بريمير، بدعم كامل للعربي.</p>
               <div class="product-card__price-row">
                 <span class="product-card__anchor" id="xvAnchor">599 ج.م</span>
                 <span class="product-card__price" id="xvPrice">99 ج.م</span>
               </div>
+              <div class="product-card__actions">
+              <span class="product-card__cta">أضف للسلة</span>
+              <a class="product-card__trial" href="trial.html?p=xvision">جرّب مجانًا</a>
+            </div>
+            <button type="button" class="product-card__toggle" aria-expanded="false"><span>التفاصيل والمميزات</span> <span aria-hidden="true">▾</span></button>
+            <div class="product-card__details" hidden>
               <div class="product-card__links">
                 <button type="button" class="product-card__link-btn" data-guide="xvision" aria-haspopup="dialog">
                   <span aria-hidden="true">📖</span> شوف الأداة (دليل مصوّر)
@@ -379,15 +391,14 @@
                 <li>أدوات جاهزة بتنزل على التايم لاين بضغطة: <bdi>Callouts, Counters, Graphs, 3D Carousel, Liquid Glass</bdi></li>
                 <li><bdi>62</bdi> حركة نص و<bdi>17</bdi> تمبليت جاهزة للدخول والخروج، وتتعدل من البانل</li>
                 <li>مكتبة فيها مئات القوالب الجاهزة زي <bdi>Lower Thirds, Text Plates, UI Animations</bdi>، مع <bdi>20</bdi> خلفية متحركة</li>
-                <li class="is-more"><bdi>68</bdi> مؤثر صوتي جاهز بأسماء حقيقية مع بحث وفلترة بالفئات</li>
-                <li class="is-more">حدود <bdi>Reels, TikTok, Shorts</bdi> الآمنة عشان متحطش نص تحت أزرار المنصة</li>
-                <li class="is-more">دعم عربي كامل في كل قسم: حروف متصلة وأرقام عربية واتجاه كتابة صح</li>
-                <li class="is-more">كل القوالب جاهزة جوه بريمير ومش محتاج <bdi>After Effects</bdi>، وكلها قابلة للتعديل (نص ولون)</li>
-                <li class="is-more">بيشتغل على <bdi>Premiere Pro 2022</bdi> أو أحدث، ويندوز وماك</li>
-                <li class="is-more">بتتفعل بكود من بوت تيليجرام بيوصلك بعد الشراء، لحسابك إنت بس</li>
+                <li><bdi>68</bdi> مؤثر صوتي جاهز بأسماء حقيقية مع بحث وفلترة بالفئات</li>
+                <li>حدود <bdi>Reels, TikTok, Shorts</bdi> الآمنة عشان متحطش نص تحت أزرار المنصة</li>
+                <li>دعم عربي كامل في كل قسم: حروف متصلة وأرقام عربية واتجاه كتابة صح</li>
+                <li>كل القوالب جاهزة جوه بريمير ومش محتاج <bdi>After Effects</bdi>، وكلها قابلة للتعديل (نص ولون)</li>
+                <li>بيشتغل على <bdi>Premiere Pro 2022</bdi> أو أحدث، ويندوز وماك</li>
+                <li>بتتفعل بكود من بوت تيليجرام بيوصلك بعد الشراء، لحسابك إنت بس</li>
               </ul>
-              <button type="button" class="product-card__more">شوف كل المميزات (+6)</button>
-              <span class="product-card__cta">أضف للسلة</span>
+            </div>
             </div>
 
             <div class="product-card" data-product="xlab" role="button" tabindex="0" aria-pressed="false">
@@ -395,11 +406,17 @@
                 <img src="assets/shot-xlab.jpg" alt="إكستنشن X LAB لأدوبي أفتر إفكتس" loading="lazy" />
               </div>
               <h3 class="product-card__title">إكستنشن X LAB فقط</h3>
-              <p class="product-card__desc">بانل جوه أفتر إفكتس يخليك تحفظ أي عنصر وتسترجعه في أي مشروع تاني بضغطة زر — من غير مكتبة الأصول.</p>
+              <p class="product-card__desc">احفظ أي عنصر في أفتر إفكتس واستخدمه في أي مشروع بضغطة زر.</p>
               <div class="product-card__price-row">
                 <span class="product-card__anchor">1,599 ج.م</span>
                 <span class="product-card__price">799 ج.م</span>
               </div>
+              <div class="product-card__actions">
+              <span class="product-card__cta">أضف للسلة</span>
+              <a class="product-card__trial" href="trial.html?p=xlab">جرّب مجانًا</a>
+            </div>
+            <button type="button" class="product-card__toggle" aria-expanded="false"><span>التفاصيل والمميزات</span> <span aria-hidden="true">▾</span></button>
+            <div class="product-card__details" hidden>
               <div class="product-card__links">
                 <button type="button" class="product-card__link-btn" data-guide="xlab" aria-haspopup="dialog">
                   <span aria-hidden="true">📖</span> شوف الأداة (دليل مصوّر)
@@ -409,23 +426,22 @@
                 <li>حفظ أي عنصر أو كومب بكل خصائصه (كاميرات، إكسبريشنز، ماسكات) واسترجاعه بضغطة زر</li>
                 <li>العنصر بيتخزن مع الفوتيدج بتاعه، فيشتغل في أي جهاز تاني من غير ما يضيع منه حاجة</li>
                 <li>مكتبة <bdi>FFX Presets</bdi> منظمة في تصنيفات + بحث سريع</li>
-                <li class="is-more">بحث ومفضلة وأحدث العناصر</li>
-                <li class="is-more">استيراد مشروع أفتر إفكتس كامل (<bdi>.aep</bdi>) واستخدامه كتمبلت جاهز وقت ما تحتاج</li>
-                <li class="is-more">تصدير أي عنصر كـ <bdi>MOGRT</bdi> جاهز للاستخدام في بريمير</li>
-                <li class="is-more">أدوات تسريع الشغل: حذف الفوتيدج الغير مستخدم، دمج الفوتيدج، إعادة تسمية الليرز</li>
-                <li class="is-more">نسخ احتياطي، إصلاح المكتبة، وتصدير/استيراد بين الأجهزة</li>
-                <li class="is-more">حفظ نسخ متعددة من نفس العنصر (<bdi>Versioning</bdi>) والرجوع لأي نسخة قديمة</li>
-                <li class="is-more">بانل أدوات جاهزة للشغل: <bdi>Precompose Smart, Trim Path, Ease In &amp; Out, Loop Keyframes</bdi>، وتصدير الكومب كـ <bdi>.mogrt</bdi></li>
-                <li class="is-more">قسم جاهز جوه نفس المكتبة: <bdi>Audio &amp; Captions, Downloader</bdi></li>
-                <li class="is-more">مؤثرات صوتية جاهزة (<bdi>Sound Effects</bdi>) تتحفظ وتتسحب على مشروعك</li>
-                <li class="is-more">أداة إزالة الخلفية بضغطة زر: <bdi>Remove Background</bdi></li>
-                <li class="is-more">قوالب جاهزة: <bdi>Viral Rigs &amp; Carousels, Viral UI Elements</bdi></li>
-                <li class="is-more">رسومات بيانية جاهزة للاستخدام المباشر (<bdi>Graphs</bdi>)</li>
-                <li class="is-more">مكتبة جاهزة: <bdi>Text Styles, Counters &amp; Timers</bdi></li>
-                <li class="is-more">حفظ ألوان وخطوط شعارك والوصول ليها بضغطة زر: <bdi>Brand Kit</bdi></li>
+                <li>بحث ومفضلة وأحدث العناصر</li>
+                <li>استيراد مشروع أفتر إفكتس كامل (<bdi>.aep</bdi>) واستخدامه كتمبلت جاهز وقت ما تحتاج</li>
+                <li>تصدير أي عنصر كـ <bdi>MOGRT</bdi> جاهز للاستخدام في بريمير</li>
+                <li>أدوات تسريع الشغل: حذف الفوتيدج الغير مستخدم، دمج الفوتيدج، إعادة تسمية الليرز</li>
+                <li>نسخ احتياطي، إصلاح المكتبة، وتصدير/استيراد بين الأجهزة</li>
+                <li>حفظ نسخ متعددة من نفس العنصر (<bdi>Versioning</bdi>) والرجوع لأي نسخة قديمة</li>
+                <li>بانل أدوات جاهزة للشغل: <bdi>Precompose Smart, Trim Path, Ease In &amp; Out, Loop Keyframes</bdi>، وتصدير الكومب كـ <bdi>.mogrt</bdi></li>
+                <li>قسم جاهز جوه نفس المكتبة: <bdi>Audio &amp; Captions, Downloader</bdi></li>
+                <li>مؤثرات صوتية جاهزة (<bdi>Sound Effects</bdi>) تتحفظ وتتسحب على مشروعك</li>
+                <li>أداة إزالة الخلفية بضغطة زر: <bdi>Remove Background</bdi></li>
+                <li>قوالب جاهزة: <bdi>Viral Rigs &amp; Carousels, Viral UI Elements</bdi></li>
+                <li>رسومات بيانية جاهزة للاستخدام المباشر (<bdi>Graphs</bdi>)</li>
+                <li>مكتبة جاهزة: <bdi>Text Styles, Counters &amp; Timers</bdi></li>
+                <li>حفظ ألوان وخطوط شعارك والوصول ليها بضغطة زر: <bdi>Brand Kit</bdi></li>
               </ul>
-              <button type="button" class="product-card__more">شوف كل المميزات (+14)</button>
-              <span class="product-card__cta">أضف للسلة</span>
+            </div>
             </div>
 
             <div class="product-card" data-product="autocut" role="button" tabindex="0" aria-pressed="false">
@@ -433,11 +449,17 @@
                 <img src="assets/shot-autocut.jpg" alt="إكستنشن الأوتوكات Talkcut لأدوبي بريمير برو: قص الصمت وكابشن متحرك وتحميل فيديوهات" loading="lazy" />
               </div>
               <h3 class="product-card__title">إكستنشن الأوتوكات (<bdi>Talkcut</bdi>)</h3>
-              <p class="product-card__desc">بانل واحد جوه بريمير بيعمل أوتوكات وكابشن عربي متحرك وينزّل فيديوهات، من غير ما تخرج من بريمير.</p>
+              <p class="product-card__desc">اقطع الصمت واكتب الكابشن العربي تلقائيًا، من غير ما تخرج من بريمير.</p>
               <div class="product-card__price-row">
                 <span class="product-card__anchor">999 ج.م</span>
                 <span class="product-card__price">699 ج.م</span>
               </div>
+              <div class="product-card__actions">
+              <span class="product-card__cta">أضف للسلة</span>
+              <a class="product-card__trial" href="trial.html?p=autocut">جرّب مجانًا</a>
+            </div>
+            <button type="button" class="product-card__toggle" aria-expanded="false"><span>التفاصيل والمميزات</span> <span aria-hidden="true">▾</span></button>
+            <div class="product-card__details" hidden>
               <div class="product-card__links">
                 <button type="button" class="product-card__link-btn" data-guide="autocut" aria-haspopup="dialog">
                   <span aria-hidden="true">📖</span> شوف الأداة (دليل مصوّر)
@@ -447,13 +469,12 @@
                 <li><bdi>Auto Cut</bdi>: يشيل سكون الصوت من التايم لاين تلقائيًا بضغطة واحدة ويقفل الفجوة لوحده</li>
                 <li><bdi>Auto Captions</bdi>: يفرغ الكلام تلقائيًا (عربي/إنجليزي) ويحط الكابشن جاهز على التايم لاين</li>
                 <li><bdi>Downloader</bdi>: نزّل أي فيديو من يوتيوب أو تيك توك أو انستجرام مباشرة جوه بريمير</li>
-                <li class="is-more"><bdi>Style &amp; Motion</bdi>: خط ولون وإطار وخلفية لكل الكابشنات، مع أكتر من 25 أنيميشن دخول وخروج</li>
-                <li class="is-more">تصدير واستيراد ملفات <bdi>SRT</bdi>، وعربي أو إنجليزي أو تلقائي</li>
-                <li class="is-more">اختيار الجودة أو قصّ جزء معين من الفيديو المنزّل</li>
-                <li class="is-more">الكابشن التلقائي بيحتاج مفتاح <bdi>Groq</bdi> مجاني (مرة واحدة)، ومفتاح <bdi>Gemini</bdi> اختياري لتحسين اللهجة</li>
+                <li><bdi>Style &amp; Motion</bdi>: خط ولون وإطار وخلفية لكل الكابشنات، مع أكتر من 25 أنيميشن دخول وخروج</li>
+                <li>تصدير واستيراد ملفات <bdi>SRT</bdi>، وعربي أو إنجليزي أو تلقائي</li>
+                <li>اختيار الجودة أو قصّ جزء معين من الفيديو المنزّل</li>
+                <li>الكابشن التلقائي بيحتاج مفتاح <bdi>Groq</bdi> مجاني (مرة واحدة)، ومفتاح <bdi>Gemini</bdi> اختياري لتحسين اللهجة</li>
               </ul>
-              <button type="button" class="product-card__more">شوف كل المميزات (+4)</button>
-              <span class="product-card__cta">أضف للسلة</span>
+            </div>
             </div>
 
             <div class="product-card" data-product="textpresets" role="button" tabindex="0" aria-pressed="false">
@@ -461,11 +482,17 @@
                 <img src="assets/shot-textpresets.jpg" alt="إكستنشن التيكست بريتس لأدوبي بريمير برو" loading="lazy" />
               </div>
               <h3 class="product-card__title">إكستنشن التيكست بريتس لبريمير (<bdi>Text Motion</bdi>)</h3>
-              <p class="product-card__desc">مكتبة تصميمات نصوص متحركة جاهزة، بتنزل على التايم لاين بضغطة واحدة وتتعدل زي ما انت عايز.</p>
+              <p class="product-card__desc">نصوص متحركة جاهزة تنزل على التايم لاين بضغطة وتتعدل بسهولة.</p>
               <div class="product-card__price-row">
                 <span class="product-card__anchor">999 ج.م</span>
                 <span class="product-card__price">499 ج.م</span>
               </div>
+              <div class="product-card__actions">
+              <span class="product-card__cta">أضف للسلة</span>
+              <a class="product-card__trial" href="trial.html?p=textpresets">جرّب مجانًا</a>
+            </div>
+            <button type="button" class="product-card__toggle" aria-expanded="false"><span>التفاصيل والمميزات</span> <span aria-hidden="true">▾</span></button>
+            <div class="product-card__details" hidden>
               <div class="product-card__links">
                 <button type="button" class="product-card__link-btn" data-guide="textpresets" aria-haspopup="dialog">
                   <span aria-hidden="true">📖</span> شوف الأداة (دليل مصوّر)
@@ -475,10 +502,9 @@
                 <li>74 تصميم نص متحرك (<bdi>MOGRT</bdi>) جاهز في 4 عائلات: ريلز، آلة كاتبة، نيون، وريترو</li>
                 <li>بضغطة واحدة، التصميم بينزل بالظبط في مكان الـ<bdi>playhead</bdi> على التايم لاين</li>
                 <li>قابل للتعديل الكامل بعد النزول — مش صورة أو معاينة وهمية</li>
-                <li class="is-more">بحث وفلترة بالفئة، ومفضلة، وآخر استخدام عشان توصل للي محتاجه بسرعة</li>
+                <li>بحث وفلترة بالفئة، ومفضلة، وآخر استخدام عشان توصل للي محتاجه بسرعة</li>
               </ul>
-              <button type="button" class="product-card__more">شوف كل المميزات (+1)</button>
-              <span class="product-card__cta">أضف للسلة</span>
+            </div>
             </div>
 
             <div class="product-card product-card--bundle product-card--featured is-active" data-product="everything" role="button" tabindex="0" aria-pressed="true">
@@ -488,17 +514,22 @@
               </div>
               <div class="product-card__body">
                 <h3 class="product-card__title">الباقة الكاملة: كل حاجة على الموقع</h3>
-                <p class="product-card__desc">مكتبة EXODIA الكاملة مع الإكستنشنز الأربعة، تشتريهم مرة واحدة بسعر أقل بكتير من شراء كل واحد لوحده.</p>
+                <p class="product-card__desc">المكتبة والإكستنشنز الأربعة بسعر أقل بكتير من شراء كل واحد لوحده.</p>
                 <div class="product-card__price-row">
                   <span class="product-card__anchor" id="everythingAnchor">3,595 ج.م</span>
                   <span class="product-card__price" id="everythingPrice">1,699 ج.م</span>
                 </div>
-                <ul class="product-card__features">
+                <div class="product-card__actions">
+              <span class="product-card__cta">✓ مُضافة للسلة — دوس للإزالة</span>
+            </div>
+            <button type="button" class="product-card__toggle" aria-expanded="false"><span>التفاصيل والمميزات</span> <span aria-hidden="true">▾</span></button>
+            <div class="product-card__details" hidden>
+              <ul class="product-card__features">
                   <li>مكتبة EXODIA الكاملة (أكتر من <bdi>62GB</bdi> أصول جاهزة)</li>
                   <li>الإكستنشنز الأربعة: <bdi>X LAB, Auto Cut, Text Presets, X Vision</bdi></li>
                   <li>تحديثات مجانية مدى الحياة للمكتبة والإكستنشنز</li>
                 </ul>
-                <span class="product-card__cta">✓ مُضافة للسلة — دوس للإزالة</span>
+            </div>
               </div>
             </div>
           </div>

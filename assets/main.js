@@ -371,10 +371,13 @@
   }
 
   productCards.forEach(function (card) {
-    card.addEventListener("click", function () {
+    card.addEventListener("click", function (e) {
+      /* the trial link, the details toggle and the details area never add/remove the product */
+      if (e.target.closest("a, .product-card__toggle, .product-card__details")) return;
       toggleProduct(card.dataset.product);
     });
     card.addEventListener("keydown", function (e) {
+      if (e.target !== card) return;
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         toggleProduct(card.dataset.product);
@@ -412,6 +415,20 @@
     window.addEventListener("resize", updateDots);
     updateDots();
   }
+
+  /* ---------- Details toggle per card: benefits stay on top, every feature hides behind one button ---------- */
+  document.querySelectorAll(".product-card__toggle").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var details = btn.nextElementSibling;
+      var open = details.hidden;
+      details.hidden = !open;
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      var spans = btn.querySelectorAll("span");
+      spans[0].textContent = open ? "إخفاء التفاصيل" : "التفاصيل والمميزات";
+      spans[1].textContent = open ? "▴" : "▾";
+    });
+  });
 
   /* ---------- "Show all features" toggle per card (keeps cards compact by default) ---------- */
   document.querySelectorAll(".product-card__more").forEach(function (btn) {
