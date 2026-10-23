@@ -524,7 +524,7 @@
     PRODUCTS.xvision.price = active ? XV_OFFER_PRICE : XV_REGULAR_PRICE;
     if (xvPriceEl) xvPriceEl.textContent = PRODUCTS.xvision.price + " ج.م";
     if (xvAnchorEl) xvAnchorEl.hidden = !active;
-    if (xvRibbonEl && !active) xvRibbonEl.textContent = "✨ بعد انتهاء عرض الإطلاق: السعر الرسمي";
+    if (xvRibbonEl) xvRibbonEl.hidden = !active;
     refreshPriceDisplay();
   }
   if (xvPriceEl) {
@@ -564,28 +564,52 @@
     setInterval(tickTextMotion, 1000);
   }
 
-  /* ---------- Deep links: ex0dia.com/#text-motion jumps straight to that product's card ---------- */
+  /* ---------- Deep links: ex0dia.com/?go=text-motion (or #text-motion) lands on that product's card,
+     puts it in the cart and gives the card a short highlight. The query form is the one to share: in-app
+     browsers (Facebook/Instagram/TikTok) often drop the #fragment but keep the query string. ---------- */
   var CARD_LINKS = {
     "text-motion": "textpresets", "talkcut": "autocut", "x-vision": "xvision",
     "x-lab": "xlab", "library": "library", "full-package": "everything"
   };
-  var deepLinkDone = false;
-  function goToCardFromHash() {
-    var key = CARD_LINKS[(location.hash || "").slice(1).toLowerCase()];
+  function deepLinkKey() {
+    var q = "";
+    try { q = new URLSearchParams(location.search).get("go") || ""; } catch (e) { q = ""; }
+    var k = (q || (location.hash || "").slice(1)).toLowerCase();
+    return CARD_LINKS[k] || "";
+  }
+  var deepLinkPrepared = false;
+  function cardOnTarget(card) {
+    var r = card.getBoundingClientRect();
+    return r.left >= -2 && r.right <= window.innerWidth + 2 && r.top >= 0 && r.top < window.innerHeight * 0.6;
+  }
+  function goToCardFromLink(smooth) {
+    var key = deepLinkKey();
     var card = key && document.querySelector('[data-product="' + key + '"]');
     if (!card) return;
-    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-visible"); });
-    card.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
-    if (!deepLinkDone) {
-      deepLinkDone = true;
+    if (!deepLinkPrepared) {
+      deepLinkPrepared = true;
+      if (!cart[key]) {
+        /* same rules as the card click, minus the jump to the form */
+        if (key === "everything") cart = {}; else delete cart.everything;
+        cart[key] = true;
+        updateCardStates();
+        refreshPriceDisplay();
+      }
       card.classList.add("is-spotlight");
-      setTimeout(function () { card.classList.remove("is-spotlight"); }, 3200);
+      setTimeout(function () { card.classList.remove("is-spotlight"); }, 3500);
+    }
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-visible"); });
+    /* instant (not smooth) on purpose: smooth scrolling stalls in some in-app browsers */
+    if (smooth || !cardOnTarget(card)) {
+      card.scrollIntoView({ behavior: "auto", block: "center", inline: "center" });
     }
   }
-  setTimeout(goToCardFromHash, 400);
-  /* images load late and shift the layout, so land once more when everything is in */
-  window.addEventListener("load", function () { setTimeout(function () { var k = (location.hash || "").slice(1).toLowerCase(); if (CARD_LINKS[k]) goToCardFromHash(); }, 300); });
-  window.addEventListener("hashchange", function () { deepLinkDone = false; goToCardFromHash(); });
+  /* images and trackers load late and shift the layout, so check again a few times and correct the position */
+  if (deepLinkKey()) {
+    setTimeout(function () { goToCardFromLink(true); }, 300);
+    [1500, 3000, 5000].forEach(function (ms) { setTimeout(function () { goToCardFromLink(false); }, ms); });
+  }
+  window.addEventListener("hashchange", function () { deepLinkPrepared = false; goToCardFromLink(true); });
 
   /* ---------- Illustrated tool guides (feature pages only, shown as images; no downloadable PDF) ---------- */
   var GUIDES = {
