@@ -564,6 +564,29 @@
     setInterval(tickTextMotion, 1000);
   }
 
+  /* ---------- Deep links: ex0dia.com/#text-motion jumps straight to that product's card ---------- */
+  var CARD_LINKS = {
+    "text-motion": "textpresets", "talkcut": "autocut", "x-vision": "xvision",
+    "x-lab": "xlab", "library": "library", "full-package": "everything"
+  };
+  var deepLinkDone = false;
+  function goToCardFromHash() {
+    var key = CARD_LINKS[(location.hash || "").slice(1).toLowerCase()];
+    var card = key && document.querySelector('[data-product="' + key + '"]');
+    if (!card) return;
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-visible"); });
+    card.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+    if (!deepLinkDone) {
+      deepLinkDone = true;
+      card.classList.add("is-spotlight");
+      setTimeout(function () { card.classList.remove("is-spotlight"); }, 3200);
+    }
+  }
+  setTimeout(goToCardFromHash, 400);
+  /* images load late and shift the layout, so land once more when everything is in */
+  window.addEventListener("load", function () { setTimeout(function () { var k = (location.hash || "").slice(1).toLowerCase(); if (CARD_LINKS[k]) goToCardFromHash(); }, 300); });
+  window.addEventListener("hashchange", function () { deepLinkDone = false; goToCardFromHash(); });
+
   /* ---------- Illustrated tool guides (feature pages only, shown as images; no downloadable PDF) ---------- */
   var GUIDES = {
     xvision: { title: "دليل المونتير: X Vision", count: 12, dir: "assets/guides/xvision/" },
