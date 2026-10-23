@@ -517,3 +517,5 @@ section{ position: relative; }
   .product-card{ flex-basis: 80%; }
   .product-card__title{ font-size: var(--text-base, 1rem); }
 }
+
+.product-card__host{ margin-inline-start: .4em; font-family: var(--font-body, inherit); font-size: var(--text-xs); font-weight: 600; color: var(--text-3); white-space: nowrap; }

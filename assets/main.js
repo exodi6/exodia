@@ -219,17 +219,28 @@
   var XV_REGULAR_PRICE = 599;
   function xvOfferActive() { return Date.now() < XV_LAUNCH_END; }
 
+  /* Text Motion flash offer: 249 EGP for two days. The offer (and its countdown) only exists
+     between TM_OFFER_START and TM_OFFER_END; before and after it the regular 499 applies. */
+  var TM_OFFER_START = new Date("2026-10-24T00:00:00+03:00").getTime();
+  var TM_OFFER_END = new Date("2026-10-26T00:00:00+03:00").getTime();
+  var TM_OFFER_PRICE = 249;
+  var TM_REGULAR_PRICE = 499;
+  var TM_REGULAR_ANCHOR = 999;
+  function tmOfferActive() { var n = Date.now(); return n >= TM_OFFER_START && n < TM_OFFER_END; }
+
   var PRODUCTS = {
     everything: { name: "الباقة الكاملة: مكتبة EXODIA + الإكستنشنز الأربعة", price: 1699, anchor: 0 },
     library: { name: "مكتبة EXODIA الكاملة (+62GB)", price: 999, anchor: 2999 },
-    xvision: { name: "إكستنشن X Vision لبريمير برو", price: xvOfferActive() ? XV_OFFER_PRICE : XV_REGULAR_PRICE, anchor: XV_REGULAR_PRICE },
-    xlab: { name: "إكستنشن X LAB فقط", price: 799, anchor: 1599 },
-    autocut: { name: "إكستنشن الأوتوكات (كابشن + أوتوكات + داونلودر)", price: 699, anchor: 999 },
-    textpresets: { name: "إكستنشن التيكست بريتس لبريمير", price: 499, anchor: 999 }
+    /* name = what the shopper sees; label = what is written in the order sheet (the sheet/Apps Script
+       recognise products by these keywords, so the Arabic ones stay next to the English names) */
+    xvision: { name: "X Vision", label: "X Vision", price: xvOfferActive() ? XV_OFFER_PRICE : XV_REGULAR_PRICE, anchor: XV_REGULAR_PRICE },
+    xlab: { name: "X LAB", label: "X LAB", price: 799, anchor: 1599 },
+    autocut: { name: "Talkcut", label: "Talkcut (الأوتوكات)", price: 699, anchor: 999 },
+    textpresets: { name: "Text Motion", label: "Text Motion (التيكست بريتس)", price: tmOfferActive() ? TM_OFFER_PRICE : TM_REGULAR_PRICE, anchor: tmOfferActive() ? TM_REGULAR_PRICE : TM_REGULAR_ANCHOR }
   };
   /* The full package's "was" price = what the same items cost when bought one by one at today's prices. */
   PRODUCTS.everything.anchor = PRODUCTS.library.price + PRODUCTS.xlab.price + PRODUCTS.autocut.price +
-    PRODUCTS.textpresets.price + XV_REGULAR_PRICE;
+    TM_REGULAR_PRICE + XV_REGULAR_PRICE;
   function fmt(n) { return Number(n).toLocaleString("en-US"); }
   var everythingAnchorEl = document.getElementById("everythingAnchor");
   var everythingPriceEl = document.getElementById("everythingPrice");
@@ -282,9 +293,10 @@
 
   function priceForCoupon(coupon, subtotal) {
     if (coupon.type === "fixed") return coupon.price;
-    /* X Vision keeps its own price: percent coupons never stack on its launch offer. */
+    /* Products on a limited offer keep their own price: percent coupons never stack on them. */
     var xv = cart.xvision ? PRODUCTS.xvision.price : 0;
-    return Math.round((subtotal - xv) * (1 - coupon.value / 100)) + xv;
+    var tm = cart.textpresets && tmOfferActive() ? PRODUCTS.textpresets.price : 0;
+    return Math.round((subtotal - xv - tm) * (1 - coupon.value / 100)) + xv + tm;
   }
 
   function renderCart() {
@@ -323,7 +335,7 @@
 
     window.__exodiaFinalPrice = finalPrice;
     window.__exodiaCartIds = cartIds();
-    window.__exodiaCartLabel = cartIds().map(function (id) { return PRODUCTS[id].name; }).join(" + ") || "لا يوجد منتج مختار";
+    window.__exodiaCartLabel = cartIds().map(function (id) { return PRODUCTS[id].label || PRODUCTS[id].name; }).join(" + ") || "لا يوجد منتج مختار";
 
     priceEls.forEach(function (el) {
       el.textContent = el.dataset.priceText.replace("{price}", fmt(finalPrice));
@@ -520,12 +532,44 @@
     setInterval(tickXvision, 1000);
   }
 
+  /* ---------- Text Motion: 2-day flash offer with its own countdown ---------- */
+  var tmCountdownEl = document.getElementById("tmCountdown");
+  var tmRibbonEl = document.getElementById("tmRibbon");
+  var tmAnchorEl = document.getElementById("tmAnchor");
+  var tmPriceEl = document.getElementById("tmPrice");
+  var tmCardEl = document.querySelector('[data-product="textpresets"]');
+  var tmWasActive = null;
+  function tickTextMotion() {
+    var active = tmOfferActive();
+    if (active && tmCountdownEl) {
+      var left = TM_OFFER_END - Date.now();
+      var d = Math.floor(left / 86400000);
+      var h = Math.floor((left % 86400000) / 3600000);
+      var mi = Math.floor((left % 3600000) / 60000);
+      var s = Math.floor((left % 60000) / 1000);
+      tmCountdownEl.textContent = (d > 0 ? d + " يوم و " : "") + pad2(h) + ":" + pad2(mi) + ":" + pad2(s);
+    }
+    if (active === tmWasActive) return;
+    tmWasActive = active;
+    PRODUCTS.textpresets.price = active ? TM_OFFER_PRICE : TM_REGULAR_PRICE;
+    PRODUCTS.textpresets.anchor = active ? TM_REGULAR_PRICE : TM_REGULAR_ANCHOR;
+    if (tmPriceEl) tmPriceEl.textContent = PRODUCTS.textpresets.price + " ج.م";
+    if (tmAnchorEl) tmAnchorEl.textContent = fmt(PRODUCTS.textpresets.anchor) + " ج.م";
+    if (tmRibbonEl) tmRibbonEl.hidden = !active;
+    if (tmCardEl) tmCardEl.classList.toggle("product-card--launch", active);
+    refreshPriceDisplay();
+  }
+  if (tmPriceEl) {
+    tickTextMotion();
+    setInterval(tickTextMotion, 1000);
+  }
+
   /* ---------- Illustrated tool guides (feature pages only, shown as images; no downloadable PDF) ---------- */
   var GUIDES = {
     xvision: { title: "دليل المونتير: X Vision", count: 12, dir: "assets/guides/xvision/" },
     xlab: { title: "دليل المونتير: X LAB", count: 12, dir: "assets/guides/xlab/" },
-    autocut: { title: "دليل المونتير: Talkcut (الأوتوكات)", count: 8, dir: "assets/guides/autocut/" },
-    textpresets: { title: "دليل المونتير: Text Motion (التيكست بريتس)", count: 6, dir: "assets/guides/textpresets/" }
+    autocut: { title: "دليل المونتير: Talkcut", count: 8, dir: "assets/guides/autocut/" },
+    textpresets: { title: "دليل المونتير: Text Motion", count: 6, dir: "assets/guides/textpresets/" }
   };
   var guideModal = document.getElementById("guideModal");
   var guidePages = document.getElementById("guidePages");
