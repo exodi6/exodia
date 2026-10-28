@@ -616,7 +616,7 @@
     xvision: { title: "دليل المونتير: X Vision", count: 12, dir: "assets/guides/xvision/" },
     xlab: { title: "دليل المونتير: X LAB", count: 12, dir: "assets/guides/xlab/" },
     autocut: { title: "دليل المونتير: Talkcut", count: 8, dir: "assets/guides/autocut/" },
-    textpresets: { title: "دليل المونتير: Text Motion", count: 6, dir: "assets/guides/textpresets/" }
+    textpresets: { title: "دليل المونتير: Text Motion", count: 13, dir: "assets/guides/textpresets/" }
   };
   var guideModal = document.getElementById("guideModal");
   var guidePages = document.getElementById("guidePages");
