@@ -228,18 +228,26 @@
   var TM_REGULAR_ANCHOR = 999;
   function tmOfferActive() { var n = Date.now(); return n >= TM_OFFER_START && n < TM_OFFER_END; }
 
+  /* X LAB 24-hour flash offer: 399 EGP between XL_OFFER_START and XL_OFFER_END (one fixed window for every visitor). */
+  var XL_OFFER_START = new Date("2026-11-17T04:40:00Z").getTime();
+  var XL_OFFER_END = new Date("2026-11-18T04:40:00Z").getTime();
+  var XL_OFFER_PRICE = 399;
+  var XL_REGULAR_PRICE = 799;
+  var XL_REGULAR_ANCHOR = 1599;
+  function xlOfferActive() { var n = Date.now(); return n >= XL_OFFER_START && n < XL_OFFER_END; }
+
   var PRODUCTS = {
     everything: { name: "الباقة الكاملة: مكتبة EXODIA + الإكستنشنز الأربعة", price: 1699, anchor: 0 },
     library: { name: "مكتبة EXODIA الكاملة (+62GB)", price: 999, anchor: 2999 },
     /* name = what the shopper sees; label = what is written in the order sheet (the sheet/Apps Script
        recognise products by these keywords, so the Arabic ones stay next to the English names) */
     xvision: { name: "X Vision", label: "X Vision", price: xvOfferActive() ? XV_OFFER_PRICE : XV_REGULAR_PRICE, anchor: XV_REGULAR_PRICE },
-    xlab: { name: "X LAB", label: "X LAB", price: 799, anchor: 1599 },
+    xlab: { name: "X LAB", label: "X LAB", price: xlOfferActive() ? XL_OFFER_PRICE : XL_REGULAR_PRICE, anchor: xlOfferActive() ? XL_REGULAR_PRICE : XL_REGULAR_ANCHOR },
     autocut: { name: "Talkcut", label: "Talkcut (الأوتوكات)", price: 699, anchor: 999 },
     textpresets: { name: "Text Motion", label: "Text Motion (التيكست بريتس)", price: tmOfferActive() ? TM_OFFER_PRICE : TM_REGULAR_PRICE, anchor: tmOfferActive() ? TM_REGULAR_PRICE : TM_REGULAR_ANCHOR }
   };
   /* The full package's "was" price = what the same items cost when bought one by one at today's prices. */
-  PRODUCTS.everything.anchor = PRODUCTS.library.price + PRODUCTS.xlab.price + PRODUCTS.autocut.price +
+  PRODUCTS.everything.anchor = PRODUCTS.library.price + XL_REGULAR_PRICE + PRODUCTS.autocut.price +
     TM_REGULAR_PRICE + XV_REGULAR_PRICE;
   function fmt(n) { return Number(n).toLocaleString("en-US"); }
   var everythingAnchorEl = document.getElementById("everythingAnchor");
@@ -296,7 +304,8 @@
     /* Products on a limited offer keep their own price: percent coupons never stack on them. */
     var xv = cart.xvision ? PRODUCTS.xvision.price : 0;
     var tm = cart.textpresets && tmOfferActive() ? PRODUCTS.textpresets.price : 0;
-    return Math.round((subtotal - xv - tm) * (1 - coupon.value / 100)) + xv + tm;
+    var xl = cart.xlab && xlOfferActive() ? PRODUCTS.xlab.price : 0;
+    return Math.round((subtotal - xv - tm - xl) * (1 - coupon.value / 100)) + xv + tm + xl;
   }
 
   function renderCart() {
@@ -399,6 +408,11 @@
 
   /* ---------- Carousel dots (mobile): show how many cards there are and which one you are on ---------- */
   var productCardsEl = document.querySelector(".product-cards");
+  /* while the X LAB flash offer is live its card leads the carousel / grid */
+  if (productCardsEl && xlOfferActive()) {
+    var xlCardFirst = productCardsEl.querySelector('[data-product="xlab"]');
+    if (xlCardFirst && productCardsEl.firstElementChild !== xlCardFirst) productCardsEl.insertBefore(xlCardFirst, productCardsEl.firstElementChild);
+  }
   var dotsEl = document.getElementById("productDots");
   if (productCardsEl && dotsEl) {
     var cardEls = Array.prototype.slice.call(productCardsEl.querySelectorAll(".product-card"));
@@ -530,6 +544,46 @@
   if (xvPriceEl) {
     tickXvision();
     setInterval(tickXvision, 1000);
+  }
+
+  /* ---------- X LAB: 24-hour flash offer, glowing countdown + draining bar ---------- */
+  var xlFlashEl = document.getElementById("xlFlash");
+  var xlHEl = document.getElementById("xlH"), xlMEl = document.getElementById("xlM"), xlSEl = document.getElementById("xlS");
+  var xlBarEl = document.getElementById("xlBar");
+  var xlAnchorEl = document.getElementById("xlAnchor"), xlPriceEl = document.getElementById("xlPrice");
+  var xlCardEl = document.querySelector('[data-product="xlab"]');
+  var xlWasActive = null;
+  function setFlashNum(el, text) {
+    if (!el || el.textContent === text) return;
+    el.textContent = text;
+    el.classList.remove("is-tick");
+    void el.offsetWidth; /* restart the flip animation */
+    el.classList.add("is-tick");
+  }
+  function tickXlab() {
+    var active = xlOfferActive();
+    if (active) {
+      var left = XL_OFFER_END - Date.now();
+      var total = XL_OFFER_END - XL_OFFER_START;
+      setFlashNum(xlHEl, pad2(Math.floor(left / 3600000)));
+      setFlashNum(xlMEl, pad2(Math.floor((left % 3600000) / 60000)));
+      setFlashNum(xlSEl, pad2(Math.floor((left % 60000) / 1000)));
+      if (xlBarEl) xlBarEl.style.width = Math.max(0, Math.min(100, (left / total) * 100)).toFixed(2) + "%";
+      if (xlFlashEl) xlFlashEl.classList.toggle("is-urgent", left < 3600000);
+    }
+    if (active === xlWasActive) return;
+    xlWasActive = active;
+    PRODUCTS.xlab.price = active ? XL_OFFER_PRICE : XL_REGULAR_PRICE;
+    PRODUCTS.xlab.anchor = active ? XL_REGULAR_PRICE : XL_REGULAR_ANCHOR;
+    if (xlPriceEl) xlPriceEl.textContent = PRODUCTS.xlab.price + " ج.م";
+    if (xlAnchorEl) xlAnchorEl.textContent = fmt(PRODUCTS.xlab.anchor) + " ج.م";
+    if (xlFlashEl) xlFlashEl.hidden = !active;
+    if (xlCardEl) xlCardEl.classList.toggle("product-card--flash", active);
+    refreshPriceDisplay();
+  }
+  if (xlPriceEl) {
+    tickXlab();
+    setInterval(tickXlab, 1000);
   }
 
   /* ---------- Text Motion: 2-day flash offer with its own countdown ---------- */

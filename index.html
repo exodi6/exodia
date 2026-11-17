@@ -239,7 +239,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css?v=20261028a" />
+    <link rel="stylesheet" href="assets/styles.css?v=20261117a" />
   </head>
   <body>
     <a href="#hero" class="visually-hidden">تخطى إلى المحتوى الرئيسي</a>
@@ -405,11 +405,25 @@
               <div class="product-card__visual product-card__visual--xlab">
                 <img src="assets/shot-xlab.jpg" alt="X LAB لأدوبي أفتر إفكتس" loading="lazy" />
               </div>
+              <div class="flash" id="xlFlash" hidden>
+                <div class="flash__top">
+                  <span class="flash__tag"><span class="flash__bolt" aria-hidden="true">⚡</span> عرض 24 ساعة بس</span>
+                  <span class="flash__off">-50%</span>
+                </div>
+                <div class="flash__clock" dir="ltr" role="timer">
+                  <div class="flash__unit"><b class="flash__num" id="xlH">24</b><small>ساعة</small></div>
+                  <i class="flash__sep" aria-hidden="true">:</i>
+                  <div class="flash__unit"><b class="flash__num" id="xlM">00</b><small>دقيقة</small></div>
+                  <i class="flash__sep" aria-hidden="true">:</i>
+                  <div class="flash__unit"><b class="flash__num" id="xlS">00</b><small>ثانية</small></div>
+                </div>
+                <div class="flash__bar" aria-hidden="true"><i id="xlBar"></i></div>
+              </div>
               <h3 class="product-card__title"><bdi>X LAB</bdi> <span class="product-card__host">After Effects</span></h3>
               <p class="product-card__desc">احفظ أي عنصر في أفتر إفكتس واستخدمه في أي مشروع بضغطة زر.</p>
               <div class="product-card__price-row">
-                <span class="product-card__anchor">1,599 ج.م</span>
-                <span class="product-card__price">799 ج.م</span>
+                <span class="product-card__anchor" id="xlAnchor">1,599 ج.م</span>
+                <span class="product-card__price" id="xlPrice">799 ج.م</span>
               </div>
               <div class="product-card__actions">
               <span class="product-card__cta">أضف للسلة</span>
@@ -815,7 +829,7 @@
       </div>
     </div>
 
-    <script src="assets/main.js?v=20261028a"></script>
+    <script src="assets/main.js?v=20261117a"></script>
 
     <!-- Exodia Sheet Integration (receipt compress + upload, then post the order) -->
     <script>
